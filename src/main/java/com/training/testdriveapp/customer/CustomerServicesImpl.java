@@ -1,8 +1,5 @@
 package com.training.testdriveapp.customer;
 
-import com.training.testdriveapp.customer.Customer;
-import com.training.testdriveapp.customer.CustomerRepository;
-import com.training.testdriveapp.customer.CustomerServices;
 import com.training.testdriveapp.entity.Address;
 import com.training.testdriveapp.rating.Rating;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +8,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/************************************************************************************
+ *          @author          Keerthana
+ *          Description      It is a service class that provides the services for adding a new customer,
+updating customer ,deleting customer and viewing all the customers
+ *         Version             1.0
+ *         Created Date    19-FEB-2024
+ ************************************************************************************/
+
 @Service
 public class CustomerServicesImpl implements CustomerServices {
     @Autowired
@@ -18,17 +23,60 @@ public class CustomerServicesImpl implements CustomerServices {
 
     @Autowired
     private  AddressRepository addressRepository;
+
+    @Autowired
+    private CustomerDtoRepository customerDtoRepository;
+
+    /************************************************************************************
+     * Method: 			-addNewCustomer
+     *Description: 			-To add a new customer
+     * @param newCustomer       -Customer to be added
+
+     * @returns Customer                  - customer, if created otherwise throws CustomerException
+     * @throws CustomerException - It is raised due to if customer already exists or null
+    server side validation
+     *Created By                                - Keerthana
+     *Created Date                            - 19-FEB-2024
+
+     ************************************************************************************/
+
+
     @Override
     public Customer addNewCustomer(Customer newCustomer) throws CustomerException {
 //        if(newCustomer==null)
 //            throw new CustomerException("New customer cannot be null");
         // this.customerRepository.save(newCustomer);
-        Optional<Customer> customerOpt=this.customerRepository.findByCustomerEmail(newCustomer.getCustomerEmail());
+       Optional<Customer> customerOpt=this.customerRepository.findByCustomerEmail(newCustomer.getCustomerEmail());
 
         if(customerOpt.isPresent())
             throw new CustomerException("Customer already exists");
+
+//        CustomerDto customerDto=new CustomerDto();
+//        customerDto.setId(newCustomer.getId());
+//        customerDto.setEmail(newCustomer.getEmail());
+//        customerDto.setName(newCustomer.getName());
+//        customerDto.setPassword(newCustomer.getPassword());
+//        Optional<Address> address=this.addressRepository.findById(customerDto.getAddressId());
+//        customerDto.setAddress(address.get());
+
+
+//        return this.customerDtoRepository.save(customerDto);
         return this.customerRepository.save(newCustomer);
     }
+
+
+    /************************************************************************************
+     * Method: 			-addNewCustomer
+     *Description: 			-To add a new customer
+
+
+     * @returns List               - list of customers, if present otherwise throws CustomerException
+     * @throws CustomerException - It is raised due to if customer list is null
+    server side validation
+     *Created By                                - Keerthana
+     *Created Date                            - 19-FEB-2024
+
+     ************************************************************************************/
 
     @Override
     public List<Customer> getAllCustomers() {
@@ -37,6 +85,18 @@ public class CustomerServicesImpl implements CustomerServices {
         return this.customerRepository.findAll();
     }
 
+    /************************************************************************************
+     * Method: 			-addNewCustomer
+     *Description: 			-To update a customer
+     * @param customer       -Customer to be updated
+
+     * @returns Customer                  - customer, if created otherwise throws CustomerException
+     * @throws CustomerException - It is raised due to if customer not exists
+    server side validation
+     *Created By                                - Keerthana
+     *Created Date                            - 19-FEB-2024
+
+     ************************************************************************************/
 
 
     @Override
@@ -51,6 +111,19 @@ public class CustomerServicesImpl implements CustomerServices {
 
         return this.customerRepository.save(customer);
     }
+
+    /************************************************************************************
+     * Method: 			-addNewCustomer
+     *Description: 			-To add a new customer
+     * @param id       -Customer to be added
+
+
+     * @throws CustomerException - It is raised due to if customer not exists or null
+    server side validation
+     *Created By                                - Keerthana
+     *Created Date                            - 19-FEB-2024
+
+     ************************************************************************************/
 
     @Override
     public void deleteCustomer(Integer id) throws CustomerException {
@@ -76,6 +149,19 @@ public class CustomerServicesImpl implements CustomerServices {
         //return addressOpt.get();
     }
 
+    /************************************************************************************
+     * Method: 			-login
+     *Description: 			-To add a new customer
+     * @param loginDto       -LoginDto for getting customer emailId and password
+
+     * @returns Customer                  - customer, if logged  in successfully, otherwise throws CustomerException
+     * @throws CustomerException - It is raised due to if customer is not already exists and if the password does not match with emailId
+    server side validation
+     *Created By                                - Keerthana
+     *Created Date                            - 19-FEB-2024
+
+     ************************************************************************************/
+
     @Override
     public Customer login(LoginDto loginDto) throws CustomerException{
         Optional<Customer> customerOpt=this.customerRepository.findByCustomerEmail(loginDto.getUserName());
@@ -88,6 +174,19 @@ public class CustomerServicesImpl implements CustomerServices {
 
         return foundCustomer;
     }
+
+    /************************************************************************************
+     * Method: 			-getCustomerById
+     *Description: 			-To add a new customer
+     * @param  customerId       -Customer Id to get details
+
+     * @returns Customer                  - customer, if present otherwise throws CustomerException
+     * @throws CustomerException - It is raised due to if customer is  null
+    server side validation
+     *Created By                                - Keerthana
+     *Created Date                            - 19-FEB-2024
+
+     ************************************************************************************/
 
     @Override
     public Customer getCustomerById(Integer customerId) {

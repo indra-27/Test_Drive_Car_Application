@@ -37,11 +37,19 @@ public class Customer {
 
     }
 
+    public Customer(int i, String karthi, String number, String mail, String s) {
+    }
+
     public List<Booking> getCustomerBookings() {
         return customerBookings;
     }
 
-
+    public Customer(String customerName, String mobileNumber, String customerEmail, String password) {
+        CustomerName = customerName;
+        this.mobileNumber = mobileNumber;
+        this.customerEmail = customerEmail;
+        this.password = password;
+    }
 
     public Customer(Integer customerId, String customerName, Address address, String mobileNumber, String customerEmail, String password) {
         this.customerId = customerId;

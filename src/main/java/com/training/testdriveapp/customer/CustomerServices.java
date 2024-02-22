@@ -1,6 +1,5 @@
 package com.training.testdriveapp.customer;
 
-import com.training.testdriveapp.customer.Customer;
 import com.training.testdriveapp.rating.Rating;
 
 import java.util.List;
