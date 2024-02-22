@@ -18,6 +18,7 @@ public class Car {
     private Double carPrice;
     private String engineModel;
     private String vehicleType;
+    private String fuelType;
     private Integer seater;
     private Double mileage;
     private Double rpm;
@@ -27,6 +28,21 @@ public class Car {
 
     @OneToMany
     private List<Rating> ratings = new ArrayList<>();
+
+    public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, String fuelType, Integer seater, Double mileage, Double rpm, Staff staff, List<Rating> ratings) {
+        Company = company;
+        this.modelName = modelName;
+        this.color = color;
+        this.carPrice = carPrice;
+        this.engineModel = engineModel;
+        this.vehicleType = vehicleType;
+        this.fuelType = fuelType;
+        this.seater = seater;
+        this.mileage = mileage;
+        this.rpm = rpm;
+        this.staff = staff;
+        this.ratings = ratings;
+    }
 
     public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, Integer seater, Double mileage, Double rpm, Staff staff, List<Rating> ratings) {
         Company = company;
@@ -151,6 +167,14 @@ public class Car {
 
     public void setRpm(Double rpm) {
         this.rpm = rpm;
+    }
+
+    public String getFuelType() {
+        return fuelType;
+    }
+
+    public void setFuelType(String fuelType) {
+        this.fuelType = fuelType;
     }
 
     public List<Rating> getRatings() {
