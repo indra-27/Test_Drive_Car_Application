@@ -2,7 +2,7 @@ package com.training.testdriveapp.customer;
 
 import com.training.testdriveapp.entity.Address;
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
+
 
 @Entity
 public class CustomerDto {
@@ -31,7 +31,6 @@ public class CustomerDto {
         this.address = address;
     }
 
-    // private Integer bookId;
    @OneToOne(cascade = CascadeType.ALL)
    @JoinColumn(name = "Id")
    private Address address;
@@ -39,21 +38,21 @@ public class CustomerDto {
     public CustomerDto() {
     }
 
-    public CustomerDto(Integer id, String name, String email, String password, Integer addressId, Integer bookId) {
+    public CustomerDto(Integer id, String name, String email, String password, Integer addressId) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.addressId = addressId;
-       // this.bookId = bookId;
+
     }
 
-    public CustomerDto(String name, String email, String password, Integer addressId, Integer bookId) {
+    public CustomerDto(String name, String email, String password, Integer addressId) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.addressId = addressId;
-       // this.bookId = bookId;
+
     }
 
     @Override
@@ -64,7 +63,7 @@ public class CustomerDto {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", addressId=" + addressId +
-//                ", bookId=" + bookId +
+//
                 '}';
     }
 
@@ -108,11 +107,4 @@ public class CustomerDto {
         this.addressId = addressId;
     }
 
-//    public Integer getBookId() {
-//        return bookId;
-//    }
-//
-//    public void setBookId(Integer bookId) {
-//        this.bookId = bookId;
-//    }
 }

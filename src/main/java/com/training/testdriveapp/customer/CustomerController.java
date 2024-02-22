@@ -1,9 +1,8 @@
 package com.training.testdriveapp.customer;
 
+
 import com.training.testdriveapp.rating.Rating;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.context.LifecycleAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -54,4 +53,6 @@ public class CustomerController {
     public List<Rating> getCustomerRating(@PathVariable Integer id) throws CustomerException{
         return this.customerServices.getCustomerRating(id);
     }
+
+
 }

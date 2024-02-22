@@ -1,5 +1,6 @@
 package com.training.testdriveapp.customer;
 
+
 import com.training.testdriveapp.entity.Address;
 import com.training.testdriveapp.rating.Rating;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,8 +67,8 @@ public class CustomerServicesImpl implements CustomerServices {
 
 
     /************************************************************************************
-     * Method: 			-addNewCustomer
-     *Description: 			-To add a new customer
+     * Method: 			-getAllCustomers
+     *Description: 			-To get all  customers
 
 
      * @returns List               - list of customers, if present otherwise throws CustomerException
@@ -86,7 +87,7 @@ public class CustomerServicesImpl implements CustomerServices {
     }
 
     /************************************************************************************
-     * Method: 			-addNewCustomer
+     * Method: 			-updateCustomer
      *Description: 			-To update a customer
      * @param customer       -Customer to be updated
 
@@ -113,9 +114,9 @@ public class CustomerServicesImpl implements CustomerServices {
     }
 
     /************************************************************************************
-     * Method: 			-addNewCustomer
-     *Description: 			-To add a new customer
-     * @param id       -Customer to be added
+     * Method: 			-deleteCustomer
+     *Description: 			-To delete a customer
+     * @param id       -Customer to be deleted
 
 
      * @throws CustomerException - It is raised due to if customer not exists or null
@@ -151,7 +152,7 @@ public class CustomerServicesImpl implements CustomerServices {
 
     /************************************************************************************
      * Method: 			-login
-     *Description: 			-To add a new customer
+     *Description: 			-To login customer
      * @param loginDto       -LoginDto for getting customer emailId and password
 
      * @returns Customer                  - customer, if logged  in successfully, otherwise throws CustomerException
@@ -177,7 +178,7 @@ public class CustomerServicesImpl implements CustomerServices {
 
     /************************************************************************************
      * Method: 			-getCustomerById
-     *Description: 			-To add a new customer
+     *Description: 			-To get a  customer by id
      * @param  customerId       -Customer Id to get details
 
      * @returns Customer                  - customer, if present otherwise throws CustomerException
@@ -207,18 +208,18 @@ public class CustomerServicesImpl implements CustomerServices {
 
             }
 
-
-
-
-
         }
         return null;
     }
+
+
 
     @Override
     public List<Rating> getCustomerRating(Integer id) {
         List<Rating> ratings= this.customerRepository.findById(id).get().getRatings();
         return ratings;
     }
+
+
 }
 

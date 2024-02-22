@@ -2,7 +2,6 @@ package com.training.testdriveapp.customer;
 
 import com.training.testdriveapp.entity.Address;
 import com.training.testdriveapp.booking.Booking;
-import com.training.testdriveapp.admin.Car;
 import com.training.testdriveapp.rating.Rating;
 import jakarta.persistence.*;
 
@@ -16,7 +15,7 @@ public class Customer {
     @Id
     @GeneratedValue
     private Integer customerId;
-    private String CustomerName;
+    private String customerName;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customerId")
     private Address address;
@@ -27,8 +26,7 @@ public class Customer {
 
     @OneToMany
     private List<Rating> ratings = new ArrayList<>();
-//    @ManyToMany
-//    private List<Car> testDriveCars = new ArrayList<>();
+
 
     @OneToMany
     private List<Booking> customerBookings = new ArrayList<>();
@@ -37,7 +35,12 @@ public class Customer {
 
     }
 
-    public Customer(int i, String karthi, String number, String mail, String s) {
+    public Customer(Integer customerId, String customerName, String mobileNumber, String customerEmail, String password) {
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.mobileNumber = mobileNumber;
+        this.customerEmail = customerEmail;
+        this.password = password;
     }
 
     public List<Booking> getCustomerBookings() {
@@ -45,7 +48,7 @@ public class Customer {
     }
 
     public Customer(String customerName, String mobileNumber, String customerEmail, String password) {
-        CustomerName = customerName;
+        this.customerName = customerName;
         this.mobileNumber = mobileNumber;
         this.customerEmail = customerEmail;
         this.password = password;
@@ -53,27 +56,18 @@ public class Customer {
 
     public Customer(Integer customerId, String customerName, Address address, String mobileNumber, String customerEmail, String password) {
         this.customerId = customerId;
-        CustomerName = customerName;
+        this.customerName = customerName;
         this.address = address;
         this.mobileNumber = mobileNumber;
         this.customerEmail = customerEmail;
         this.password = password;
     }
-    //    public Customer(Integer customerId, String customerName, Address address, Integer mobileNumber, String customerEmail, List<Rating> ratings, List<Car> testDriveCars, List<Booking> customerBookings) {
-//        this.customerId = customerId;
-//        CustomerName = customerName;
-//        this.address = address;
-//        this.mobileNumber = mobileNumber;
-//        this.customerEmail = customerEmail;
-//        this.ratings = ratings;
-//        this.testDriveCars = testDriveCars;
-//        this.customerBookings = customerBookings;
-//    }
 
 
-    public Customer(Integer customerId, String customerName, Address address,String mobileNumber, String customerEmail, String password, List<Rating> ratings, List<Car> testDriveCars, List<Booking> customerBookings) {
+
+    public Customer(Integer customerId, String customerName, Address address,String mobileNumber, String customerEmail, String password, List<Rating> ratings,  List<Booking> customerBookings) {
         this.customerId = customerId;
-        CustomerName = customerName;
+        this.customerName = customerName;
         this.address = address;
         this.mobileNumber = mobileNumber;
         this.customerEmail = customerEmail;
@@ -83,28 +77,13 @@ public class Customer {
         this.customerBookings = customerBookings;
     }
 
-//    public Customer(String customerName, Address address, Integer mobileNumber, String customerEmail, String password, List<Rating> ratings, List<Car> testDriveCars, List<Booking> customerBookings) {
-//        CustomerName = customerName;
-//        this.address = address;
-//        this.mobileNumber = mobileNumber;
-//        this.customerEmail = customerEmail;
-//        this.password = password;
-//        this.ratings = ratings;
-//        this.testDriveCars = testDriveCars;
-//        this.customerBookings = customerBookings;
-//    }
+
 
     public void setCustomerBookings(List<Booking> customerBooking) {
         this.customerBookings = customerBooking;
     }
 
-//    public List<Car> getTestDriveCars() {
-//        return testDriveCars;
-//    }
-//
-//    public void setTestDriveCars(List<Car> testDriveCars) {
-//        this.testDriveCars = testDriveCars;
-//    }
+
 
 
     public String getPassword() {
@@ -141,11 +120,11 @@ public class Customer {
     }
 
     public String getCustomerName() {
-        return CustomerName;
+        return customerName;
     }
 
     public void setCustomerName(String customerName) {
-        CustomerName = customerName;
+        this.customerName = customerName;
     }
 
     public Address getAddress() {
@@ -172,15 +151,7 @@ public class Customer {
         this.customerEmail = customerEmail;
     }
 
-//    public Customer() {
-//    }
 
-//    public Customer(String customerName, Address address, Integer mobileNumber, String customerEmail) {
-//        CustomerName = customerName;
-//        this.address = address;
-//        this.mobileNumber = mobileNumber;
-//        this.customerEmail = customerEmail;
-//    }
 
 
 

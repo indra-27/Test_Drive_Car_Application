@@ -18,4 +18,6 @@ public interface CustomerServices {
     Customer getCustomerById(Integer customerId);
 
     List<Rating> getCustomerRating(Integer id);
+
+
 }
