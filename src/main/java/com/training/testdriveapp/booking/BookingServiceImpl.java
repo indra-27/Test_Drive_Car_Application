@@ -25,24 +25,43 @@ public class BookingServiceImpl implements BookingService{
 
     @Autowired
     private CustomerRepository customerRepository;
+
     @Override
-    public Booking createNewBooking(BookingDto newBooking) {
+    public Booking createNewBooking(BookingDto newBooking) throws BookingException {
+        if (newBooking == null) {
+            throw new BookingException("Booking Input can't be null");
+        }
         List<Car> carDetails = carRepository.findBymodelName(newBooking.getCarModelName());
         Optional<Customer> customerDetails = customerRepository.findByCustomerEmail(newBooking.getCustomerEmailId());
-        Customer foundCustomer=null;
-        if(customerDetails.isPresent()) {
-            foundCustomer = customerDetails.get();
+        Customer foundCustomer = null;
+        if (customerDetails.isEmpty()) {
+            throw new BookingException("No such Customer Exists");
+        }
+        foundCustomer = customerDetails.get();
+
+        if (carDetails.getFirst().getCarId() == null) {
+            throw new BookingException("No such car exists");
         }
         Booking newBookingProcess = new Booking();
         newBookingProcess.setTestDriveCar(carDetails.getFirst());
         newBookingProcess.setCustomer(foundCustomer);
         newBookingProcess.setDate(newBooking.getDate());
         newBookingProcess.setSlotNo(newBooking.getSlotNo());
+        if (Boolean.TRUE.equals(this.slotAvailability.get(newBooking.getSlotNo())))
+            throw new BookingException("Slot already booked");
+        this.slotAvailability.put(newBooking.getSlotNo(), true);
         return this.bookingRepository.save(newBookingProcess);
     }
-
     @Override
-    public void deleteBooking(BookIdDto bookIdDto) {
+    public void deleteBooking(BookIdDto bookIdDto) throws BookingException {
+        if(bookIdDto.getBookId()==null)
+            throw new BookingException("Id can't be null");
+        Booking foundBooking = this.bookingRepository.getReferenceById(bookIdDto.getBookId());
+        if(foundBooking==null)
+            throw new BookingException("No such Book Id exists");
         this.bookingRepository.deleteById(bookIdDto.getBookId());
     }
+
+
+
 }
