@@ -7,9 +7,6 @@ import jakarta.persistence.Id;
 public class Address {
     @Id
     private Integer addressId;
-
-
-
     private String DoorNo;
     private String addressLane;
     private String City;
