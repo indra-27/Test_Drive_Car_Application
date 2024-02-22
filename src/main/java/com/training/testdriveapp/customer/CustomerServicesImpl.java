@@ -191,9 +191,9 @@ public class CustomerServicesImpl implements CustomerServices {
     @Override
     public Customer getCustomerById(Integer customerId) {
         Optional<Customer> customer=this.customerRepository.findById(customerId);
-        if(customer!=null){
+        if(customer.isPresent()){
             Optional<Address> address=this.addressRepository.findById(customer.get().getAddress().getId());
-            if(address!=null){
+            if(address.isPresent()){
                 Customer customer1=new Customer();
                 customer1.setCustomerId(customer.get().getCustomerId());
                 customer1.setCustomerName(customer.get().getCustomerName());
