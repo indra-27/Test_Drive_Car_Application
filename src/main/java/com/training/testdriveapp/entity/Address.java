@@ -7,7 +7,6 @@ public class Address {
     @Id
     @GeneratedValue
     private Integer id;
-
     private String doorNo;
     private String addressLane;
     private String city;
