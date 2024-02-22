@@ -1,0 +1,157 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > BookingServiceImpl</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.training.testdriveapp.booking</a>
+</div>
+
+<h1>Coverage Summary for Class: BookingServiceImpl (com.training.testdriveapp.booking)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BookingServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    5.3%
+  </span>
+  <span class="absValue">
+    (1/19)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.training.testdriveapp.booking;
+&nbsp;
+&nbsp;import com.training.testdriveapp.admin.Car;
+&nbsp;import com.training.testdriveapp.admin.CarRepository;
+&nbsp;import com.training.testdriveapp.customer.Customer;
+&nbsp;import com.training.testdriveapp.customer.CustomerRepository;
+&nbsp;import com.training.testdriveapp.entity.Address;
+&nbsp;import com.training.testdriveapp.staff.Staff;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;
+&nbsp;@Service
+<b class="fc">&nbsp;public class BookingServiceImpl implements BookingService{</b>
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private BookingRepository bookingRepository;
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private CarRepository carRepository;
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private CustomerRepository customerRepository;
+&nbsp;    @Override
+&nbsp;    public Booking createNewBooking(BookingDto newBooking) {
+<b class="nc">&nbsp;        List&lt;Car&gt; carDetails = carRepository.findBymodelName(newBooking.getCarModelName());</b>
+&nbsp;
+<b class="nc">&nbsp;        Address newAddress = new Address();</b>
+<b class="nc">&nbsp;        Staff newStaff = new Staff();</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        Optional&lt;Customer&gt; customerDetails = customerRepository.findByCustomerEmail(newBooking.getCustomerEmailId());</b>
+<b class="nc">&nbsp;        Customer foundCustomer=null;</b>
+<b class="nc">&nbsp;        if(customerDetails.isPresent()) {</b>
+<b class="nc">&nbsp;            foundCustomer = customerDetails.get();</b>
+&nbsp;
+&nbsp;        }
+<b class="nc">&nbsp;        if (foundCustomer != null) {</b>
+<b class="nc">&nbsp;            newAddress.setId(foundCustomer.getAddress().getId());</b>
+<b class="nc">&nbsp;            foundCustomer.setAddress(newAddress);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        newStaff.setStaffId(carDetails.getFirst().getStaff().getStaffId());</b>
+<b class="nc">&nbsp;        carDetails.getFirst().setStaff(newStaff);</b>
+<b class="nc">&nbsp;        Booking newBookingProcess = new Booking();</b>
+<b class="nc">&nbsp;        newBookingProcess.setTestDriveCar(carDetails.getFirst());</b>
+<b class="nc">&nbsp;        newBookingProcess.setCustomer(foundCustomer);</b>
+<b class="nc">&nbsp;        newBookingProcess.setDate(newBooking.getDate());</b>
+<b class="nc">&nbsp;        newBookingProcess.setSlotNo(newBooking.getSlotNo());</b>
+<b class="nc">&nbsp;        return this.bookingRepository.save(newBookingProcess);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-02-22 15:10</div>
+</div>
+</body>
+</html>

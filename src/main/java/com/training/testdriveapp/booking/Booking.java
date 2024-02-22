@@ -41,6 +41,13 @@ public class Booking {
         this.date = date;
     }
 
+    public Booking(Car testDriveCar, Integer slotNo, LocalDate date, Customer customer) {
+        this.testDriveCar = testDriveCar;
+        this.slotNo = slotNo;
+        this.date = date;
+        this.customer = customer;
+    }
+
     @ManyToOne
     private Customer customer;
 

@@ -3,17 +3,17 @@ package com.training.testdriveapp.booking;
 import java.time.LocalDate;
 
 public class BookingDto {
-    private String customerName;
+    private String customerEmailId;
     private String carModelName;
     private Integer slotNo;
     private LocalDate date;
 
-    public String getCustomerName() {
-        return customerName;
+    public String getCustomerEmailId() {
+        return customerEmailId;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setCustomerEmailId(String customerEmailId) {
+        this.customerEmailId = customerEmailId;
     }
 
     public String getCarModelName() {
@@ -41,9 +41,12 @@ public class BookingDto {
     }
 
     public BookingDto(String customerName, String carModelName, Integer slotNo, LocalDate date) {
-        this.customerName = customerName;
+        this.customerEmailId = customerName;
         this.carModelName = carModelName;
         this.slotNo = slotNo;
         this.date = date;
+    }
+
+    public BookingDto() {
     }
 }
