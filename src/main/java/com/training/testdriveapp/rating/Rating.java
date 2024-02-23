@@ -16,13 +16,16 @@ public class Rating {
     @ManyToOne
     private Car car;
 
-
-    public Customer getCustomer() {
-        return customer;
+    public Rating(Integer ratingId, Integer ratingStars, String comments, Customer customer, Car car) {
+        this.ratingId = ratingId;
+        this.ratingStars = ratingStars;
+        this.comments = comments;
+        this.customer = customer;
+        this.car = car;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public Rating() {
+
     }
 
     public Integer getRatingId() {
@@ -49,18 +52,19 @@ public class Rating {
         this.comments = comments;
     }
 
-    public Rating() {
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public Rating(Integer ratingId, Integer ratingStars, String comments, Customer customer) {
-        this.ratingId = ratingId;
-        this.ratingStars = ratingStars;
-        this.comments = comments;
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
-    public Rating(Integer ratingStars, String comments) {
-        this.ratingStars = ratingStars;
-        this.comments = comments;
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
     }
 }
