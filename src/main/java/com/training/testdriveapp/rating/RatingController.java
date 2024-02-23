@@ -1,11 +1,9 @@
 package com.training.testdriveapp.rating;
 
-import com.training.testdriveapp.customer.Customer;
-import com.training.testdriveapp.customer.CustomerException;
+import com.training.testdriveapp.admin.AdminException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.security.auth.login.AccountException;
 import java.util.List;
 
 @RestController
@@ -17,12 +15,6 @@ public class RatingController {
     @PostMapping("/rating")
     public Rating createRating(@RequestBody Rating rating) throws RatingException {
         return this.ratingService.createNewRating(rating);
-    }
-
-    //Filtering Rating Between given Value
-    @GetMapping("rating/{min}/{max}")
-    public List<Rating> findAllRatingBetweenRange(@PathVariable Integer min,Integer max) throws RatingException {
-        return this.ratingService.getAllRatingsBetweenRange(min,max);
     }
 
     // Displaying all the Ratings
@@ -40,9 +32,9 @@ public class RatingController {
     // Updating the Reviews
     @PutMapping("/rating/update")
     public Rating updateRatingById(@RequestBody Rating rating) throws RatingException {
-        return this.ratingService.updateRatingById(rating);
+        return this.ratingService.updateRating(rating);
     }
-
+// Deleting the Reviews By Id
     @DeleteMapping("/rating/delete/{id}")
     public void deleteRatingById(@PathVariable Integer id) throws RatingException
     {
@@ -50,9 +42,18 @@ public class RatingController {
 
     }
 
-// Deleting the Reviews By Id
-
+    //Filtering Rating Between given Value
+    @GetMapping("rating/{min}/{max}")
+    public List<Rating> findAllRatingBetweenRange(@PathVariable Integer min,Integer max) throws RatingException {
+        return this.ratingService.getAllRatingsBetweenRange(min,max);
+    }
+    // Filtering Based On Rating
+    @GetMapping("rating/search/{rating}")
+    public List<Rating> getCarDetailsByModelName(@PathVariable("rating") Integer rating) throws AdminException
+    {
+        return null;//this.ratingService.getRatingByRatingStars(rating);
+    }
 // Filtering Based On CarID
-// Filtering Based On Ra
+// Filtering Based on CustomerId
 
 }

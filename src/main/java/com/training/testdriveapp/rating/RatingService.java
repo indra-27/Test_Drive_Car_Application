@@ -1,26 +1,23 @@
 package com.training.testdriveapp.rating;
 
-import com.training.testdriveapp.customer.Customer;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import javax.security.auth.login.AccountException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
 public interface RatingService {
-    Rating createNewRating(Rating rating);
+    Rating createNewRating(Rating rating) throws RatingException;
 
-    List<Rating> getAllRatingsBetweenRange(Integer min, Integer max);
+    List<Rating> getAllRatingsBetweenRange(Integer min, Integer max)throws RatingException;
 
-    Rating getRatingById(Integer id);
+    Rating getRatingById(Integer id)throws RatingException;
 
     List<Rating> getAllRating();
 
-    Rating updateRatingById(Rating rating);
+    Rating updateRating(Rating rating)throws RatingException;
 
-    void deleteRating(Integer id);
+    void deleteRating(Integer id)throws RatingException;
 
 }

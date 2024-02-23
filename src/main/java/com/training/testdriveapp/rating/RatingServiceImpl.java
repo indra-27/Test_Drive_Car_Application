@@ -1,5 +1,6 @@
 package com.training.testdriveapp.rating;
 
+import com.training.testdriveapp.admin.Car;
 import com.training.testdriveapp.customer.Customer;
 import com.training.testdriveapp.customer.CustomerRepository;
 import jakarta.transaction.Transactional;
@@ -18,20 +19,39 @@ public class RatingServiceImpl implements RatingService{
     private CustomerRepository customerRepository;
 
     @Override
-    public Rating createNewRating(Rating rating) {
+    public Rating createNewRating(Rating rating) throws RatingException {
 
+     if(rating.getRatingStars()==null || rating.getComments()==null)
+     {
+         throw new RatingException("Rating Cannot be null");
+     }
         return this.ratingRepository.save(rating);
     }
 
     @Override
-    public List<Rating> getAllRatingsBetweenRange(Integer min, Integer max)
+    public List<Rating> getAllRatingsBetweenRange(Integer min, Integer max)throws RatingException
     {
+        if(min<1 || min >5)
+        {
+            throw new RatingException("Minimum rating should be in the range of 1-5 ");
+        }
+        if(max>5 ||max<1)
+        {
+            throw new RatingException("Maximum rating should be in the range of 1-5 ");
+        }
+        if(min>max)
+        {
+            throw new RatingException("Minimum value cannot be greater than maximum value");
+        }
         return this.ratingRepository.findByRatingStarsBetween(min,max);
     }
 
     @Override
-    public Rating getRatingById(Integer id)
+    public Rating getRatingById(Integer id) throws RatingException
     {
+        Optional<Rating> accountOpt=this.ratingRepository.findById(id);
+        if(accountOpt.isEmpty())
+            throw new RatingException("Rating not exists");
         return this.ratingRepository.findById(id).get();
     }
 
@@ -41,21 +61,28 @@ public class RatingServiceImpl implements RatingService{
     }
 
     @Override
-    public Rating updateRatingById(Rating rating) {
+    public Rating updateRating(Rating rating) throws RatingException{
+        if(rating.getRatingStars()==null || rating.getComments()==null)
+        {
+            throw new RatingException("Rating Cannot be null");
+        }
         return this.ratingRepository.save(rating);
     }
 
     @Override
-    public void deleteRating(Integer id) {
+    public void deleteRating(Integer id)throws RatingException {
+
         Optional<Rating> ratingOpt=this.ratingRepository.findById(id);
 
-            if(ratingOpt.isPresent()) {
+            if(!ratingOpt.isPresent())
+            {
+                throw new RatingException("Rating Id Does not exist");
+            }
+                else{
                 Rating rating = ratingOpt.get();
                 ratingRepository.delete(rating);
             }
     }
-
-
 
 
 
