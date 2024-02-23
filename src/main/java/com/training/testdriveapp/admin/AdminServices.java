@@ -6,7 +6,7 @@ import java.util.List;
 
 @Service
 public interface AdminServices {
-    Car addNewCar(Car newCars) throws AdminException;
+    Car addNewCar(CarDto newCars) throws AdminException;
 
     List<Car> getCarDetailsByModelName(String modelName) throws AdminException;
 

@@ -11,7 +11,7 @@ public class AdminController {
     private AdminServices adminServices;
 
     @PostMapping("admin/car")
-    public Car addNewCar(@RequestBody Car newCar) throws AdminException
+    public Car addNewCar(@RequestBody CarDto newCar) throws AdminException
     {
         return this.adminServices.addNewCar(newCar);
     }
@@ -30,4 +30,5 @@ public class AdminController {
     {
         return this.adminServices.deleteCarById(carId);
     }
+
 }

@@ -12,12 +12,23 @@ public class AdminServicesImpl implements AdminServices {
     @Autowired
     private CarRepository carsRepository;
     @Override
-    public Car addNewCar(Car newCars) throws AdminException{
+    public Car addNewCar(CarDto newCars) throws AdminException{
         if(newCars == null)
         {
             throw new AdminException("Car details cannot be null");
         }
-        return this.carsRepository.save(newCars);
+        Car car = new Car();
+        car.setCarPrice(newCars.getCarPrice());
+        car.setColor(newCars.getColor());
+        car.setCompany(newCars.getCompany());
+        car.setEngineModel(newCars.getEngineModel());
+        car.setFuelType(newCars.getFuelType());
+        car.setModelName(newCars.getModelName());
+        car.setMileage(newCars.getMileage());
+        car.setRpm(newCars.getRpm());
+        car.setSeater(newCars.getSeater());
+        car.setVehicleType(newCars.getVehicleType());
+        return this.carsRepository.save(car);
     }
 
     @Override
