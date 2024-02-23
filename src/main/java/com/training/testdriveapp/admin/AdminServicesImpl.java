@@ -22,11 +22,31 @@ public class AdminServicesImpl implements AdminServices {
 
     @Override
     public List<Car> getCarDetailsByModelName(String modelName) throws AdminException {
+        if(modelName == null){
+            throw new AdminException("Give a valid Model name");
+        }
+        List<Car> foundModel = this.carsRepository.findBymodelName(modelName);
+        if(foundModel == null){
+            throw new AdminException("No such model exists");
+        }
         return this.carsRepository.findBymodelName(modelName);
     }
 
     @Override
     public Car updateCarDetails(Car updateCar) throws AdminException {
+        if(updateCar == null)
+        {
+            throw new AdminException("Null car details cannot be updated");
+        }
+        if(updateCar.getCarId()==null)
+        {
+            throw new AdminException("Car ID is mandatory to update the car");
+        }
+        Optional<Car> foundCarId = this.carsRepository.findById(updateCar.getCarId());
+        if(foundCarId == null)
+        {
+            throw new AdminException("Car ID not found");
+        }
         return this.carsRepository.save(updateCar);
     }
 
