@@ -12,6 +12,10 @@ import java.util.List;
 @RestController
 public class CustomerController {
     @Autowired
+    public CustomerController(CustomerServices customerServices){
+        this.customerServices=customerServices;
+    }
+
     private CustomerServices customerServices;
 
     @PostMapping("customer")

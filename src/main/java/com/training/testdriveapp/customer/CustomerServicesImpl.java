@@ -190,7 +190,7 @@ public class CustomerServicesImpl implements CustomerServices {
      ************************************************************************************/
 
     @Override
-    public Customer getCustomerById(Integer customerId) {
+    public Customer getCustomerById(Integer customerId) throws CustomerException{
         Optional<Customer> customer=this.customerRepository.findById(customerId);
         if(customer.isPresent()){
             Optional<Address> address=this.addressRepository.findById(customer.get().getAddress().getId());
@@ -205,9 +205,12 @@ public class CustomerServicesImpl implements CustomerServices {
                 return customer1;
 
 
-
             }
 
+
+        }
+        else{
+            throw new CustomerException("Customer doesn't exists");
         }
         return null;
     }
@@ -215,7 +218,7 @@ public class CustomerServicesImpl implements CustomerServices {
 
 
     @Override
-    public List<Rating> getCustomerRating(Integer id) {
+    public List<Rating> getCustomerRating(Integer id)throws CustomerException {
         List<Rating> ratings= this.customerRepository.findById(id).get().getRatings();
         return ratings;
     }

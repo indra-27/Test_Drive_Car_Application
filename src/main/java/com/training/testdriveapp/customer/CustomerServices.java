@@ -15,9 +15,9 @@ public interface CustomerServices {
 
     Customer login(LoginDto loginDto) throws CustomerException;
 
-    Customer getCustomerById(Integer customerId);
+    Customer getCustomerById(Integer customerId)throws CustomerException;
 
-    List<Rating> getCustomerRating(Integer id);
+    List<Rating> getCustomerRating(Integer id)throws CustomerException;
 
 
 }
