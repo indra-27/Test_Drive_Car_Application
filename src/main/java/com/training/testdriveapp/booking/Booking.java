@@ -5,6 +5,8 @@ import com.training.testdriveapp.customer.Customer;
 import com.training.testdriveapp.staff.Staff;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 public class Booking {
     @Id
@@ -13,6 +15,15 @@ public class Booking {
     @OneToOne
     private Car testDriveCar;
     private Integer slotNo;
+    private LocalDate date;
+
+    public Booking(Integer bookId, Car testDriveCar, Integer slotNo, LocalDate date, Customer customer) {
+        this.bookId = bookId;
+        this.testDriveCar = testDriveCar;
+        this.slotNo = slotNo;
+        this.date = date;
+        this.customer = customer;
+    }
 
     public Integer getSlotNo() {
         return slotNo;
@@ -22,14 +33,22 @@ public class Booking {
         this.slotNo = slotNo;
     }
 
-    public Booking(Integer bookId, Car testDriveCar, Integer slotNo, Customer customer) {
-        this.bookId = bookId;
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public Booking(Car testDriveCar, Integer slotNo, LocalDate date, Customer customer) {
         this.testDriveCar = testDriveCar;
         this.slotNo = slotNo;
+        this.date = date;
         this.customer = customer;
     }
 
-    @OneToOne
+    @ManyToOne
     private Customer customer;
 
     public Integer getBookId() {
