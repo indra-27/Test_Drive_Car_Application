@@ -6,24 +6,47 @@ import com.training.testdriveapp.staff.Staff;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Booking {
     @Id
     @GeneratedValue
     private Integer bookId;
-    @OneToOne
+    @ManyToOne
     private Car testDriveCar;
     private Integer slotNo;
-    private LocalDate date;
+    private LocalDate bookingDate;
+    private Boolean status;
 
-    public Booking(Integer bookId, Car testDriveCar, Integer slotNo, LocalDate date, Customer customer) {
+    public Booking(Integer bookId, Car testDriveCar, Integer slotNo, LocalDate bookingDate, Boolean status, LocalDate date, Customer customer) {
         this.bookId = bookId;
         this.testDriveCar = testDriveCar;
         this.slotNo = slotNo;
+        this.bookingDate = bookingDate;
+        this.status = status;
         this.date = date;
         this.customer = customer;
     }
+
+    public LocalDate getBookingDate() {
+        return bookingDate;
+    }
+
+    public void setBookingDate(LocalDate bookingDate) {
+        this.bookingDate = bookingDate;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    private LocalDate date;
 
     public Integer getSlotNo() {
         return slotNo;
