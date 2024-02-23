@@ -1,10 +1,15 @@
 package com.training.testdriveapp.booking;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
 
 public interface BookingService {
-    Booking createNewBooking(BookingDto newBooking);
 
-    void deleteBooking(BookIdDto bookIdDto);
+    BookingOutputDto createNewBooking(BookingInputDto newBooking) throws BookingException;
+
+    void deleteBooking(BookIdDto bookIdDto)throws BookingException;
+
+    List<BookingOutputDto> getAllUserBookingByEmail(String mailId) throws BookingException;
+
+    List<BookingOutputDto> getAllUserBookingBySlotNo(Integer slotNo) throws BookingException;
 }
