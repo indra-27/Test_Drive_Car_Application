@@ -1,6 +1,7 @@
 package com.training.testdriveapp.rating;
 
 import com.training.testdriveapp.customer.Customer;
+import com.training.testdriveapp.customer.CustomerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,17 +36,18 @@ public class RatingController {
     public Rating findRatingById(@PathVariable Integer id) throws RatingException {
         return this.ratingService.getRatingById(id);
     }
-    //Filtering Based On CustomerId
-    @GetMapping("/rating/{custId}")
-    public Customer findRatingByCustomerId(@PathVariable Integer custId)
-    {
-        return null;
-        //this.ratingService.getRatingByCustomerId(custId);
-    }
+
     // Updating the Reviews
     @PutMapping("/rating/update")
     public Rating updateRatingById(@RequestBody Rating rating) throws RatingException {
         return this.ratingService.updateRatingById(rating);
+    }
+
+    @DeleteMapping("/rating/delete/{id}")
+    public void deleteRatingById(@PathVariable Integer id) throws RatingException
+    {
+        this.ratingService.deleteRating(id);
+
     }
 
 // Deleting the Reviews By Id

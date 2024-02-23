@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import javax.security.auth.login.AccountException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -20,5 +21,6 @@ public interface RatingService {
 
     Rating updateRatingById(Rating rating);
 
-    //Customer getRatingByCustomerId(Integer custId);
+    void deleteRating(Integer id);
+
 }

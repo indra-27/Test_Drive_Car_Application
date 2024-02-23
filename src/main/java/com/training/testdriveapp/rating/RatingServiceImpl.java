@@ -4,11 +4,10 @@ import com.training.testdriveapp.customer.Customer;
 import com.training.testdriveapp.customer.CustomerRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
-import javax.security.auth.login.AccountException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -46,10 +45,17 @@ public class RatingServiceImpl implements RatingService{
         return this.ratingRepository.save(rating);
     }
 
-    //  @Override
-    // public Customer getRatingByCustomerId(Integer custId) {
-    //   return customerRepository.findById(custId).get();
-    //}
+    @Override
+    public void deleteRating(Integer id) {
+        Optional<Rating> ratingOpt=this.ratingRepository.findById(id);
+
+            if(ratingOpt.isPresent()) {
+                Rating rating = ratingOpt.get();
+                ratingRepository.delete(rating);
+            }
+    }
+
+
 
 
 
