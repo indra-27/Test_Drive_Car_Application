@@ -3,6 +3,7 @@ package com.training.testdriveapp.customer;
 
 import com.training.testdriveapp.rating.Rating;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,10 +31,15 @@ public class CustomerController {
 
     }
 
-    @PutMapping("customer/update")
+    @PutMapping("customer/updateCustomer")
     public Customer updateCustomer(@RequestBody Customer customer) throws CustomerException{
         return this.customerServices.updateCustomer(customer);
 
+    }
+
+    @PatchMapping("customer/updateCustomerMobileNumber/{id}/{mobileNumber}")
+    public Customer updateCustomerMobile(@PathVariable Integer id, @PathVariable String mobileNumber){
+        return this.customerServices.updateCustomerMobile(id,mobileNumber);
     }
 
     @DeleteMapping("customer/delete/{id}")

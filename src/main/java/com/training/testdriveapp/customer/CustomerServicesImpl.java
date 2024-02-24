@@ -4,6 +4,7 @@ package com.training.testdriveapp.customer;
 import com.training.testdriveapp.entity.Address;
 import com.training.testdriveapp.rating.Rating;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -221,6 +222,21 @@ public class CustomerServicesImpl implements CustomerServices {
     public List<Rating> getCustomerRating(Integer id)throws CustomerException {
         List<Rating> ratings= this.customerRepository.findById(id).get().getRatings();
         return ratings;
+    }
+
+    @Override
+    public Customer updateCustomerMobile(Integer id, String mobileNumber) {
+        Optional<Customer> customer=this.customerRepository.findById(id);
+        if(customer.isPresent()) {
+
+            customer.get().setMobileNumber(mobileNumber);
+
+            Customer foundCustomer=customer.get();
+
+            return foundCustomer;
+        }
+       return null;
+
     }
 
 

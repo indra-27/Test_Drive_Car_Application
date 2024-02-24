@@ -57,11 +57,7 @@ public class CustomerServiceImplTests {
         Integer customerId=202;
        this.customerRepository.deleteById(customerId);
     // Boolean deleteCustomer= this.customerServices.deleteCustomer(customerId);
-
-
-
-
-
+        
 
 
     }
