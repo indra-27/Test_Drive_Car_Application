@@ -12,7 +12,7 @@ public class RatingController {
     private RatingService ratingService;
 
     //Create Review
-    @PostMapping("/rating")
+    @PostMapping("/rating/create")
     public Rating createRating(@RequestBody Rating rating) throws RatingException {
         return this.ratingService.createNewRating(rating);
     }
