@@ -22,7 +22,7 @@ public class StaffController {
     }
 
     @GetMapping("Get Staff by Id/{staffid}")
-    public Staff getByStaffId(@PathVariable("staffid") Integer staffid) throws StaffException {
+    public Optional<Staff> getByStaffId(@PathVariable("staffid") Integer staffid) throws StaffException {
         return this.staffService.getByStaffId(staffid);
     }
     @DeleteMapping("Delete Staff/{staffid}")

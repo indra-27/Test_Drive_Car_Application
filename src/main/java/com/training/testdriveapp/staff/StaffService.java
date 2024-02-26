@@ -8,7 +8,7 @@ public interface StaffService {
 
     Staff updateStaffDetails(Staff staff) throws StaffException;
 
-    Staff getByStaffId(Integer staffId) throws StaffException;
+    Optional<Staff> getByStaffId(Integer staffId) throws StaffException;
 
     Optional<Staff> deleteStaff(Integer staffId) throws StaffException;
 

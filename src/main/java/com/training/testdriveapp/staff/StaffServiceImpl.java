@@ -27,7 +27,6 @@ public class StaffServiceImpl implements StaffService{
         if(foundAccount.isPresent())
             throw new StaffException("Staff Already exists:"+newStaff.getStaffName());
 
-        //   return this.productDao.addProduct(newProduct);
         Optional<Staff> accountOpt=this.staffRepository.findBystaffEmail(newStaff.getStaffEmail());
         if(accountOpt.isPresent())
             throw new StaffException("Email already registered,please re try. "+newStaff.getStaffEmail());
@@ -43,17 +42,17 @@ public class StaffServiceImpl implements StaffService{
     }
 
     @Override
-    public Staff getByStaffId(Integer staffId) throws StaffException{
-        return this.staffRepository.findBystaffId(staffId).get();
-
+    public Optional<Staff> getByStaffId(Integer staffId) throws StaffException{
+        Optional<Staff> foundStaff = this.staffRepository.findBystaffId(staffId);
+        if(!foundStaff.isPresent())
+            throw new StaffException("No such Id Exists: "+ staffId);
+        return foundStaff;
     }
 
     @Override
     public Optional<Staff> deleteStaff(Integer staffId) throws  StaffException {
         Optional<Staff> foundStaff = this.staffRepository.findBystaffId(staffId);
-        if(staffId == null)
-            throw new StaffException("ID can't be null");
-        if(foundStaff==null)
+        if(!foundStaff.isPresent())
             throw new StaffException("No such Id Exists: "+ staffId);
         this.staffRepository.deleteBystaffId(staffId);
         return foundStaff;
