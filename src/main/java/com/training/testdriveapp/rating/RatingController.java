@@ -13,7 +13,7 @@ public class RatingController {
 
     //Create Review
     @PostMapping("/rating/create")
-    public Rating createRating(@RequestBody Rating rating) throws RatingException {
+    public Rating createRating(@RequestBody RatingDto rating) throws RatingException {
         return this.ratingService.createNewRating(rating);
     }
 

@@ -8,7 +8,9 @@ import java.util.List;
 @Service
 @Transactional
 public interface RatingService {
-    Rating createNewRating(Rating rating) throws RatingException;
+    Rating createNewRating(RatingDto newRating) throws RatingException;
+
+    //RatingDto createNewRating(Rating rating) throws RatingException;
 
     List<Rating> getAllRatingsBetweenRange(Integer min, Integer max)throws RatingException;
 

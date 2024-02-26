@@ -6,6 +6,8 @@ import com.training.testdriveapp.customer.CustomerRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.training.testdriveapp.admin.CarRepository;
+import com.training.testdriveapp.customer.CustomerRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,15 +19,29 @@ public class RatingServiceImpl implements RatingService{
     private RatingRepository ratingRepository;
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private CarRepository carRepository;
+
+
 
     @Override
-    public Rating createNewRating(Rating rating) throws RatingException {
+    public Rating createNewRating(RatingDto newRating) throws RatingException {
 
-     if(rating.getRatingStars()==null || rating.getComments()==null)
+     if(newRating.getRatingStars()==null || newRating.getComments()==null)
      {
          throw new RatingException("Rating Cannot be null");
      }
+        List<Car> carList=carRepository.findBymodelName(newRating.getCarModelName());
+        Optional<Customer> customerList= customerRepository.findByCustomerEmail(newRating.getCustomerEmailId());
+        Customer cust=customerList.get();
+        Rating rating = new Rating();
+        rating.setRatingId(newRating.getRatingId());
+        rating.setRatingStars(newRating.getRatingStars());
+        rating.setComments(newRating.getComments());
+        rating.setCar(carList.getFirst());
+        rating.setCustomer(cust);
         return this.ratingRepository.save(rating);
+
     }
 
     @Override
