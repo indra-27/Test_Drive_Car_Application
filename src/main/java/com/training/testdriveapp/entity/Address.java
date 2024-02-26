@@ -1,35 +1,43 @@
 package com.training.testdriveapp.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Address {
     @Id
-    private Integer addressId;
-
-
-
-    private String DoorNo;
+    @GeneratedValue
+    private Integer id;
+    private String doorNo;
     private String addressLane;
-    private String City;
-    private String State;
-    private Integer pincode;
+    private String city;
+    private String state;
+    private String pincode;
+//   @OneToOne
+//   @JoinColumn(name = "customerId")
+//    private Customer customer;
 
-    public Address(Integer addressId, String doorNo, String addressLane, String city, String state, Integer pincode) {
-        this.addressId = addressId;
-        DoorNo = doorNo;
-        this.addressLane = addressLane;
-        City = city;
-        State = state;
-        this.pincode = pincode;
+//    public Customer getCustomer() {
+//        return customer;
+//    }
+//
+//    public void setCustomer(Customer customer) {
+//        this.customer = customer;
+//    }
+
+    public Integer getId() {
+        return id;
     }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getDoorNo() {
-        return DoorNo;
+        return doorNo;
     }
 
     public void setDoorNo(String doorNo) {
-        DoorNo = doorNo;
+        this.doorNo = doorNo;
     }
 
     public String getAddressLane() {
@@ -41,37 +49,37 @@ public class Address {
     }
 
     public String getCity() {
-        return City;
+        return city;
     }
 
     public void setCity(String city) {
-        City = city;
+        this.city = city;
     }
 
     public String getState() {
-        return State;
+        return state;
     }
 
     public void setState(String state) {
-        State = state;
+        this.state = state;
     }
 
-    public Integer getPincode() {
+    public String getPincode() {
         return pincode;
     }
 
-    public void setPincode(Integer pincode) {
+    public void setPincode(String pincode) {
         this.pincode = pincode;
     }
 
     public Address() {
     }
 
-    public Integer getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(Integer addressId) {
-        this.addressId = addressId;
+    public Address(String doorNo, String addressLane, String city, String state, String pincode) {
+        this.doorNo = doorNo;
+        this.addressLane = addressLane;
+        this.city = city;
+        this.state = state;
+        this.pincode = pincode;
     }
 }

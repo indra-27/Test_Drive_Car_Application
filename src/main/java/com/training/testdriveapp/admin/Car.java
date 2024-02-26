@@ -1,6 +1,7 @@
 package com.training.testdriveapp.admin;
 
 import com.training.testdriveapp.rating.Rating;
+import com.training.testdriveapp.staff.Staff;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -11,21 +12,54 @@ public class Car {
     @Id
     @GeneratedValue
     private Integer carId;
-    private String Company;
+    private String company;
     private String modelName;
     private String color;
     private Double carPrice;
     private String engineModel;
     private String vehicleType;
+    private String fuelType;
     private Integer seater;
     private Double mileage;
     private Double rpm;
 
+    @OneToOne
+    private Staff staff;
+
     @OneToMany
     private List<Rating> ratings = new ArrayList<>();
 
+    public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, String fuelType, Integer seater, Double mileage, Double rpm, Staff staff, List<Rating> ratings) {
+        this.company = company;
+        this.modelName = modelName;
+        this.color = color;
+        this.carPrice = carPrice;
+        this.engineModel = engineModel;
+        this.vehicleType = vehicleType;
+        this.fuelType = fuelType;
+        this.seater = seater;
+        this.mileage = mileage;
+        this.rpm = rpm;
+        this.staff = staff;
+        this.ratings = ratings;
+    }
+
+    public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, Integer seater, Double mileage, Double rpm, Staff staff, List<Rating> ratings) {
+        this.company = company;
+        this.modelName = modelName;
+        this.color = color;
+        this.carPrice = carPrice;
+        this.engineModel = engineModel;
+        this.vehicleType = vehicleType;
+        this.seater = seater;
+        this.mileage = mileage;
+        this.rpm = rpm;
+        this.staff = staff;
+        this.ratings = ratings;
+    }
+
     public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, Integer seater, Double mileage, Double rpm, Car testDriveCars, List<Rating> rating) {
-        Company = company;
+        this.company = company;
         this.modelName = modelName;
         this.color = color;
         this.carPrice = carPrice;
@@ -37,12 +71,11 @@ public class Car {
         this.ratings = rating;
     }
 
-
-//    @ManyToMany
-//    private List<Availability> carAvailabilityList;
+    public Car() {
+    }
 
     public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, Integer seater, Double mileage, Double rpm, List<Rating> rating) {
-        Company = company;
+        this.company = company;
         this.modelName = modelName;
         this.color = color;
         this.carPrice = carPrice;
@@ -53,6 +86,8 @@ public class Car {
         this.rpm = rpm;
         this.ratings = rating;
     }
+
+
 
     public Integer getCarId() {
         return carId;
@@ -63,11 +98,11 @@ public class Car {
     }
 
     public String getCompany() {
-        return Company;
+        return company;
     }
 
     public void setCompany(String company) {
-        Company = company;
+        this.company = company;
     }
 
     public String getModelName() {
@@ -134,6 +169,14 @@ public class Car {
         this.rpm = rpm;
     }
 
+    public String getFuelType() {
+        return fuelType;
+    }
+
+    public void setFuelType(String fuelType) {
+        this.fuelType = fuelType;
+    }
+
     public List<Rating> getRatings() {
         return ratings;
     }
@@ -142,6 +185,11 @@ public class Car {
         this.ratings = rating;
     }
 
-    public Car() {
+    public Staff getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Staff staff) {
+        this.staff = staff;
     }
 }
