@@ -12,7 +12,7 @@ public class Car {
     @Id
     @GeneratedValue
     private Integer carId;
-    private String Company;
+    private String company;
     private String modelName;
     private String color;
     private Double carPrice;
@@ -30,7 +30,7 @@ public class Car {
     private List<Rating> ratings = new ArrayList<>();
 
     public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, String fuelType, Integer seater, Double mileage, Double rpm, Staff staff, List<Rating> ratings) {
-        this.Company = company;
+        this.company = company;
         this.modelName = modelName;
         this.color = color;
         this.carPrice = carPrice;
@@ -45,7 +45,7 @@ public class Car {
     }
 
     public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, Integer seater, Double mileage, Double rpm, Staff staff, List<Rating> ratings) {
-        this.Company = company;
+        this.company = company;
         this.modelName = modelName;
         this.color = color;
         this.carPrice = carPrice;
@@ -59,7 +59,7 @@ public class Car {
     }
 
     public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, Integer seater, Double mileage, Double rpm, Car testDriveCars, List<Rating> rating) {
-        this.Company = company;
+        this.company = company;
         this.modelName = modelName;
         this.color = color;
         this.carPrice = carPrice;
@@ -75,7 +75,7 @@ public class Car {
     }
 
     public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, Integer seater, Double mileage, Double rpm, List<Rating> rating) {
-        this.Company = company;
+        this.company = company;
         this.modelName = modelName;
         this.color = color;
         this.carPrice = carPrice;
@@ -98,11 +98,11 @@ public class Car {
     }
 
     public String getCompany() {
-        return Company;
+        return company;
     }
 
     public void setCompany(String company) {
-        Company = company;
+        this.company = company;
     }
 
     public String getModelName() {

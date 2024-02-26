@@ -13,4 +13,9 @@ public interface AdminServices {
     Car updateCarDetails(Car updateCar) throws AdminException;
 
     Car deleteCarById(Integer carId) throws AdminException;
+
+    List<Car> getCarDetailsByCompany(String company) throws AdminException;
+
+    List<Car> getCarDetailsWithinPriceRange(Double minprice, Double maxprice);
+    List<Car> getAllCars();
 }

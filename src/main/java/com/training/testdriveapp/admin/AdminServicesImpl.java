@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AdminServicesImpl implements AdminServices {
@@ -68,6 +69,29 @@ public class AdminServicesImpl implements AdminServices {
             this.carsRepository.deleteById(carId);
         }
         return null;
+    }
+
+    @Override
+    public List<Car> getCarDetailsByCompany(String company) throws AdminException {
+        if(company == null){
+            throw new AdminException("Give a valid Company name");
+        }
+        List<Car> foundCompany = this.carsRepository.findByCompany(company);
+        if(foundCompany == null){
+            throw new AdminException("No such Car Company exists");
+        }
+        return this.carsRepository.findByCompany(company);
+    }
+
+
+    @Override
+    public List<Car> getCarDetailsWithinPriceRange(Double minprice, Double maxprice) {
+        return this.getAllCars().stream().filter((s)->s.getCarPrice()>=minprice&&s.getCarPrice()<=maxprice).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Car> getAllCars() {
+        return this.carsRepository.findAll();
     }
 
 }
