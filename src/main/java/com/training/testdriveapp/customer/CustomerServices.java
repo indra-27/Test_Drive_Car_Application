@@ -1,8 +1,6 @@
 package com.training.testdriveapp.customer;
 
 import com.training.testdriveapp.entity.Address;
-import com.training.testdriveapp.rating.Rating;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -19,7 +17,7 @@ public interface CustomerServices {
 
     Customer getCustomerById(Integer customerId)throws CustomerException;
 
-    List<Rating> getCustomerRating(Integer id)throws CustomerException;
+    //Customer giveCustomerRating(Customer customer)throws CustomerException;
 
 
     Customer  updateCustomerMobile(Integer id, String mobileNumber);

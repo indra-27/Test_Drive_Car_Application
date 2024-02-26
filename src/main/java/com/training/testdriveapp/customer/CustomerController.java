@@ -70,10 +70,10 @@ public class CustomerController {
         return this.customerServices.getCustomerById(id);
     }
 
-    @GetMapping("customer/getCustomersRatings/{id}")
-    public List<Rating> getCustomerRating(@PathVariable Integer id) throws CustomerException{
-        return this.customerServices.getCustomerRating(id);
-    }
+//    @PostMapping("customer/getCustomersRatings")
+//    public Customer getCustomerRating(@RequestBody CustomerDto customerDto) throws CustomerException{
+//        return this.customerServices.getCustomerRating(customerDto);
+//    }
 
 
 }

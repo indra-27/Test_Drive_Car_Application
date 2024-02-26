@@ -1,4 +1,4 @@
-package com.training.testdriveapp;
+package com.training.testdriveapp.customerTests;
 
 import com.training.testdriveapp.customer.Customer;
 import com.training.testdriveapp.customer.CustomerException;
@@ -32,7 +32,7 @@ public class CustomerServiceImplTests {
         Customer customer=new Customer(20,"Karthi","9988776655","karthi@gmail.com","String@1234556");
         customer=this.customerServices.addNewCustomer(customer);
         Assertions.assertNotNull(customer);
-        //Assertions.assertNotNull(customer.getAddress());
+
         this.customerRepository.save(customer);
 
     }

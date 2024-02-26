@@ -13,6 +13,25 @@ public class CustomerDto {
     private String email;
     private String password;
     private Integer addressId;
+    private Integer ratingId;
+
+    public CustomerDto(Integer id, String name, String email, String password, Integer addressId, Integer ratingId, Address address) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.addressId = addressId;
+        this.ratingId = ratingId;
+        this.address = address;
+    }
+
+    public Integer getRatingId() {
+        return ratingId;
+    }
+
+    public void setRatingId(Integer ratingId) {
+        this.ratingId = ratingId;
+    }
 
     public CustomerDto(Integer id, String name, String email, String password, Integer addressId, Address address) {
         this.id = id;

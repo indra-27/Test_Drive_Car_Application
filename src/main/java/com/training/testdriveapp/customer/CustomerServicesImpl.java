@@ -3,8 +3,8 @@ package com.training.testdriveapp.customer;
 
 import com.training.testdriveapp.entity.Address;
 import com.training.testdriveapp.rating.Rating;
+import com.training.testdriveapp.rating.RatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +28,9 @@ public class CustomerServicesImpl implements CustomerServices {
 
     @Autowired
     private CustomerDtoRepository customerDtoRepository;
+
+    @Autowired
+    private RatingRepository ratingRepository;
 
     /************************************************************************************
      * Method: 			-addNewCustomer
@@ -208,11 +211,16 @@ public class CustomerServicesImpl implements CustomerServices {
 
 
 
-    @Override
-    public List<Rating> getCustomerRating(Integer id)throws CustomerException {
-        List<Rating> ratings= this.customerRepository.findById(id).get().getRatings();
-        return ratings;
-    }
+//    @Override
+//    public Customer giveCustomerRating(Integer ratingId)throws CustomerException {
+//       Optional<Rating>  rating=this.ratingRepository.findById(ratingId);
+//
+//
+//
+//
+//        return this.customerRepository.save(customer);
+//
+//    }
 
     @Override
     public Customer updateCustomerMobile(Integer id, String mobileNumber) {
@@ -251,7 +259,7 @@ public class CustomerServicesImpl implements CustomerServices {
     @Override
     public Customer updateCustomerPassword(String email, String password) throws CustomerException {
         Optional<Customer> customer=this.customerRepository.findByCustomerEmail(email);
-        if(customer.isPresent()){
+        if(!customer.isPresent()){
             throw new CustomerException("Customer email doesn't exists");
         }
         Customer foundCustomer=customer.get();
