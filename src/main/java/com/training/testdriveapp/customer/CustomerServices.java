@@ -17,7 +17,7 @@ public interface CustomerServices {
 
     Customer getCustomerById(Integer customerId)throws CustomerException;
 
-    //Customer giveCustomerRating(Customer customer)throws CustomerException;
+   // Customer giveCustomerRating(Integer id)throws CustomerException;
 
 
     Customer  updateCustomerMobile(Integer id, String mobileNumber);

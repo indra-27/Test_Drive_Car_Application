@@ -212,13 +212,13 @@ public class CustomerServicesImpl implements CustomerServices {
 
 
 //    @Override
-//    public Customer giveCustomerRating(Integer ratingId)throws CustomerException {
-//       Optional<Rating>  rating=this.ratingRepository.findById(ratingId);
+//    public Customer giveCustomerRating(Integer custId)throws CustomerException {
+//         Rating rating=this.ratingRepository.findByCustomerId(custId);
+//         Customer customer=rating.getCustomer();
 //
 //
 //
-//
-//        return this.customerRepository.save(customer);
+//        return customer;
 //
 //    }
 

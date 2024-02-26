@@ -70,9 +70,9 @@ public class CustomerController {
         return this.customerServices.getCustomerById(id);
     }
 
-//    @PostMapping("customer/getCustomersRatings")
-//    public Customer getCustomerRating(@RequestBody CustomerDto customerDto) throws CustomerException{
-//        return this.customerServices.getCustomerRating(customerDto);
+//    @GetMapping("customer/getCustomersRatings/{id}")
+//    public Customer getCustomerRating(@PathVariable Integer id) throws CustomerException{
+//        return this.customerServices.giveCustomerRating(id);
 //    }
 
 
