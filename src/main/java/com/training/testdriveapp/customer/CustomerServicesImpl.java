@@ -45,24 +45,14 @@ public class CustomerServicesImpl implements CustomerServices {
 
     @Override
     public Customer addNewCustomer(Customer newCustomer) throws CustomerException {
-//        if(newCustomer==null)
-//            throw new CustomerException("New customer cannot be null");
-        // this.customerRepository.save(newCustomer);
+        if(newCustomer==null)
+            throw new CustomerException("New customer cannot be null");
+
        Optional<Customer> customerOpt=this.customerRepository.findByCustomerEmail(newCustomer.getCustomerEmail());
 
         if(customerOpt.isPresent())
             throw new CustomerException("Customer already exists");
 
-//        CustomerDto customerDto=new CustomerDto();
-//        customerDto.setId(newCustomer.getId());
-//        customerDto.setEmail(newCustomer.getEmail());
-//        customerDto.setName(newCustomer.getName());
-//        customerDto.setPassword(newCustomer.getPassword());
-//        Optional<Address> address=this.addressRepository.findById(customerDto.getAddressId());
-//        customerDto.setAddress(address.get());
-
-
-//        return this.customerDtoRepository.save(customerDto);
         return this.customerRepository.save(newCustomer);
     }
 
@@ -82,7 +72,7 @@ public class CustomerServicesImpl implements CustomerServices {
 
     @Override
     public List<Customer> getAllCustomers() {
-//        Customer customer=this.customerRepository.findById()
+
 
         return this.customerRepository.findAll();
     }
@@ -230,13 +220,43 @@ public class CustomerServicesImpl implements CustomerServices {
         if(customer.isPresent()) {
 
             customer.get().setMobileNumber(mobileNumber);
+            customer.get().setAddress(customer.get().getAddress());
 
             Customer foundCustomer=customer.get();
 
-            return foundCustomer;
+            return this.customerRepository.save(foundCustomer);
         }
        return null;
 
+    }
+
+    @Override
+    public Customer updateCustomerAddress(Integer id, Address address) throws CustomerException {
+        Optional<Customer> customer=this.customerRepository.findById(id);
+        if(!customer.isPresent()){
+            throw new CustomerException("Customer not exists");
+        }
+        Customer foundCustomer=customer.get();
+        foundCustomer.setAddress(address);
+        foundCustomer.setCustomerName(foundCustomer.getCustomerName());
+        foundCustomer.setCustomerId(id);
+        foundCustomer.setCustomerEmail(foundCustomer.getCustomerEmail());
+        foundCustomer.setPassword(foundCustomer.getPassword());
+        foundCustomer.setMobileNumber(foundCustomer.getMobileNumber());
+        return this.customerRepository.save(foundCustomer);
+
+
+    }
+
+    @Override
+    public Customer updateCustomerPassword(String email, String password) throws CustomerException {
+        Optional<Customer> customer=this.customerRepository.findByCustomerEmail(email);
+        if(customer.isPresent()){
+            throw new CustomerException("Customer email doesn't exists");
+        }
+        Customer foundCustomer=customer.get();
+        foundCustomer.setPassword(password);
+        return this.customerRepository.save(foundCustomer);
     }
 
 

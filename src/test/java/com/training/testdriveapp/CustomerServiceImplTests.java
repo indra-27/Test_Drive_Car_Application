@@ -38,6 +38,24 @@ public class CustomerServiceImplTests {
     }
 
     @Test
+    public void testAddCustomerForNull(){
+
+        Assertions.assertThrows(CustomerException.class,()->customerServices.addNewCustomer(null));
+    }
+
+    @Test
+    public void testAddNewCustomerForException(){
+
+        try {
+            customerServices.addNewCustomer(null);
+        } catch (CustomerException e) {
+            Assertions.assertEquals("New customer cannot be null", e.getMessage());
+        }
+
+
+    }
+
+    @Test
     @DisplayName(value = "Updating the customer")
     public void updateCustomer() throws CustomerException {
 
@@ -50,13 +68,15 @@ public class CustomerServiceImplTests {
 
     }
 
+
+
     @Test
     @DisplayName(value = "Deleting a customer")
     public void deleteCustomer() throws CustomerException {
 
         Integer customerId=202;
        this.customerRepository.deleteById(customerId);
-    // Boolean deleteCustomer= this.customerServices.deleteCustomer(customerId);
+
         
 
 

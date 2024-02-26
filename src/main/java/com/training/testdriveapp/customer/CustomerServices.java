@@ -1,5 +1,6 @@
 package com.training.testdriveapp.customer;
 
+import com.training.testdriveapp.entity.Address;
 import com.training.testdriveapp.rating.Rating;
 import org.springframework.http.ResponseEntity;
 
@@ -22,4 +23,8 @@ public interface CustomerServices {
 
 
     Customer  updateCustomerMobile(Integer id, String mobileNumber);
+
+    Customer updateCustomerAddress(Integer id, Address address) throws CustomerException;
+
+    Customer updateCustomerPassword(String email, String password) throws CustomerException;
 }

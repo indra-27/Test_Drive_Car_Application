@@ -1,6 +1,7 @@
 package com.training.testdriveapp.customer;
 
 
+import com.training.testdriveapp.entity.Address;
 import com.training.testdriveapp.rating.Rating;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +41,16 @@ public class CustomerController {
     @PatchMapping("customer/updateCustomerMobileNumber/{id}/{mobileNumber}")
     public Customer updateCustomerMobile(@PathVariable Integer id, @PathVariable String mobileNumber){
         return this.customerServices.updateCustomerMobile(id,mobileNumber);
+    }
+
+    @PatchMapping("customer/updateCustomerAddress/{id}/{address}")
+    public Customer updateCustomerAddress(@PathVariable Integer id, @PathVariable Address address) throws CustomerException {
+        return this.customerServices.updateCustomerAddress(id,address);
+    }
+
+    @PatchMapping("customer/updateCustomerpassword/{email}/{password}")
+    public Customer updateCustomerPAssword(@PathVariable String email, @PathVariable String password) throws CustomerException {
+        return this.customerServices.updateCustomerPassword(email,password);
     }
 
     @DeleteMapping("customer/delete/{id}")
