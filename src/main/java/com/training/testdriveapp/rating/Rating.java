@@ -1,10 +1,8 @@
 package com.training.testdriveapp.rating;
 
+import com.training.testdriveapp.admin.Car;
 import com.training.testdriveapp.customer.Customer;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Rating {
@@ -15,13 +13,19 @@ public class Rating {
     private String comments;
     @OneToOne
     private Customer customer;
+    @ManyToOne
+    private Car car;
 
-    public Customer getCustomer() {
-        return customer;
+    public Rating(Integer ratingId, Integer ratingStars, String comments, Customer customer, Car car) {
+        this.ratingId = ratingId;
+        this.ratingStars = ratingStars;
+        this.comments = comments;
+        this.customer = customer;
+        this.car = car;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public Rating() {
+
     }
 
     public Integer getRatingId() {
@@ -48,18 +52,19 @@ public class Rating {
         this.comments = comments;
     }
 
-    public Rating() {
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public Rating(Integer ratingId, Integer ratingStars, String comments, Customer customer) {
-        this.ratingId = ratingId;
-        this.ratingStars = ratingStars;
-        this.comments = comments;
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
-    public Rating(Integer ratingStars, String comments) {
-        this.ratingStars = ratingStars;
-        this.comments = comments;
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
     }
 }
