@@ -1,10 +1,8 @@
 package com.training.testdriveapp.rating;
 
+import com.training.testdriveapp.admin.Car;
 import com.training.testdriveapp.customer.Customer;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Rating {
@@ -15,6 +13,9 @@ public class Rating {
     private String comments;
     @OneToOne
     private Customer customer;
+    @ManyToOne
+    private Car car;
+
 
     public Customer getCustomer() {
         return customer;
