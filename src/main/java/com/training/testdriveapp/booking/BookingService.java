@@ -16,5 +16,7 @@ public interface BookingService {
 
     List<BookingOutputDto> getAllUserBookingByDate(LocalDate date) throws BookingException;
 
-    List<BookingOutputDto> getAllUserBookingByCarId(String carModelName)throws BookingException;
+    List<BookingOutputDto> getAllUserBookingByCarModelName(String carModelName)throws BookingException;
+
+    List<BookingOutputDto> getAllBookings();
 }
