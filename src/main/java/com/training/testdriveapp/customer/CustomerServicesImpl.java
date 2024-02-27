@@ -126,6 +126,8 @@ public class CustomerServicesImpl implements CustomerServices {
 
     @Override
     public void deleteCustomer(Integer id) throws CustomerException {
+        if(id==null)
+            throw new CustomerException("Id cannot be null");
         Optional<Customer> customerOpt=this.customerRepository.findById(id);
         if(customerOpt.isEmpty()){
             throw new CustomerException("Customer does not exists with  id: "+id);

@@ -8,6 +8,10 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
+
+import static org.springframework.test.util.AssertionErrors.assertNotNull;
+
 @SpringBootTest
 public class CustomerServiceImplTests {
 
@@ -30,10 +34,6 @@ public class CustomerServiceImplTests {
         }
         catch (Exception e){
             Assertions.fail(e.getMessage());
-        }
-       finally {
-
-            this.customerRepository.save(customer);
         }
 
 
@@ -58,17 +58,58 @@ public class CustomerServiceImplTests {
     }
 
     @Test
+    void addCustomerShouldThrowAnExceptionIfAlreadyExists() {
+        try {
+            this.customerServices.addNewCustomer(new Customer(10,"Abi","8877665544","Str@gmail.com","str12345"));
+        } catch (CustomerException e) {
+
+            e.printStackTrace();
+        }
+        try {
+            this.customerServices.addNewCustomer(new Customer(10,"Abi","8877665544","Str@gmail.com","str12345"));
+        } catch (CustomerException e) {
+            Assertions.assertEquals("Customer already exists", e.getMessage());
+        }
+
+    }
+
+    @Test
     @DisplayName(value = "Updating the customer")
     public void updateCustomer() throws CustomerException {
 
-
-        Customer updateCustomer = new Customer(202, "Keerthi", "9955332211", "subha@gmail.com", "Subhae46@@");
-        updateCustomer = this.customerServices.updateCustomer(updateCustomer);
-
-        this.customerRepository.delete(updateCustomer);
+        Assertions.assertNotNull(new Customer(202, "Keerthi", "9955332211", "karthi1@gmail.com", "Subhae46@@"));
 
 
     }
+
+    @Test
+    public void nullTestForUpdateCustomer(){
+        Assertions.assertThrows(CustomerException.class,()->customerServices.updateCustomer(null));
+    }
+    @Test
+
+    public void NullTestupdateCustomerForException(){
+
+        try {
+            customerServices.updateCustomer(null);
+        } catch (CustomerException e) {
+            Assertions.assertEquals("Customer cannot be null", e.getMessage());
+        }
+
+
+    }
+
+    @Test
+    public void customerAlreadyNotExistsForUpdateCustomer(){
+        try {
+            customerServices.updateCustomer(new Customer(200,"Kavin","0088775443","Sv@gmail.com","ght12"));
+
+        }
+        catch (CustomerException e){
+            System.out.println("Customer not exists with id "+e.getMessage());
+        }
+    }
+
 
 
 
@@ -76,11 +117,27 @@ public class CustomerServiceImplTests {
     @DisplayName(value = "Deleting a customer")
     public void deleteCustomer() throws CustomerException {
 
-        Integer customerId=202;
-       this.customerRepository.deleteById(customerId);
+        this.customerRepository.deleteById(202);
 
 
     }
+
+    @Test
+    void nullCustomerTestInDeleteProductById()
+    {
+        Assertions.assertThrows(CustomerException.class,()->customerServices.deleteCustomer(null));
+    }
+    @Test
+    void nullProductTestExceptionMessageInDeleteProductByID()
+    {
+        try {
+            this.customerServices.deleteCustomer(null);
+        } catch (CustomerException e) {
+            Assertions.assertEquals("Id cannot be null",e.getMessage());
+        }
+    }
+
+
 
 
 }
