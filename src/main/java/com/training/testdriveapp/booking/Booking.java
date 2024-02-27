@@ -2,12 +2,8 @@ package com.training.testdriveapp.booking;
 
 import com.training.testdriveapp.admin.Car;
 import com.training.testdriveapp.customer.Customer;
-import com.training.testdriveapp.staff.Staff;
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Booking {
@@ -19,7 +15,12 @@ public class Booking {
     private Integer slotNo;
     private LocalDate bookingDate;
     private Boolean status;
+    private LocalDate date;
+    @ManyToOne
+    private Customer customer;
 
+    public Booking() {
+    }
     public Booking(Integer bookId, Car testDriveCar, Integer slotNo, LocalDate bookingDate, Boolean status, LocalDate date, Customer customer) {
         this.bookId = bookId;
         this.testDriveCar = testDriveCar;
@@ -30,6 +31,12 @@ public class Booking {
         this.customer = customer;
     }
 
+    public Booking(Car testDriveCar, Integer slotNo, LocalDate date, Customer customer) {
+        this.testDriveCar = testDriveCar;
+        this.slotNo = slotNo;
+        this.date = date;
+        this.customer = customer;
+    }
     public LocalDate getBookingDate() {
         return bookingDate;
     }
@@ -45,8 +52,6 @@ public class Booking {
     public void setStatus(Boolean status) {
         this.status = status;
     }
-
-    private LocalDate date;
 
     public Integer getSlotNo() {
         return slotNo;
@@ -64,16 +69,6 @@ public class Booking {
         this.date = date;
     }
 
-    public Booking(Car testDriveCar, Integer slotNo, LocalDate date, Customer customer) {
-        this.testDriveCar = testDriveCar;
-        this.slotNo = slotNo;
-        this.date = date;
-        this.customer = customer;
-    }
-
-    @ManyToOne
-    private Customer customer;
-
     public Integer getBookId() {
         return bookId;
     }
@@ -90,15 +85,11 @@ public class Booking {
         this.testDriveCar = testDriveCars;
     }
 
-
     public Customer getCustomer() {
         return customer;
     }
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
-    }
-
-    public Booking() {
     }
 }

@@ -2,7 +2,8 @@ package com.training.testdriveapp.booking;
 
 public class BookIdDto {
     private Integer bookId;
-
+    public BookIdDto() {
+    }
     public BookIdDto(Integer bookId) {
         this.bookId = bookId;
     }
@@ -15,6 +16,4 @@ public class BookIdDto {
         this.bookId = bookId;
     }
 
-    public BookIdDto() {
-    }
 }
