@@ -15,26 +15,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.List;
-
-//public interface AdminServices {
-//	Car addNewCar(Car newCars) throws AdminException;
-//
-//	List<Car> getCarDetailsByModelName(String modelName) throws AdminException;
-//
-//	Car updateCarDetails(Car updateCar) throws AdminException;
-//
-//	Car deleteCarById(Integer carId) throws AdminException;
-//}
-//private String color;
-//private Double carPrice;
-//private String engineModel;
-//private String vehicleType;
-//private String fuelType;
-//private Integer seater;
-//private Double mileage;
-//private Double rpm;
 @SpringBootTest
 class TestDriveCarsApplicationTests {
 
