@@ -1,16 +1,23 @@
 package com.training.testdriveapp.customer;
 
+
+import com.training.testdriveapp.entity.Address;
 import com.training.testdriveapp.rating.Rating;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.context.LifecycleAutoConfiguration;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+
 @RestController
 public class CustomerController {
     @Autowired
+    public CustomerController(CustomerServices customerServices){
+        this.customerServices=customerServices;
+    }
+
     private CustomerServices customerServices;
 
     @PostMapping("customer")
@@ -25,10 +32,25 @@ public class CustomerController {
 
     }
 
-    @PutMapping("customer/update")
+    @PutMapping("customer/updateCustomer")
     public Customer updateCustomer(@RequestBody Customer customer) throws CustomerException{
         return this.customerServices.updateCustomer(customer);
 
+    }
+
+    @PatchMapping("customer/updateCustomerMobileNumber/{id}/{mobileNumber}")
+    public Customer updateCustomerMobile(@PathVariable Integer id, @PathVariable String mobileNumber){
+        return this.customerServices.updateCustomerMobile(id,mobileNumber);
+    }
+
+    @PatchMapping("customer/updateCustomerAddress/{id}/{address}")
+    public Customer updateCustomerAddress(@PathVariable Integer id, @PathVariable Address address) throws CustomerException {
+        return this.customerServices.updateCustomerAddress(id,address);
+    }
+
+    @PatchMapping("customer/updateCustomerpassword/{email}/{password}")
+    public Customer updateCustomerPAssword(@PathVariable String email, @PathVariable String password) throws CustomerException {
+        return this.customerServices.updateCustomerPassword(email,password);
     }
 
     @DeleteMapping("customer/delete/{id}")
@@ -52,4 +74,6 @@ public class CustomerController {
     public List<Rating> getCustomerRating(@PathVariable Integer id) throws CustomerException{
         return this.customerServices.getCustomerRating(id);
     }
+
+
 }
