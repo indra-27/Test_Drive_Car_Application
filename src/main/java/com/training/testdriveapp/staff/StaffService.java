@@ -13,4 +13,6 @@ public interface StaffService {
     Optional<Staff> deleteStaff(Integer staffId) throws StaffException;
 
     List<Staff> getAllStaffs() throws StaffException;
+
+    Boolean updateStatus() throws StaffException;
 }

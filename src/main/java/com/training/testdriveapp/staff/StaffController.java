@@ -33,4 +33,8 @@ public class StaffController {
     public List<Staff> getAllAccounts() throws StaffException {
         return this.staffService.getAllStaffs();
     }
+    @PatchMapping("UpdateStatus/{staffid}")
+    public boolean updateStatus(@PathVariable Integer staffid) throws StaffException{
+        return true;
+    }
 }
