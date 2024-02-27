@@ -1,16 +1,17 @@
 package com.training.testdriveapp.rating;
 
 import com.training.testdriveapp.admin.Car;
+import com.training.testdriveapp.booking.BookingException;
 import com.training.testdriveapp.customer.Customer;
 import com.training.testdriveapp.customer.CustomerRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.server.DelegatingServerHttpResponse;
 import org.springframework.stereotype.Service;
 import com.training.testdriveapp.admin.CarRepository;
 import com.training.testdriveapp.customer.CustomerRepository;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -21,9 +22,6 @@ public class RatingServiceImpl implements RatingService{
     private CustomerRepository customerRepository;
     @Autowired
     private CarRepository carRepository;
-
-
-
     @Override
     public Rating createNewRating(RatingDto newRating) throws RatingException {
 
@@ -32,16 +30,46 @@ public class RatingServiceImpl implements RatingService{
          throw new RatingException("Rating Cannot be null");
      }
         List<Car> carList=carRepository.findBymodelName(newRating.getCarModelName());
-        Optional<Customer> customerList= customerRepository.findByCustomerEmail(newRating.getCustomerEmailId());
-        Customer cust=customerList.get();
+       // List<Customer> customerList1= customerRepository.findByCustomerEmail(newRating.getCustomerEmailId()).stream().toList();
+        Optional<Customer> customerDetails = customerRepository.findByCustomerEmail(newRating.getCustomerEmailId());
+        Customer foundCustomer;
+        if (customerDetails.isEmpty()) {
+            throw new RatingException("No such Customer Exists");
+        }
+        foundCustomer = customerDetails.get();
+        if (carList.getFirst().getCarId() == null) {
+            throw new RatingException("No such car exists");
+        }
         Rating rating = new Rating();
         rating.setRatingId(newRating.getRatingId());
         rating.setRatingStars(newRating.getRatingStars());
         rating.setComments(newRating.getComments());
         rating.setCar(carList.getFirst());
-        rating.setCustomer(cust);
-        return this.ratingRepository.save(rating);
+        rating.setCustomer(foundCustomer);
+        // Adding into the Map of Rating
+        if (ratingRepository.ratingsMap.containsKey(rating.getCustomer().getCustomerEmail())) {
+            List<Rating> list = ratingRepository.ratingsMap.get(rating.getCustomer().getCustomerEmail());
+            list.add(rating);
+        }
+        else {
+            List<Rating> newList = new ArrayList<>();
+            newList.add(rating);
+            ratingRepository.ratingsMap.put(rating.getCustomer().getCustomerEmail(), newList);
+        }
 
+        // Adding Into Map of RatingDto
+        if (ratingRepository.ratingDtoMap.containsKey(newRating.getCustomerEmailId())) {
+            List<RatingDto> list = ratingRepository.ratingDtoMap.get(newRating.getCustomerEmailId());
+            list.add(newRating);
+        }
+        else {
+            List<RatingDto> newList = new ArrayList<>();
+            newList.add(newRating);
+            ratingRepository.ratingDtoMap.put(rating.getCustomer().getCustomerEmail(), newList);
+        }
+        //this.ratingRepository.ratingDtoMap.put(newRating.getCustomerEmailId(),newRating);
+
+        return this.ratingRepository.save(rating);
     }
 
     @Override
@@ -62,14 +90,7 @@ public class RatingServiceImpl implements RatingService{
         return this.ratingRepository.findByRatingStarsBetween(min,max);
     }
 
-    @Override
-    public Rating getRatingById(Integer id) throws RatingException
-    {
-        Optional<Rating> accountOpt=this.ratingRepository.findById(id);
-        if(accountOpt.isEmpty())
-            throw new RatingException("Rating not exists");
-        return this.ratingRepository.findById(id).get();
-    }
+
 
     @Override
     public List<Rating> getAllRating() {
@@ -100,7 +121,31 @@ public class RatingServiceImpl implements RatingService{
             }
     }
 
+    @Override
+    public Map<String, List<Rating>> displayRatingByCustomerId(String customerId) {
+        if (ratingRepository.ratingsMap.containsKey(customerId) )
+        {
+            return ratingRepository.ratingsMap;
+        }
+        return null;
+    }
 
+    @Override
+    public List<Rating> getRatingsOfCustomerByMailId(String customerMailId) {
+        if(ratingRepository.ratingsMap.containsKey(customerMailId)) {
+            return ratingRepository.ratingsMap.get(customerMailId);
+        }
+
+        return null;
+    }
+
+    @Override
+    public List<RatingDto> getRatingDtoOfCustomerByMailId(String customerMailId) {
+        if(ratingRepository.ratingDtoMap.containsKey(customerMailId)) {
+            return ratingRepository.ratingDtoMap.get(customerMailId);
+        }
+        return null;
+    }
 
 
 }

@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -14,7 +15,6 @@ public interface RatingService {
 
     List<Rating> getAllRatingsBetweenRange(Integer min, Integer max)throws RatingException;
 
-    Rating getRatingById(Integer id)throws RatingException;
 
     List<Rating> getAllRating();
 
@@ -22,4 +22,9 @@ public interface RatingService {
 
     void deleteRating(Integer id)throws RatingException;
 
+    Map<String,  List<Rating>> displayRatingByCustomerId(String customerId);
+
+    List<Rating> getRatingsOfCustomerByMailId(String customerId);
+
+    List<RatingDto> getRatingDtoOfCustomerByMailId(String customerMail);
 }

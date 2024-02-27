@@ -4,6 +4,8 @@ import com.training.testdriveapp.admin.Car;
 import com.training.testdriveapp.customer.Customer;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Rating {
     @Id
@@ -11,7 +13,7 @@ public class Rating {
     private Integer ratingId;
     private Integer ratingStars;
     private String comments;
-    @OneToOne
+    @ManyToOne
     private Customer customer;
     @ManyToOne
     private Car car;
