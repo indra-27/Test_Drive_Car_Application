@@ -17,23 +17,25 @@ public class CustomerServiceImplTests {
     @Autowired
     private CustomerRepository customerRepository;
 
-    @BeforeAll
-    public static void initialiseTestData(){
 
-    }
-    @BeforeEach
-    public void initialiseEachTestData(){
-
-    }
 
     @Test
     @DisplayName(value = "adding a new Customer ")
     public void addNewCustomer() throws CustomerException {
-        Customer customer=new Customer(20,"Karthi","9988776655","karthi@gmail.com","String@1234556");
-        customer=this.customerServices.addNewCustomer(customer);
-        Assertions.assertNotNull(customer);
+        try{
+            Customer customer=new Customer(20,"Karthi","9988776655","karthi@gmail.com","String@1234556");
+            customer=this.customerServices.addNewCustomer(customer);
+            Assertions.assertNotNull(customer);
 
-        this.customerRepository.save(customer);
+        }
+        catch (Exception e){
+            Assertions.fail(e.getMessage());
+        }
+       finally {
+
+            this.customerRepository.save(customer);
+        }
+
 
     }
 

@@ -1,9 +1,12 @@
 package com.training.testdriveapp.customer;
 
 
+import com.training.testdriveapp.booking.Booking;
 import com.training.testdriveapp.entity.Address;
 import com.training.testdriveapp.rating.Rating;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +30,8 @@ public class CustomerController {
     }
 
     @GetMapping("customer/getAllCustomers")
-    public List<Customer> getAllCustomers(){
+    @ResponseStatus(HttpStatus.OK)
+    public List<Customer> getAllCustomers() throws CustomerException {
         return this.customerServices.getAllCustomers();
 
     }
@@ -38,9 +42,9 @@ public class CustomerController {
 
     }
 
-    @PatchMapping("customer/updateCustomerMobileNumber/{id}/{mobileNumber}")
-    public Customer updateCustomerMobile(@PathVariable Integer id, @PathVariable String mobileNumber){
-        return this.customerServices.updateCustomerMobile(id,mobileNumber);
+    @PatchMapping("customer/updateCustomerMobileNumber/{email}/{mobileNumber}")
+    public Customer updateCustomerMobile(@PathVariable String email, @PathVariable String mobileNumber) throws CustomerException {
+        return this.customerServices.updateCustomerMobile(email,mobileNumber);
     }
 
     @PatchMapping("customer/updateCustomerAddress/{id}/{address}")
@@ -70,10 +74,9 @@ public class CustomerController {
         return this.customerServices.getCustomerById(id);
     }
 
-//    @GetMapping("customer/getCustomersRatings/{id}")
-//    public Customer getCustomerRating(@PathVariable Integer id) throws CustomerException{
-//        return this.customerServices.giveCustomerRating(id);
+//    @GetMapping("customer/viewAllBookings/{customerEmailId}")
+//    public Customer getCustomerBookings(@PathVariable String customerEmailId){
+//        return this.customerServices.getCustomerBookings(customerEmailId);
 //    }
-
 
 }

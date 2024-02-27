@@ -4,10 +4,9 @@ import com.training.testdriveapp.entity.Address;
 import jakarta.persistence.*;
 
 
-@Entity
+
 public class CustomerDto {
-    @Id
-    @GeneratedValue
+
     private Integer id;
     private String name;
     private String email;
