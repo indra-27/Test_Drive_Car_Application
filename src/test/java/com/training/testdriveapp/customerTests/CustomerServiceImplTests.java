@@ -77,8 +77,6 @@ public class CustomerServiceImplTests {
         Integer customerId=202;
        this.customerRepository.deleteById(customerId);
 
-        
-
 
     }
 
