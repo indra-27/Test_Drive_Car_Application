@@ -109,7 +109,21 @@ public class AdminTests {
     // 3) UPDATE CAR DETAILS
 
     @Test
-    void nullIdTestMessageInUpdateCarDetailsTest(){
+    void nullUpdateCarTestInUpdateCarDetails(){
+        Assertions.assertThrows(AdminException.class,()->adminServices.updateCarDetails(null));
+    }
+
+    @Test
+    void nullUpdateCarTestExceptionMessageInUpdateCarDetails(){
+        try{
+            adminServices.updateCarDetails(null);
+        }catch (AdminException e){
+            Assertions.assertEquals("Null car details cannot be updated",e.getMessage());
+        }
+    }
+
+    @Test
+    void nullIdTestMessageInUpdateCarDetails(){
         Car car = null;
         try{
             car = this.adminServices.updateCarDetails(new Car("Ford","Fia","Red",5000.0,"5600cc","Automatic",5,500.0,3555.0,null));
@@ -117,5 +131,14 @@ public class AdminTests {
             Assertions.assertEquals("Car ID is mandatory to update the car",e.getMessage());
         }
     }
+
+//    @Test
+//    void carIdTestMessageInUpdateCarDetails(){
+//        try{
+//
+//        }
+//    }
+
+    // 4) DELETE CAR
 
 }
