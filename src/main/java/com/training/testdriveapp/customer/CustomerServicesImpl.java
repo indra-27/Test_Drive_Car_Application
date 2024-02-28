@@ -59,6 +59,9 @@ public class CustomerServicesImpl implements CustomerServices {
         if(customerOpt.isPresent())
             throw new CustomerException("Customer already exists");
 
+
+
+
         return this.customerRepository.save(newCustomer);
     }
 
@@ -76,13 +79,7 @@ public class CustomerServicesImpl implements CustomerServices {
 
      ************************************************************************************/
 
-    @Override
-    public List<Customer> getAllCustomers() throws CustomerException {
 
-        if(this.customerRepository.findAll().size()<1)
-            throw new CustomerException("No customer exists");
-        return this.customerRepository.findAll();
-    }
 
     /************************************************************************************
      * Method: 			-updateCustomer
@@ -186,10 +183,20 @@ public class CustomerServicesImpl implements CustomerServices {
 
     @Override
     public Customer getCustomerById(Integer customerId) throws CustomerException{
+        if(customerId==null){
+            throw new CustomerException("Customer doesn't exists with given id"+customerId);
+        }
         Optional<Customer> customer=this.customerRepository.findById(customerId);
-        if(customer.isPresent()){
+        if(!customer.isPresent()) {
+            throw new CustomerException("Customer doesn't exists");
+        }
+        else{
             Optional<Address> address=this.addressRepository.findById(customer.get().getAddress().getId());
-            if(address.isPresent()){
+
+            if(!address.isPresent()) {
+                throw new CustomerException("Customer address doesn't exists");
+            }
+            else{
                 Customer customer1=new Customer();
                 customer1.setCustomerId(customer.get().getCustomerId());
                 customer1.setCustomerName(customer.get().getCustomerName());
@@ -204,10 +211,8 @@ public class CustomerServicesImpl implements CustomerServices {
 
 
         }
-        else{
-            throw new CustomerException("Customer doesn't exists");
-        }
-        return null;
+
+
     }
 
 
@@ -259,28 +264,30 @@ public class CustomerServicesImpl implements CustomerServices {
         return this.customerRepository.save(foundCustomer);
     }
 
-//    @Override
-//    public Customer getCustomerBookings(String customerEmail) {
-//     Optional<Customer> customer=this.customerRepository.findByCustomerEmail(customerEmail);
-//
-//      if(customer!=null){
-//          Customer foundCustomer=customer.get();
-//
-//           List<Booking> bookings=this.bookingRepository.findByCustomer(foundCustomer);
-//           Customer customer1=new Customer();
-//           customer1.setCustomerBookings(bookings);
-//           customer1.setCustomerEmail(customerEmail);
-//           customer1.setCustomerName(foundCustomer.getCustomerName());
-//           customer1.setPassword(foundCustomer.getPassword());
-//           customer1.setCustomerId(foundCustomer.getCustomerId());
-//           customer1.setMobileNumber(foundCustomer.getMobileNumber());
-//           customer1.setAddress(foundCustomer.getAddress());
-//
-//           return customer1;
-//      }
-//
-//         return null;
-//    }
+    @Override
+
+    public List<Customer> getAllCustomers() throws CustomerException{
+        if(this.customerRepository.findAll()==null){
+            throw new CustomerException("No customer exists");
+        }
+        return this.customerRepository.findAll();
+    }
+
+    @Override
+    public List<Booking> getCustomerBookings(String customerEmail) {
+     Optional<Customer> customer=this.customerRepository.findByCustomerEmail(customerEmail);
+
+      if(customer!=null){
+          Customer foundCustomer=customer.get();
+
+           List<Booking> bookings=this.bookingRepository.findByCustomer(foundCustomer);
+
+
+           return bookings;
+      }
+
+         return null;
+    }
 
 
 }

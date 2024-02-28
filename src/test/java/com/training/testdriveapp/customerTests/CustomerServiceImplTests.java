@@ -128,7 +128,7 @@ public class CustomerServiceImplTests {
         Assertions.assertThrows(CustomerException.class,()->customerServices.deleteCustomer(null));
     }
     @Test
-    void nullProductTestExceptionMessageInDeleteProductByID()
+    void nullCustomerTestExceptionMessageInDeleteCustomerByID()
     {
         try {
             this.customerServices.deleteCustomer(null);
@@ -136,6 +136,44 @@ public class CustomerServiceImplTests {
             Assertions.assertEquals("Id cannot be null",e.getMessage());
         }
     }
+    @Test
+    public void getCustomerByIdTestIfCustomerIdIsNull(){
+        Assertions.assertThrows(CustomerException.class,()->customerServices.getCustomerById(null));
+    }
+
+    @Test
+    public void getCustomerByIdTestIfCustomerIdIsNullException(){
+        try{
+            this.customerServices.getCustomerById(202);
+        }
+        catch (CustomerException e){
+            Assertions.assertEquals("Customer doesn't exists",e.getMessage());
+        }
+    }
+
+
+    @Test
+    public void getCustomerByIdTestIfCustomerNotExists(){
+        try{
+            this.customerServices.getCustomerById(202);
+        }
+        catch (CustomerException e){
+            Assertions.assertEquals("Customer doesn't exists",e.getMessage());
+        }
+    }
+
+    @Test
+    public void getAllCustomersTestIfNoCustomerExists(){
+        try{
+            this.customerServices.getAllCustomers();
+        }
+        catch (CustomerException e){
+            Assertions.assertEquals("No customer exists",e.getMessage());
+        }
+    }
+
+
+
 
 
 

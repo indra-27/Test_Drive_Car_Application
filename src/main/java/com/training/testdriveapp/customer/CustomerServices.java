@@ -8,7 +8,7 @@ import java.util.List;
 public interface CustomerServices {
     Customer addNewCustomer(Customer newCustomer) throws CustomerException;
 
-    List<Customer> getAllCustomers() throws CustomerException;
+
 
     Customer updateCustomer(Customer customer) throws CustomerException;
 
@@ -27,7 +27,9 @@ public interface CustomerServices {
 
     Customer updateCustomerPassword(String email, String password) throws CustomerException;
 
-  //  Customer getCustomerBookings(String email);
+    List<Customer> getAllCustomers() throws CustomerException;
+
+    List<Booking> getCustomerBookings(String email);
 
 
 }

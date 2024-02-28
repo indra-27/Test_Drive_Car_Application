@@ -30,10 +30,8 @@ public class CustomerController {
     }
 
     @GetMapping("customer/getAllCustomers")
-    @ResponseStatus(HttpStatus.OK)
-    public List<Customer> getAllCustomers() throws CustomerException {
+    public List<Customer> getAllCustomers() throws  CustomerException{
         return this.customerServices.getAllCustomers();
-
     }
 
     @PutMapping("customer/updateCustomer")
@@ -74,9 +72,9 @@ public class CustomerController {
         return this.customerServices.getCustomerById(id);
     }
 
-//    @GetMapping("customer/viewAllBookings/{customerEmailId}")
-//    public Customer getCustomerBookings(@PathVariable String customerEmailId){
-//        return this.customerServices.getCustomerBookings(customerEmailId);
-//    }
+    @GetMapping("customer/viewAllBookings/{customerEmailId}")
+    public List<Booking> getCustomerBookings(@PathVariable String customerEmailId){
+        return this.customerServices.getCustomerBookings(customerEmailId);
+    }
 
 }
