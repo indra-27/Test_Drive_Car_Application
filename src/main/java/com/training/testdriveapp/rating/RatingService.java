@@ -22,9 +22,7 @@ public interface RatingService {
 
     void deleteRating(Integer id)throws RatingException;
 
-    Map<String,  List<Rating>> displayRatingByCustomerId(String customerId);
+    List<Rating> getRatingsOfCustomerByMailId(String customerId) throws RatingException;
 
-    List<Rating> getRatingsOfCustomerByMailId(String customerId);
-
-    List<RatingDto> getRatingDtoOfCustomerByMailId(String customerMail);
+    List<RatingDto> getRatingDtoOfCustomerByMailId(String customerMail) throws RatingException;
 }

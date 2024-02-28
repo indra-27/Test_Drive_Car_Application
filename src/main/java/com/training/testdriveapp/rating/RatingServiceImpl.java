@@ -13,6 +13,13 @@ import com.training.testdriveapp.customer.CustomerRepository;
 
 import java.util.*;
 
+/************************************************************************************
+ *          @author          Reenu Sivadarshini M
+ *          Description      It is a service class that provides the services for adding a new ratings,
+updating ratings ,deleting ratings and viewing all the review of the customer based on the emailId.
+ *         Version             1.0
+ *         Created Date    27-FEB-2024
+ ************************************************************************************/
 @Service
 @Transactional
 public class RatingServiceImpl implements RatingService{
@@ -22,6 +29,7 @@ public class RatingServiceImpl implements RatingService{
     private CustomerRepository customerRepository;
     @Autowired
     private CarRepository carRepository;
+    //1. Create Rating
     @Override
     public Rating createNewRating(RatingDto newRating) throws RatingException {
 
@@ -71,7 +79,61 @@ public class RatingServiceImpl implements RatingService{
 
         return this.ratingRepository.save(rating);
     }
+    // 2. Display all the ratings
+    @Override
+    public List<Rating> getAllRating() {
+        return this.ratingRepository.findAll();
+    }
+    // 3. Updating Rating
+    @Override
+    public Rating updateRating(Rating rating) throws RatingException{
+        if(rating.getRatingStars()==null || rating.getComments()==null)
+        {
+            throw new RatingException("Rating Cannot be null");
+        }
+        return this.ratingRepository.save(rating);
+    }
+    //4. Updating Rating with new Rating
+    @Override
+    public void deleteRating(Integer id)throws RatingException {
 
+        Optional<Rating> ratingOpt=this.ratingRepository.findById(id);
+
+            if(!ratingOpt.isPresent())
+            {
+                throw new RatingException("Rating Id Does not exist");
+            }
+                else{
+                Rating rating = ratingOpt.get();
+                ratingRepository.delete(rating);
+            }
+    }
+
+    // 5. Getting Ratings of the Particular Customer by mailId (Returns List of Rating )
+    @Override
+    public List<Rating> getRatingsOfCustomerByMailId(String customerMailId) throws RatingException {
+
+        if(ratingRepository.ratingsMap.containsKey(customerMailId)) {
+            return ratingRepository.ratingsMap.get(customerMailId);
+        }
+        else {
+            throw new RatingException("The Mail Id does not exist");
+
+        }
+    }
+
+    // 6. Getting Ratings of the Particular Customer by mailId (Returns List of RatingDto )
+    @Override
+    public List<RatingDto> getRatingDtoOfCustomerByMailId(String customerMailId) throws RatingException {
+        if(ratingRepository.ratingDtoMap.containsKey(customerMailId)) {
+            return ratingRepository.ratingDtoMap.get(customerMailId);
+        }
+        else {
+            throw new RatingException("The Mail Id does not exist");
+
+        }
+    }
+    // 7. Getting the rating within the given limit.
     @Override
     public List<Rating> getAllRatingsBetweenRange(Integer min, Integer max)throws RatingException
     {
@@ -89,63 +151,5 @@ public class RatingServiceImpl implements RatingService{
         }
         return this.ratingRepository.findByRatingStarsBetween(min,max);
     }
-
-
-
-    @Override
-    public List<Rating> getAllRating() {
-        return this.ratingRepository.findAll();
-    }
-
-    @Override
-    public Rating updateRating(Rating rating) throws RatingException{
-        if(rating.getRatingStars()==null || rating.getComments()==null)
-        {
-            throw new RatingException("Rating Cannot be null");
-        }
-        return this.ratingRepository.save(rating);
-    }
-
-    @Override
-    public void deleteRating(Integer id)throws RatingException {
-
-        Optional<Rating> ratingOpt=this.ratingRepository.findById(id);
-
-            if(!ratingOpt.isPresent())
-            {
-                throw new RatingException("Rating Id Does not exist");
-            }
-                else{
-                Rating rating = ratingOpt.get();
-                ratingRepository.delete(rating);
-            }
-    }
-
-    @Override
-    public Map<String, List<Rating>> displayRatingByCustomerId(String customerId) {
-        if (ratingRepository.ratingsMap.containsKey(customerId) )
-        {
-            return ratingRepository.ratingsMap;
-        }
-        return null;
-    }
-
-    @Override
-    public List<Rating> getRatingsOfCustomerByMailId(String customerMailId) {
-        if(ratingRepository.ratingsMap.containsKey(customerMailId)) {
-            return ratingRepository.ratingsMap.get(customerMailId);
-        }
-
-        return null;
-    }
-
-    @Override
-    public List<RatingDto> getRatingDtoOfCustomerByMailId(String customerMailId) {
-        if(ratingRepository.ratingDtoMap.containsKey(customerMailId)) {
-            return ratingRepository.ratingDtoMap.get(customerMailId);
-        }
-        return null;
-    }
-
 
 }
