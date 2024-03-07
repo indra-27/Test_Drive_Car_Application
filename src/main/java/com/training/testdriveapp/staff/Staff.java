@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 public class Staff {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer staffId;
     private String staffName;
     @OneToOne

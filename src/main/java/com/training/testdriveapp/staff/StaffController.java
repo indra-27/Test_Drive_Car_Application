@@ -27,14 +27,11 @@ public class StaffController {
     }
     @DeleteMapping("Delete Staff/{staffid}")
     public Optional<Staff> deleteAccountById(@PathVariable Integer staffid) throws StaffException {
+
         return this.staffService.deleteStaff(staffid);
     }
     @GetMapping("getAllStaffs")
     public List<Staff> getAllAccounts() throws StaffException {
         return this.staffService.getAllStaffs();
-    }
-    @PatchMapping("UpdateStatus/{staffid}")
-    public boolean updateStatus(@PathVariable Integer staffid) throws StaffException{
-        return true;
     }
 }

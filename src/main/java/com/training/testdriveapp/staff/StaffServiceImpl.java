@@ -1,10 +1,14 @@
 package com.training.testdriveapp.staff;
 
+import com.training.testdriveapp.admin.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 /************************************************************************************
  *          @author          Ram Kumar
@@ -52,20 +56,21 @@ public class StaffServiceImpl implements StaffService{
     @Override
     public Optional<Staff> deleteStaff(Integer staffId) throws  StaffException {
         Optional<Staff> foundStaff = this.staffRepository.findBystaffId(staffId);
-        if(!foundStaff.isPresent())
-            throw new StaffException("No such Id Exists: "+ staffId);
-        this.staffRepository.deleteBystaffId(staffId);
-        return foundStaff;
+        if(foundStaff.isPresent()) {
+            this.staffRepository.deleteById(staffId);
+        }
+        return null;
     }
 
     @Override
     public List<Staff> getAllStaffs() throws StaffException {
-        return this.staffRepository.findAll();
-
+        List<Staff> staffList = new ArrayList<>();
+        staffList = this.staffRepository.findAll();
+        if(staffList == null)
+            throw new StaffException("No Product Exists");
+        return staffList;
     }
 
-    @Override
-    public Boolean updateStatus() throws StaffException {
-        return true;
-    }
+
 }
+
