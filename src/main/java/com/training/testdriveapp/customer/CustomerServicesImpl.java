@@ -66,18 +66,7 @@ public class CustomerServicesImpl implements CustomerServices {
     }
 
 
-    /************************************************************************************
-     * Method: 			-getAllCustomers
-     *Description: 			-To get all  customers
 
-
-     * @returns List               - list of customers, if present otherwise throws CustomerException
-     * @throws CustomerException - It is raised due to if customer list is null
-    server side validation
-     *Created By                                - Keerthana
-     *Created Date                            - 19-FEB-2024
-
-     ************************************************************************************/
 
 
 
@@ -263,6 +252,18 @@ public class CustomerServicesImpl implements CustomerServices {
         foundCustomer.setPassword(password);
         return this.customerRepository.save(foundCustomer);
     }
+    /************************************************************************************
+     * Method: 			-getAllCustomers
+     *Description: 			-To get all  customers
+
+
+     * @returns List               - list of customers, if present otherwise throws CustomerException
+     * @throws CustomerException - It is raised due to if customer list is null
+    server side validation
+     *Created By                                - Keerthana
+     *Created Date                            - 19-FEB-2024
+
+     ************************************************************************************/
 
     @Override
 
@@ -273,21 +274,7 @@ public class CustomerServicesImpl implements CustomerServices {
         return this.customerRepository.findAll();
     }
 
-    @Override
-    public List<Booking> getCustomerBookings(String customerEmail) {
-     Optional<Customer> customer=this.customerRepository.findByCustomerEmail(customerEmail);
 
-      if(customer!=null){
-          Customer foundCustomer=customer.get();
-
-           List<Booking> bookings=this.bookingRepository.findByCustomer(foundCustomer);
-
-
-           return bookings;
-      }
-
-         return null;
-    }
 
 
 }

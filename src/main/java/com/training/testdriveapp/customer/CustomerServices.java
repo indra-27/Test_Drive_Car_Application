@@ -29,7 +29,7 @@ public interface CustomerServices {
 
     List<Customer> getAllCustomers() throws CustomerException;
 
-    List<Booking> getCustomerBookings(String email);
+
 
 
 }

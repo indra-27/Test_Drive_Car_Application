@@ -29,7 +29,7 @@ public class CustomerController {
 
     }
 
-    @GetMapping("customer/getAllCustomers")
+    @GetMapping("customer/AllCustomers")
     public List<Customer> getAllCustomers() throws  CustomerException{
         return this.customerServices.getAllCustomers();
     }
@@ -72,9 +72,6 @@ public class CustomerController {
         return this.customerServices.getCustomerById(id);
     }
 
-    @GetMapping("customer/viewAllBookings/{customerEmailId}")
-    public List<Booking> getCustomerBookings(@PathVariable String customerEmailId){
-        return this.customerServices.getCustomerBookings(customerEmailId);
-    }
+
 
 }
