@@ -16,6 +16,7 @@ public class Staff {
     private String phoneNumber;
     private String staffEmail;
 
+
     public Integer getStaffId() {
         return staffId;
     }
@@ -56,15 +57,14 @@ public class Staff {
         this.staffEmail = staffEmail;
     }
 
-
     public Staff() {
     }
 
-    public Staff(Integer staffId, String staffName, Address address, String phoneNumber, String staffEmail) {
-        this.staffId = staffId;
+    public Staff(String staffName, Address address, String phoneNumber, String staffEmail) {
         this.staffName = staffName;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.staffEmail = staffEmail;
     }
+
 }
