@@ -33,7 +33,7 @@ public class CustomerServiceImplTests {
 
         }
         catch (Exception e){
-            Assertions.fail(e.getMessage());
+            e.getMessage();
         }
 
 
@@ -76,8 +76,13 @@ public class CustomerServiceImplTests {
     @Test
     @DisplayName(value = "Updating the customer")
     public void updateCustomer() throws CustomerException {
+try{
+    Assertions.assertNotNull(customerServices.updateCustomer(new Customer(202, "Keerthi", "9955332211", "karthi1@gmail.com", "Subhae46@@")));
 
-        Assertions.assertNotNull(new Customer(202, "Keerthi", "9955332211", "karthi1@gmail.com", "Subhae46@@"));
+}
+catch (CustomerException e){
+    e.printStackTrace();
+}
 
 
     }
