@@ -35,11 +35,8 @@ public class AdminController {
     {
         return this.adminServices.getCarDetailsWithinPriceRange(minprice,maxprice);
     }
-
     @DeleteMapping("admin/car/delete/{id}")
-    public Car deleteCarById(@PathVariable("id") Integer carId) throws AdminException
-    {
+    public Car deleteCarById(@PathVariable("id") Integer carId) throws AdminException {
         return this.adminServices.deleteCarById(carId);
     }
-
 }
