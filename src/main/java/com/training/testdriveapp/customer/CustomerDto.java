@@ -13,10 +13,10 @@ private String mobileNumber;
 
     private String email;
     private String password;
-    private Address address;
+    private String address;
 
 
-    public CustomerDto(String mobileNumber,String name, String email, String password, Integer addressId, Integer ratingId, Address address) {
+    public CustomerDto(String mobileNumber,String name, String email, String password, Integer addressId, Integer ratingId, String address) {
        this.mobileNumber=mobileNumber;
         this.name = name;
         this.email = email;
@@ -26,17 +26,13 @@ private String mobileNumber;
     }
 
 
-
-
-    public Address getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(String address) {
         this.address = address;
     }
-
-
 
     public CustomerDto() {
     }
