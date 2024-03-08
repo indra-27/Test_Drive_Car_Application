@@ -52,11 +52,11 @@ public class BookingController {
     {
         return  this.bookingService.getAllBookings();
     }
-//    @GetMapping("booking/staff/all/{staffEmail}")
-//    public List<BookingOutputDto> getAllUserBookingsByStaffEmail(@PathVariable String staffEmail)throws BookingException
-//    {
-//        return this.bookingService.getAllUserBookingsByStaffEmail(staffEmail);
-//    }
+    @GetMapping("booking/staff/all/{staffEmail}")
+    public List<BookingOutputDto> getAllUserBookingsByStaffEmail(@PathVariable String staffEmail)throws BookingException
+    {
+        return this.bookingService.getAllUserBookingsByStaffEmail(staffEmail);
+    }
 
 
 }

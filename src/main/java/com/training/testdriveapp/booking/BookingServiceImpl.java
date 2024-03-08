@@ -181,16 +181,22 @@ public class BookingServiceImpl implements BookingService{
         return bookingDtos;
     }
 
-//    @Override
-//    public List<BookingOutputDto> getAllUserBookingsByStaffEmail(String staffEmail) throws BookingException{
-//        if(staffEmail == null)
-//            throw new BookingException("Staff mail can't be null");
-//        Optional<Staff> foundStaff = this.staffRepository.findBystaffEmail(staffEmail);
-//        Staff staff = new Staff();
-//        if(foundStaff.isPresent())
-//            staff = foundStaff.get();
-//        List<Car> allCars = this.carRepository.findAll();
-//        return null;
-//    }
+    @Override
+    public List<BookingOutputDto> getAllUserBookingsByStaffEmail(String staffEmail) throws BookingException{
+        if(staffEmail == null)
+            throw new BookingException("Staff mail can't be null");
+        Optional<Staff> foundStaff = this.staffRepository.findBystaffEmail(staffEmail);
+        Staff staff = new Staff();
+        if(foundStaff.isPresent())
+            staff = foundStaff.get();
+        Car foundCar = this.carRepository.findByStaff(staff);
+        List<Booking> foundBooking = this.bookingRepository.findByTestDriveCar(foundCar);
+        List<BookingOutputDto> bookingDtos = new ArrayList<>();
+        for(int i=0;i<foundBooking.size();i++)
+        {
+            bookingDtos.add(new BookingOutputDto(foundBooking.get(i).getBookId(),foundBooking.get(i).getCustomer().getCustomerEmail(),foundBooking.get(i).getTestDriveCar().getModelName(),foundBooking.get(i).getSlotNo(),foundBooking.get(i).getDate(),foundBooking.get(i).getBookingDate(),foundBooking.get(i).getTestDriveCar().getStaff().getStaffName(),foundBooking.get(i).getTestDriveCar().getStaff().getPhoneNumber()));
+        }
+        return bookingDtos;
+    }
 
 }

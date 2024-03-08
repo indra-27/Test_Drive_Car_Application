@@ -22,5 +22,5 @@ public interface BookingService {
 
     BookingOutputDto updateBooking(BookingInputDto updateBooking) throws BookingException;
 
-//    List<BookingOutputDto> getAllUserBookingsByStaffEmail(String staffEmail) throws BookingException;
+    List<BookingOutputDto> getAllUserBookingsByStaffEmail(String staffEmail) throws BookingException;
 }
