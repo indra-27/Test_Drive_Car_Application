@@ -1,33 +1,29 @@
 package com.training.testdriveapp.rating;
 
-import com.training.testdriveapp.admin.Car;
-import com.training.testdriveapp.customer.Customer;
-import jakarta.persistence.*;
-
-import java.util.List;
-
-@Entity
-public class Rating {
-    @Id
-    @GeneratedValue
+public class RatingDto {
+    private String customerEmailId;
     private Integer ratingId;
     private Integer ratingStars;
     private String comments;
-    @ManyToOne
-    private Customer customer;
-    @ManyToOne
-    private Car car;
+    private String carModelName;
 
-    public Rating(Integer ratingId, Integer ratingStars, String comments, Customer customer, Car car) {
+    public RatingDto(String customerEmailId, Integer ratingId, Integer ratingStars, String comments, String carModelName) {
+        this.customerEmailId = customerEmailId;
         this.ratingId = ratingId;
         this.ratingStars = ratingStars;
         this.comments = comments;
-        this.customer = customer;
-        this.car = car;
+        this.carModelName = carModelName;
     }
 
-    public Rating() {
+    public RatingDto() {
+    }
 
+    public String getCustomerEmailId() {
+        return customerEmailId;
+    }
+
+    public void setCustomerEmailId(String customerEmailId) {
+        this.customerEmailId = customerEmailId;
     }
 
     public Integer getRatingId() {
@@ -54,19 +50,11 @@ public class Rating {
         this.comments = comments;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public String getCarModelName() {
+        return carModelName;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
+    public void setCarModelName(String carModelName) {
+        this.carModelName = carModelName;
     }
 }

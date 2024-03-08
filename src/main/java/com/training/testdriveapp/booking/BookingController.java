@@ -58,5 +58,4 @@ public class BookingController {
         return this.bookingService.getAllUserBookingsByStaffEmail(staffEmail);
     }
 
-
 }
