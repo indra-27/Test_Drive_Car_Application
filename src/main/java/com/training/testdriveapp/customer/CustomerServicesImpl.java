@@ -55,10 +55,10 @@ public class CustomerServicesImpl implements CustomerServices {
         if(newCustomer==null)
             throw new CustomerException("New customer cannot be null");
 //
-//       Optional<Customer> customerOpt=this.customerRepository.findByCustomerEmail(newCustomer.getCustomerEmail());
-//
-//        if(customerOpt.isPresent())
-//            throw new CustomerException("Customer already exists");
+       Optional<Customer> customerOpt=this.customerRepository.findByCustomerEmail(newCustomer.getEmail());
+
+        if(customerOpt.isPresent())
+            throw new CustomerException("Customer already exists");
 //
 //
 //
