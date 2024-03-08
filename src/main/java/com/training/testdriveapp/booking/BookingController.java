@@ -47,6 +47,10 @@ public class BookingController {
     {
         return  this.bookingService.getAllBookings();
     }
+        return this.bookingService.getAllUserBookingByCarId(carModelName);
+    }
+//    @GetMapping("booking/car/all")
+//    public List<>
 
 
 }

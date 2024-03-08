@@ -37,7 +37,9 @@ public class BookingServiceImpl implements BookingService{
         if (carDetails.isEmpty()) {
             throw new BookingException("No such car exists");
         }
-        if(newBooking.getSlotNo()<1 || newBooking.getSlotNo()>8)
+
+
+       if(newBooking.getSlotNo()<1 && newBooking.getSlotNo()>8)
             throw new BookingException("Invalid Slot Number");
         if(newBooking.getBookingDate().isAfter(newBooking.getDate()))
             throw new BookingException("The Booking date has to be less than Test drive date");
@@ -118,6 +120,9 @@ public class BookingServiceImpl implements BookingService{
             throw new BookingException("Car model name can't be null");
         List<Car> foundCar = this.carRepository.findBymodelName(carModelName);
         if(foundCar.isEmpty())
+    public List<BookingOutputDto> getAllUserBookingByCarId(String carModelName) throws BookingException{
+        List<Car> foundCar = this.carRepository.findBymodelName(carModelName);
+        if(foundCar.getFirst()==null)
             throw new BookingException("No such Car exists");
         List<Booking> bookings = this.bookingRepository.findByTestDriveCar(foundCar.getFirst());
         List<BookingOutputDto> bookingDtos = new ArrayList<>();
