@@ -2,6 +2,7 @@ package com.training.testdriveapp.customer;
 
 
 import com.training.testdriveapp.booking.Booking;
+import com.training.testdriveapp.booking.BookingOutputDto;
 import com.training.testdriveapp.booking.BookingRepository;
 import com.training.testdriveapp.entity.Address;
 import com.training.testdriveapp.rating.Rating;
@@ -187,16 +188,16 @@ public class CustomerServicesImpl implements CustomerServices {
             throw new CustomerException("Customer doesn't exists");
         }
         else{
-            Optional<Address> address=this.addressRepository.findById(customer.get().getAddress().getId());
-
-            if(!address.isPresent()) {
-                throw new CustomerException("Customer address doesn't exists");
-            }
-            else{
+//            Optional<Address> address=this.addressRepository.findById(customer.get().getAddress().getId());
+//
+//            if(!address.isPresent()) {
+//                throw new CustomerException("Customer address doesn't exists");
+//            }
+//            else{
                 Customer customer1=new Customer();
                 customer1.setCustomerId(customer.get().getCustomerId());
                 customer1.setCustomerName(customer.get().getCustomerName());
-                customer1.setAddress(address.get());
+//                customer1.setAddress(address.get());
                 customer1.setCustomerEmail(customer.get().getCustomerEmail());
                 customer1.setMobileNumber(customer.get().getMobileNumber());
                 customer1.setPassword(customer.get().getPassword());
@@ -206,7 +207,7 @@ public class CustomerServicesImpl implements CustomerServices {
             }
 
 
-        }
+//        }
 
 
     }
@@ -278,6 +279,9 @@ public class CustomerServicesImpl implements CustomerServices {
         if(this.customerRepository.findAll()==null){
             throw new CustomerException("No customer exists");
         }
+
+
+
         return this.customerRepository.findAll();
     }
 
