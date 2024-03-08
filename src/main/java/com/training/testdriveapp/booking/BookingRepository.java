@@ -14,4 +14,5 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
     List<Booking> findByDate(LocalDate date);
     List<Booking> findByTestDriveCar(Car car);
     Booking findByTestDriveCarAndDateAndSlotNo(Car car,LocalDate date,Integer slotNo);
+//    List<Booking> findBy
 }

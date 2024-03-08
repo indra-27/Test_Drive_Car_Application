@@ -141,4 +141,18 @@ public class AdminTests {
 
     // 4) DELETE CAR
 
+    @Test
+    void deleteCarTest() throws AdminException {
+        try{
+            this.adminServices.deleteCarById(99);
+        }catch (AdminException e){
+            Assertions.fail(e.getMessage());
+        }
+    }
+
+//    @Test
+//    void nullTestIndeleteCarTest(){
+//        Assertions.assertThrows(AdminException.class,()->adminServices.deleteCarById(null));
+//    }
+
 }

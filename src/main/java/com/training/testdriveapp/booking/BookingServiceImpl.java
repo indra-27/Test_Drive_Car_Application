@@ -4,6 +4,8 @@ import com.training.testdriveapp.admin.Car;
 import com.training.testdriveapp.admin.CarRepository;
 import com.training.testdriveapp.customer.Customer;
 import com.training.testdriveapp.customer.CustomerRepository;
+import com.training.testdriveapp.staff.Staff;
+import com.training.testdriveapp.staff.StaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,9 @@ public class BookingServiceImpl implements BookingService{
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private StaffRepository staffRepository;
 
     @Override
     public BookingOutputDto createNewBooking(BookingInputDto newBooking) throws BookingException {
@@ -55,6 +60,43 @@ public class BookingServiceImpl implements BookingService{
         newBookingProcess.setDate(newBooking.getDate());
         newBookingProcess.setSlotNo(newBooking.getSlotNo());
         newBookingProcess.setBookingDate(newBooking.getBookingDate());
+        newBookingProcess.setStatus(false);
+
+        this.bookingRepository.save(newBookingProcess);
+        return new BookingOutputDto(newBookingProcess.getBookId(), newBookingProcess.getCustomer().getCustomerEmail(), newBookingProcess.getTestDriveCar().getModelName(), newBookingProcess.getSlotNo(),newBookingProcess.getDate(),newBookingProcess.getBookingDate(),newBookingProcess.getTestDriveCar().getStaff().getStaffName(),newBookingProcess.getTestDriveCar().getStaff().getPhoneNumber());
+    }
+
+    @Override
+    public BookingOutputDto updateBooking(BookingInputDto updateBooking) throws BookingException {
+        if (updateBooking == null) {
+            throw new BookingException("Booking Input can't be null");
+        }
+        List<Car> carDetails = carRepository.findBymodelName(updateBooking.getCarModelName());
+        Optional<Customer> customerDetails = customerRepository.findByCustomerEmail(updateBooking.getCustomerEmailId());
+
+        if (customerDetails.isEmpty()) {
+            throw new BookingException("No such Customer Exists");
+        }
+        Customer foundCustomer  = customerDetails.get();
+
+        if (carDetails.isEmpty()) {
+            throw new BookingException("No such car exists");
+        }
+        if(updateBooking.getSlotNo()<1 || updateBooking.getSlotNo()>8)
+            throw new BookingException("Invalid Slot Number");
+        if(updateBooking.getBookingDate().isAfter(updateBooking.getDate()))
+            throw new BookingException("The Booking date has to be less than Test drive date");
+        Booking foundBooking = this.bookingRepository.findByTestDriveCarAndDateAndSlotNo(carDetails.getFirst(),updateBooking.getDate(), updateBooking.getSlotNo());
+
+        if(foundBooking!=null && foundBooking.getStatus().equals(false))
+            throw new BookingException("Slot already booked");
+
+        Booking newBookingProcess = new Booking();
+        newBookingProcess.setTestDriveCar(carDetails.getFirst());
+        newBookingProcess.setCustomer(foundCustomer);
+        newBookingProcess.setDate(updateBooking.getDate());
+        newBookingProcess.setSlotNo(updateBooking.getSlotNo());
+        newBookingProcess.setBookingDate(updateBooking.getBookingDate());
         newBookingProcess.setStatus(false);
 
         this.bookingRepository.save(newBookingProcess);
@@ -140,6 +182,24 @@ public class BookingServiceImpl implements BookingService{
         for(int i=0;i<bookings.size();i++)
         {
             bookingDtos.add(new BookingOutputDto(bookings.get(i).getBookId(),bookings.get(i).getCustomer().getCustomerEmail(),bookings.get(i).getTestDriveCar().getModelName(),bookings.get(i).getSlotNo(),bookings.get(i).getDate(),bookings.get(i).getBookingDate(),bookings.get(i).getTestDriveCar().getStaff().getStaffName(),bookings.get(i).getTestDriveCar().getStaff().getPhoneNumber()));
+        }
+        return bookingDtos;
+    }
+
+    @Override
+    public List<BookingOutputDto> getAllUserBookingsByStaffEmail(String staffEmail) throws BookingException{
+        if(staffEmail == null)
+            throw new BookingException("Staff mail can't be null");
+        Optional<Staff> foundStaff = this.staffRepository.findBystaffEmail(staffEmail);
+        Staff staff = new Staff();
+        if(foundStaff.isPresent())
+            staff = foundStaff.get();
+        Car foundCar = this.carRepository.findByStaff(staff);
+        List<Booking> foundBooking = this.bookingRepository.findByTestDriveCar(foundCar);
+        List<BookingOutputDto> bookingDtos = new ArrayList<>();
+        for(int i=0;i<foundBooking.size();i++)
+        {
+            bookingDtos.add(new BookingOutputDto(foundBooking.get(i).getBookId(),foundBooking.get(i).getCustomer().getCustomerEmail(),foundBooking.get(i).getTestDriveCar().getModelName(),foundBooking.get(i).getSlotNo(),foundBooking.get(i).getDate(),foundBooking.get(i).getBookingDate(),foundBooking.get(i).getTestDriveCar().getStaff().getStaffName(),foundBooking.get(i).getTestDriveCar().getStaff().getPhoneNumber()));
         }
         return bookingDtos;
     }

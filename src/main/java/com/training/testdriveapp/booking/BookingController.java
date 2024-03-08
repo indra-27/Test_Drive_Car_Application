@@ -16,10 +16,15 @@ public class BookingController {
     {
         return this.bookingService.createNewBooking(newBooking);
     }
-    @DeleteMapping("booking/delete")
+    @DeleteMapping("booking")
     public void deleteBooking(@RequestBody BookIdDto bookIdDto) throws BookingException
     {
         this.bookingService.deleteBooking(bookIdDto);
+    }
+    @PutMapping("booking")
+    public BookingOutputDto updateBooking(@RequestBody BookingInputDto updateBooking) throws BookingException
+    {
+        return this.bookingService.updateBooking(updateBooking);
     }
     @GetMapping("booking/user/all/{mailId}")
     public List<BookingOutputDto> getAllUserBookingByEmail(@PathVariable String mailId) throws BookingException {
@@ -47,10 +52,10 @@ public class BookingController {
     {
         return  this.bookingService.getAllBookings();
     }
-        return this.bookingService.getAllUserBookingByCarId(carModelName);
+    @GetMapping("booking/staff/all/{staffEmail}")
+    public List<BookingOutputDto> getAllUserBookingsByStaffEmail(@PathVariable String staffEmail)throws BookingException
+    {
+        return this.bookingService.getAllUserBookingsByStaffEmail(staffEmail);
     }
-//    @GetMapping("booking/car/all")
-//    public List<>
-
 
 }

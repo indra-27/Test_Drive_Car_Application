@@ -19,5 +19,10 @@ public interface BookingService {
     List<BookingOutputDto> getAllUserBookingByCarModelName(String carModelName)throws BookingException;
 
     List<BookingOutputDto> getAllBookings();
-    List<BookingOutputDto> getAllUserBookingByCarId(String carModelName)throws BookingException;
+
+
+    BookingOutputDto updateBooking(BookingInputDto updateBooking) throws BookingException;
+
+    List<BookingOutputDto> getAllUserBookingsByStaffEmail(String staffEmail) throws BookingException;
+
 }
