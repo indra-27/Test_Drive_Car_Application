@@ -23,16 +23,14 @@ public class StaffTestCases {
     private StaffService staffService;
     @Test
     public void addNewStaff() throws StaffException {
-
-        Integer staffid=0;
+        String staffEmail;
         try {
             Staff staff = this.staffService.addNewStaff(new Staff("Deepaa",null,"9876543210","deepaa@gmail.com"));
-            staffid=staff.getStaffId();
+            staffEmail=staff.getStaffEmail();
             Assertions.assertNotNull(staff);
         } catch (StaffException e) {
             Assertions.fail(e.getMessage());
         }
-
     }
 
     @Test
@@ -83,70 +81,6 @@ public class StaffTestCases {
         }
     }
 
-//    @Test
-//    void nullProductTestInAddNewStaff()
-//    {
-//        Assertions.assertThrows(StaffException.class,()->staffService.addNewStaff(null));
-//    }
-//@Test
-//void nullStaffTestExceptionMessageInAddNewStaff()
-//{
-//    try {
-//        staffService.addNewStaff(null);
-//    } catch (StaffException e) {
-//        Assertions.assertEquals("Staff can't be null",e.getMessage());
-//    }
-//}
-//    @Test
-//    void addStaffAlreadyExistTest()
-//    {
-//        try {
-//            this.staffService.addNewStaff(new Staff("Deepaa",null,"9876543210","deepaa@gmail.com"));
-//        } catch (StaffException e) {
-//            throw new RuntimeException(e);
-//        }
-//        try {
-//            this.staffService.addNewStaff(new Staff("Deepaa",null,"9876543210","deepaa@gmail.com"));
-//        } catch (StaffException e) {
-//            Assertions.assertEquals("Staff already exists: Deepaa", e.getMessage());
-//        }
-//    }
-//    @Test
-//    void getStaffByIDTest()
-//    {
-//        Optional<Staff> staff=null;
-//        try {
-//            staff = this.staffService.getByStaffId(1);
-//            Assertions.assertNotNull(staff);
-//        } catch (StaffException e) {
-//            Assertions.fail(e.getMessage());
-//        }
-//    }
-//    @Test
-//    public void nullStaffTestInGetStaffByID()
-//    {
-//        Assertions.assertThrows(StaffException.class,()->staffService.getByStaffId(null));
-//    }
-//
-//    @Test
-//    public void nullStaffTestExceptionMessageInGetStaffByID()
-//    {
-//        try {
-//            staffService.getByStaffId(null);
-//        } catch (StaffException e) {
-//            Assertions.assertEquals("ID can't be null",e.getMessage());
-//        }
-//    }
-//    @Test
-//    public void getStaffByIDNoSuchStaffExists()
-//    {
-//        try {
-//            staffService.getByStaffId(10);
-//        }catch (StaffException e)
-//        {
-//            Assertions.assertEquals("No such Id Exists: 10",e.getMessage());
-//        }
-//    }
     @Test
     public void updateStaffTest()
     {
@@ -183,24 +117,6 @@ public class StaffTestCases {
             Assertions.assertEquals("No such Id Exists: 80",e.getMessage());
         }
     }
-//    //+ve testcase
-//    @Test
-//    void deleteStaffTest()
-//    {
-//        try {
-//            this.staffService.deleteStaff(2);
-//        } catch (StaffException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    //-ve testcase
-//    @Test
-//    void nullStaffTestInDeleteStaffById()
-//    {
-//        Assertions.assertThrows(StaffException
-//                .class,()->staffService.deleteStaff(null));
-//    }
     @Test
     void nullStaffTestExceptionMessageInDeleteStaffByID()
     {

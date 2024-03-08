@@ -11,9 +11,9 @@ import java.util.Optional;
 import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 /************************************************************************************
- *          @author          Ram Kumar
- *          Description      It is a service class that provides the services for adding anew account,
-transferring fund and viewing all the accounts
+ *          @author           Deepaa Umapathi
+ *          Description      It is a service class that provides the services for adding a new staff,
+updating fund and viewing all the accounts
  *         Version             1.0
  *         Created Date    02-APR-2020
  ************************************************************************************/
@@ -25,11 +25,11 @@ public class StaffServiceImpl implements StaffService{
     @Override
     public Staff addNewStaff(Staff newStaff) throws StaffException {
         if(newStaff==null){
-            throw new StaffException("Staff id can't be null");
+            throw new StaffException("Staff can't be null");
         }
-        Optional<Staff> foundAccount = this.staffRepository.findBystaffId(newStaff.getStaffId());
-        if(foundAccount.isPresent())
-            throw new StaffException("Staff Already exists:"+newStaff.getStaffName());
+//        Optional<Staff> foundAccount = this.staffRepository.findBystaffId(newStaff.getStaffId());
+//        if(foundAccount.isPresent())
+//            throw new StaffException("Staff Already exists:"+newStaff.getStaffName());
 
         Optional<Staff> accountOpt=this.staffRepository.findBystaffEmail(newStaff.getStaffEmail());
         if(accountOpt.isPresent())
