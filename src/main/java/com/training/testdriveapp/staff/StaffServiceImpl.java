@@ -63,4 +63,9 @@ public class StaffServiceImpl implements StaffService{
         return this.staffRepository.findAll();
 
     }
+
+    @Override
+    public Boolean updateStatus() throws StaffException {
+        return true;
+    }
 }

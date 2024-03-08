@@ -15,6 +15,9 @@ public class RatingDto {
         this.carModelName = carModelName;
     }
 
+    public RatingDto() {
+    }
+
     public String getCustomerEmailId() {
         return customerEmailId;
     }

@@ -40,6 +40,13 @@ public class BookingController {
     @GetMapping("booking/car/all/{carModelName}")
     public List<BookingOutputDto> getAllUserBookingByCarId(@PathVariable String carModelName) throws BookingException
     {
+        return this.bookingService.getAllUserBookingByCarModelName(carModelName);
+    }
+    @GetMapping("booking/car/all")
+    public List<BookingOutputDto> getAllBookings()
+    {
+        return  this.bookingService.getAllBookings();
+    }
         return this.bookingService.getAllUserBookingByCarId(carModelName);
     }
 //    @GetMapping("booking/car/all")

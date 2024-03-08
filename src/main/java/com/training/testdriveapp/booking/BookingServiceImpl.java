@@ -37,7 +37,9 @@ public class BookingServiceImpl implements BookingService{
         if (carDetails.isEmpty()) {
             throw new BookingException("No such car exists");
         }
-        if(newBooking.getSlotNo()<1 && newBooking.getSlotNo()>8)
+
+
+       if(newBooking.getSlotNo()<1 && newBooking.getSlotNo()>8)
             throw new BookingException("Invalid Slot Number");
         if(newBooking.getBookingDate().isAfter(newBooking.getDate()))
             throw new BookingException("The Booking date has to be less than Test drive date");
@@ -70,6 +72,8 @@ public class BookingServiceImpl implements BookingService{
 
     @Override
     public List<BookingOutputDto> getAllUserBookingByEmail(String mailId) throws BookingException{
+        if(mailId == null)
+            throw new BookingException("Mail Id can't be null");
         Optional<Customer> foundCustomer = this.customerRepository.findByCustomerEmail(mailId);
         if(foundCustomer.isEmpty())
             throw new BookingException("No such Customer exists");
@@ -84,6 +88,8 @@ public class BookingServiceImpl implements BookingService{
 
     @Override
     public List<BookingOutputDto> getAllUserBookingBySlotNo(Integer slotNo) throws BookingException{
+        if(slotNo==null)
+            throw new BookingException("Slot no can't be null");
         if(slotNo<1 || slotNo>8)
             throw new BookingException("Invalid Slot Number");
         List<Booking> bookings = this.bookingRepository.findBySlotNoOrderBySlotNo(slotNo);
@@ -97,6 +103,8 @@ public class BookingServiceImpl implements BookingService{
 
     @Override
     public List<BookingOutputDto> getAllUserBookingByDate(LocalDate date) throws BookingException {
+        if(date == null)
+            throw new BookingException("Date can't be null");
         List<Booking> bookings = this.bookingRepository.findByDate(date);
         List<BookingOutputDto> bookingDtos = new ArrayList<>();
         for(int i=0;i<bookings.size();i++)
@@ -107,11 +115,27 @@ public class BookingServiceImpl implements BookingService{
     }
 
     @Override
+    public List<BookingOutputDto> getAllUserBookingByCarModelName(String carModelName) throws BookingException{
+        if(carModelName==null)
+            throw new BookingException("Car model name can't be null");
+        List<Car> foundCar = this.carRepository.findBymodelName(carModelName);
+        if(foundCar.isEmpty())
     public List<BookingOutputDto> getAllUserBookingByCarId(String carModelName) throws BookingException{
         List<Car> foundCar = this.carRepository.findBymodelName(carModelName);
         if(foundCar.getFirst()==null)
             throw new BookingException("No such Car exists");
         List<Booking> bookings = this.bookingRepository.findByTestDriveCar(foundCar.getFirst());
+        List<BookingOutputDto> bookingDtos = new ArrayList<>();
+        for(int i=0;i<bookings.size();i++)
+        {
+            bookingDtos.add(new BookingOutputDto(bookings.get(i).getBookId(),bookings.get(i).getCustomer().getCustomerEmail(),bookings.get(i).getTestDriveCar().getModelName(),bookings.get(i).getSlotNo(),bookings.get(i).getDate(),bookings.get(i).getBookingDate(),bookings.get(i).getTestDriveCar().getStaff().getStaffName(),bookings.get(i).getTestDriveCar().getStaff().getPhoneNumber()));
+        }
+        return bookingDtos;
+    }
+
+    @Override
+    public List<BookingOutputDto> getAllBookings() {
+        List<Booking> bookings = this.bookingRepository.findAll();
         List<BookingOutputDto> bookingDtos = new ArrayList<>();
         for(int i=0;i<bookings.size();i++)
         {
