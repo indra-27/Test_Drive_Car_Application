@@ -23,7 +23,7 @@ public interface CustomerServices {
 
     Customer  updateCustomerMobile(String email, String mobileNumber) throws CustomerException;
 
-    Customer updateCustomerAddress(Integer id, Address address) throws CustomerException;
+    Customer updateCustomerAddress(Integer id, String address) throws CustomerException;
 
     Customer updateCustomerPassword(String email, String password) throws CustomerException;
 

@@ -25,6 +25,9 @@ private String mobileNumber;
         this.address = address;
     }
 
+    public CustomerDto(int i, String karthi, String chennai, String number, String mail, String s) {
+    }
+
 
     public String getAddress() {
         return address;

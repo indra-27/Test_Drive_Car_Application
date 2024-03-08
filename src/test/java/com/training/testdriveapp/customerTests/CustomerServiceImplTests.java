@@ -1,9 +1,6 @@
 package com.training.testdriveapp.customerTests;
 
-import com.training.testdriveapp.customer.Customer;
-import com.training.testdriveapp.customer.CustomerException;
-import com.training.testdriveapp.customer.CustomerRepository;
-import com.training.testdriveapp.customer.CustomerServicesImpl;
+import com.training.testdriveapp.customer.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,8 +24,8 @@ public class CustomerServiceImplTests {
     @DisplayName(value = "adding a new Customer ")
     public void addNewCustomer() throws CustomerException {
         try{
-            Customer customer=new Customer(20,"Karthi","9988776655","karthi@gmail.com","String@1234556");
-            customer=this.customerServices.addNewCustomer(customer);
+            CustomerDto customer=new CustomerDto(20,"Karthi","Chennai","9988776655","karthi@gmail.com","String@1234556");
+
             Assertions.assertNotNull(customer);
 
         }
@@ -60,13 +57,13 @@ public class CustomerServiceImplTests {
     @Test
     void addCustomerShouldThrowAnExceptionIfAlreadyExists() {
         try {
-            this.customerServices.addNewCustomer(new Customer(10,"Abi","8877665544","Str@gmail.com","str12345"));
+            this.customerServices.addNewCustomer(new CustomerDto(10,"Abi","Salem","8877665544","Str@gmail.com","str12345"));
         } catch (CustomerException e) {
 
             e.printStackTrace();
         }
         try {
-            this.customerServices.addNewCustomer(new Customer(10,"Abi","8877665544","Str@gmail.com","str12345"));
+            this.customerServices.addNewCustomer(new CustomerDto(10,"Abi","Salem","8877665544","Str@gmail.com","str12345"));
         } catch (CustomerException e) {
             Assertions.assertEquals("Customer already exists", e.getMessage());
         }
@@ -76,13 +73,12 @@ public class CustomerServiceImplTests {
     @Test
     @DisplayName(value = "Updating the customer")
     public void updateCustomer() throws CustomerException {
-try{
-    Assertions.assertNotNull(customerServices.updateCustomer(new Customer(202, "Keerthi", "9955332211", "karthi1@gmail.com", "Subhae46@@")));
-
-}
-catch (CustomerException e){
+        try{
+    Assertions.assertNotNull(customerServices.updateCustomer(new Customer(202, "Keerthi", "Madurai","9955332211", "karthi1@gmail.com", "Subhae46@@")));
+        }
+    catch (CustomerException e){
     e.printStackTrace();
-}
+    }
 
 
     }
@@ -107,7 +103,7 @@ catch (CustomerException e){
     @Test
     public void customerAlreadyNotExistsForUpdateCustomer(){
         try {
-            customerServices.updateCustomer(new Customer(200,"Kavin","0088775443","Sv@gmail.com","ght12"));
+            customerServices.updateCustomer(new Customer(200,"Kavin","Salem","0088775443","Sv@gmail.com","ght12"));
 
         }
         catch (CustomerException e){

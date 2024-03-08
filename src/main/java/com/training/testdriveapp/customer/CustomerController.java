@@ -46,7 +46,7 @@ public class CustomerController {
     }
 
     @PatchMapping("customer/updateCustomerAddress/{id}/{address}")
-    public Customer updateCustomerAddress(@PathVariable Integer id, @PathVariable Address address) throws CustomerException {
+    public Customer updateCustomerAddress(@PathVariable Integer id, @PathVariable String address) throws CustomerException {
         return this.customerServices.updateCustomerAddress(id,address);
     }
 
