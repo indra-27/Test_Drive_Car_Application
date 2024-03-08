@@ -7,16 +7,17 @@ import jakarta.persistence.*;
 
 public class CustomerDto {
 
-    private Integer id;
+
     private String name;
+private String mobileNumber;
 
     private String email;
     private String password;
     private Address address;
 
 
-    public CustomerDto(Integer id, String name, String email, String password, Integer addressId, Integer ratingId, Address address) {
-        this.id = id;
+    public CustomerDto(String mobileNumber,String name, String email, String password, Integer addressId, Integer ratingId, Address address) {
+       this.mobileNumber=mobileNumber;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -25,14 +26,7 @@ public class CustomerDto {
     }
 
 
-    public CustomerDto(Integer id, String name, String email, String password, Integer addressId, Address address) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
 
-        this.address = address;
-    }
 
     public Address getAddress() {
         return address;
@@ -47,27 +41,14 @@ public class CustomerDto {
     public CustomerDto() {
     }
 
-    public CustomerDto(Integer id, String name, String email, String password, Integer addressId) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
 
 
-    }
 
-    public CustomerDto(String name, String email, String password, Integer addressId) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-
-
-    }
 
     @Override
     public String toString() {
         return "CustomerDto{" +
-                "id=" + id +
+                "mobile"+mobileNumber+
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
@@ -76,12 +57,12 @@ public class CustomerDto {
                 '}';
     }
 
-    public Integer getId() {
-        return id;
+    public String getMobileNumber() {
+        return mobileNumber;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 
     public String getName() {

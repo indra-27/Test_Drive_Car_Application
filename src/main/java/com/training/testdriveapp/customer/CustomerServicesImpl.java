@@ -50,19 +50,26 @@ public class CustomerServicesImpl implements CustomerServices {
 
 
     @Override
-    public Customer addNewCustomer(Customer newCustomer) throws CustomerException {
+    public Customer addNewCustomer(CustomerDto newCustomer) throws CustomerException {
         if(newCustomer==null)
             throw new CustomerException("New customer cannot be null");
-
-       Optional<Customer> customerOpt=this.customerRepository.findByCustomerEmail(newCustomer.getCustomerEmail());
-
-        if(customerOpt.isPresent())
-            throw new CustomerException("Customer already exists");
-
-
-
-
-        return this.customerRepository.save(newCustomer);
+//
+//       Optional<Customer> customerOpt=this.customerRepository.findByCustomerEmail(newCustomer.getCustomerEmail());
+//
+//        if(customerOpt.isPresent())
+//            throw new CustomerException("Customer already exists");
+//
+//
+//
+//
+//        return this.customerRepository.save(newCustomer);
+        Customer customer=new Customer();
+        customer.setAddress(newCustomer.getAddress());
+        customer.setCustomerEmail(newCustomer.getEmail());
+        customer.setCustomerName(newCustomer.getName());
+        customer.setPassword(newCustomer.getPassword());
+        customer.setMobileNumber(newCustomer.getMobileNumber());
+        return  this.customerRepository.save(customer);
     }
 
 

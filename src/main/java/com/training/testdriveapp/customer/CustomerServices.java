@@ -6,7 +6,7 @@ import com.training.testdriveapp.entity.Address;
 import java.util.List;
 
 public interface CustomerServices {
-    Customer addNewCustomer(Customer newCustomer) throws CustomerException;
+    Customer addNewCustomer(CustomerDto newCustomer) throws CustomerException;
 
 
 
