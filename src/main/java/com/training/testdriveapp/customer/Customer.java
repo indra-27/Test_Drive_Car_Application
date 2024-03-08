@@ -18,7 +18,10 @@ public class Customer {
     private String customerName;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customerId")
+
     private Address address;
+
+    
     private String mobileNumber;
     private String customerEmail;
     private String password;
