@@ -157,14 +157,11 @@ public class BookingServiceImpl implements BookingService{
     }
 
     @Override
-    public List<BookingOutputDto> getAllUserBookingByCarModelName(String carModelName) throws BookingException{
-        if(carModelName==null)
+    public List<BookingOutputDto> getAllUserBookingByCarModelName(String carModelName) throws BookingException {
+        if (carModelName == null)
             throw new BookingException("Car model name can't be null");
         List<Car> foundCar = this.carRepository.findBymodelName(carModelName);
-        if(foundCar.isEmpty())
-    public List<BookingOutputDto> getAllUserBookingByCarId(String carModelName) throws BookingException{
-        List<Car> foundCar = this.carRepository.findBymodelName(carModelName);
-        if(foundCar.getFirst()==null)
+        if (foundCar.isEmpty())
             throw new BookingException("No such Car exists");
         List<Booking> bookings = this.bookingRepository.findByTestDriveCar(foundCar.getFirst());
         List<BookingOutputDto> bookingDtos = new ArrayList<>();
