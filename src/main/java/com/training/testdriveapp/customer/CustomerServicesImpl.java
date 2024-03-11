@@ -2,6 +2,7 @@ package com.training.testdriveapp.customer;
 
 
 import com.training.testdriveapp.booking.Booking;
+import com.training.testdriveapp.booking.BookingOutputDto;
 import com.training.testdriveapp.booking.BookingRepository;
 import com.training.testdriveapp.entity.Address;
 import com.training.testdriveapp.rating.Rating;
@@ -53,22 +54,20 @@ public class CustomerServicesImpl implements CustomerServices {
     public Customer addNewCustomer(CustomerDto newCustomer) throws CustomerException {
         if(newCustomer==null)
             throw new CustomerException("New customer cannot be null");
-//
-//       Optional<Customer> customerOpt=this.customerRepository.findByCustomerEmail(newCustomer.getCustomerEmail());
-//
-//        if(customerOpt.isPresent())
-//            throw new CustomerException("Customer already exists");
-//
-//
-//
-//
-//        return this.customerRepository.save(newCustomer);
+
+       Optional<Customer> customerOpt=this.customerRepository.findByCustomerEmail(newCustomer.getEmail());
+
+        if(customerOpt.isPresent())
+            throw new CustomerException("Customer already exists");
+
         Customer customer=new Customer();
         customer.setAddress(newCustomer.getAddress());
         customer.setCustomerEmail(newCustomer.getEmail());
         customer.setCustomerName(newCustomer.getName());
         customer.setPassword(newCustomer.getPassword());
         customer.setMobileNumber(newCustomer.getMobileNumber());
+
+
         return  this.customerRepository.save(customer);
     }
 
@@ -129,10 +128,10 @@ public class CustomerServicesImpl implements CustomerServices {
         }
 
         Customer customer=customerOpt.get();
-        Address address=customer.getAddress();
+//        Address address=customer.getAddress();
 
 
-        addressRepository.delete(address);
+//        addressRepository.delete(address);
         customerRepository.delete(customer);
 
 
@@ -187,16 +186,16 @@ public class CustomerServicesImpl implements CustomerServices {
             throw new CustomerException("Customer doesn't exists");
         }
         else{
-            Optional<Address> address=this.addressRepository.findById(customer.get().getAddress().getId());
-
-            if(!address.isPresent()) {
-                throw new CustomerException("Customer address doesn't exists");
-            }
-            else{
+//            Optional<Address> address=this.addressRepository.findById(customer.get().getAddress().getId());
+//
+//            if(!address.isPresent()) {
+//                throw new CustomerException("Customer address doesn't exists");
+//            }
+//            else{
                 Customer customer1=new Customer();
                 customer1.setCustomerId(customer.get().getCustomerId());
                 customer1.setCustomerName(customer.get().getCustomerName());
-                customer1.setAddress(address.get());
+        customer1.setAddress(customer.get().getAddress());
                 customer1.setCustomerEmail(customer.get().getCustomerEmail());
                 customer1.setMobileNumber(customer.get().getMobileNumber());
                 customer1.setPassword(customer.get().getPassword());
@@ -206,7 +205,7 @@ public class CustomerServicesImpl implements CustomerServices {
             }
 
 
-        }
+//        }
 
 
     }
@@ -232,7 +231,7 @@ public class CustomerServicesImpl implements CustomerServices {
     }
 
     @Override
-    public Customer updateCustomerAddress(Integer id, Address address) throws CustomerException {
+    public Customer updateCustomerAddress(Integer id, String address) throws CustomerException {
         Optional<Customer> customer=this.customerRepository.findById(id);
         if(!customer.isPresent()){
             throw new CustomerException("Customer not exists");
@@ -278,6 +277,9 @@ public class CustomerServicesImpl implements CustomerServices {
         if(this.customerRepository.findAll()==null){
             throw new CustomerException("No customer exists");
         }
+
+
+
         return this.customerRepository.findAll();
     }
 

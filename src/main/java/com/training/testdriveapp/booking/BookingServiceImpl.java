@@ -42,9 +42,7 @@ public class BookingServiceImpl implements BookingService{
         if (carDetails.isEmpty()) {
             throw new BookingException("No such car exists");
         }
-
-
-       if(newBooking.getSlotNo()<1 && newBooking.getSlotNo()>8)
+        if(newBooking.getSlotNo()<1 || newBooking.getSlotNo()>8)
             throw new BookingException("Invalid Slot Number");
         if(newBooking.getBookingDate().isAfter(newBooking.getDate()))
             throw new BookingException("The Booking date has to be less than Test drive date");
