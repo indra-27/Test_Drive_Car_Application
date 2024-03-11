@@ -84,6 +84,9 @@ public class BookingServiceImpl implements BookingService{
             throw new BookingException("Invalid Slot Number");
         if(updateBooking.getBookingDate().isAfter(updateBooking.getDate()))
             throw new BookingException("The Booking date has to be less than Test drive date");
+        Booking booking = this.bookingRepository.findByTestDriveCarAndCustomer(carDetails.getFirst(),foundCustomer);
+        if(booking!=null)
+            throw new BookingException("You already test drove this model car");
         Booking foundBooking = this.bookingRepository.findByTestDriveCarAndDateAndSlotNo(carDetails.getFirst(),updateBooking.getDate(), updateBooking.getSlotNo());
 
         if(foundBooking!=null && foundBooking.getStatus().equals(false))
