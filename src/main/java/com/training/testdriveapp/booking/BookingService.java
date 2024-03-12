@@ -25,4 +25,5 @@ public interface BookingService {
 
     List<BookingOutputDto> getAllUserBookingsByStaffEmail(String staffEmail) throws BookingException;
 
+
 }

@@ -69,6 +69,7 @@ import java.time.LocalDate;
 
     @Test
 
+
     void wrongSlotNumberTestExceptionMessageInNewBookingTest() {
         try {
             this.bookingService.createNewBooking((new BookingInputDto("indra@gmail.com","EcoSport",-8,LocalDate.of(2024,2,27),LocalDate.of(2024,2,23))));
