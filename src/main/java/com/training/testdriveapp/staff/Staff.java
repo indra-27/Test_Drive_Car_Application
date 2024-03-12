@@ -11,8 +11,7 @@ public class Staff {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer staffId;
     private String staffName;
-    @OneToOne
-    private Address address;
+
     private String phoneNumber;
     private String staffEmail;
 
@@ -33,13 +32,7 @@ public class Staff {
         this.staffName = staffName;
     }
 
-    public Address getAddress() {
-        return address;
-    }
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -60,9 +53,9 @@ public class Staff {
     public Staff() {
     }
 
-    public Staff(String staffName, Address address, String phoneNumber, String staffEmail) {
+    public Staff(String staffName, String phoneNumber, String staffEmail) {
         this.staffName = staffName;
-        this.address = address;
+
         this.phoneNumber = phoneNumber;
         this.staffEmail = staffEmail;
     }

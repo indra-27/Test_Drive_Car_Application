@@ -25,7 +25,7 @@ public class StaffTestCases {
     public void addNewStaff() throws StaffException {
         String staffEmail;
         try {
-            Staff staff = this.staffService.addNewStaff(new Staff("Deepaa",null,"9876543210","deepaa@gmail.com"));
+            Staff staff = this.staffService.addNewStaff(new Staff("Deepaa","9876543210","deepaa@gmail.com"));
             staffEmail=staff.getStaffEmail();
             Assertions.assertNotNull(staff);
         } catch (StaffException e) {
@@ -50,7 +50,7 @@ public class StaffTestCases {
     @Test
     void noStaffTestExceptionMessageInNewStaffTest(){
         try {
-            this.staffService.addNewStaff((new Staff("Deepaa",null,"9876543210","deepaa@gmail.com")));
+            this.staffService.addNewStaff((new Staff("Deepaa","9876543210","deepaa@gmail.com")));
         } catch (StaffException e) {
             Assertions.assertEquals("No such Staff Exists", e.getMessage());
         }
@@ -85,7 +85,7 @@ public class StaffTestCases {
     public void updateStaffTest()
     {
         try {
-            Assertions.assertNotNull(staffService.updateStaffDetails(new Staff("Deepaa",null,"9876543210","deepaa@gmail.com")));
+            Assertions.assertNotNull(staffService.updateStaffDetails(new Staff("Deepaa","9876543210","deepaa@gmail.com")));
         } catch (StaffException e) {
             e.printStackTrace();
         }

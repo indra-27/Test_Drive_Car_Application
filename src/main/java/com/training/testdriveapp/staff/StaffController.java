@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 @RestController
+@CrossOrigin("http://localhost:4200/")
 public class StaffController {
     @Autowired
     private StaffService staffService;
@@ -16,16 +17,16 @@ public class StaffController {
         return this.staffService.addNewStaff(newStaff);
     }
 
-    @PutMapping("Update Staff")
+    @PutMapping("UpdateStaff")
     public Staff updateAccount(@RequestBody Staff staff) throws StaffException {
         return this.staffService.updateStaffDetails(staff);
     }
 
-    @GetMapping("Get Staff by Id/{staffid}")
+    @GetMapping("GetStaffbyId/{staffid}")
     public Optional<Staff> getByStaffId(@PathVariable("staffid") Integer staffid) throws StaffException {
         return this.staffService.getByStaffId(staffid);
     }
-    @DeleteMapping("Delete Staff/{staffid}")
+    @DeleteMapping("DeleteStaff/{staffid}")
     public Optional<Staff> deleteAccountById(@PathVariable Integer staffid) throws StaffException {
 
         return this.staffService.deleteStaff(staffid);
