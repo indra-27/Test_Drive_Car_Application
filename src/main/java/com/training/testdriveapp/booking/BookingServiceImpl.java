@@ -9,6 +9,7 @@ import com.training.testdriveapp.staff.StaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.Console;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -46,7 +47,12 @@ public class BookingServiceImpl implements BookingService{
             throw new BookingException("Invalid Slot Number");
         if(newBooking.getBookingDate().isAfter(newBooking.getDate()))
             throw new BookingException("The Booking date has to be less than Test drive date");
-
+        Booking booking = this.bookingRepository.findByTestDriveCarAndCustomer(carDetails.getFirst(),foundCustomer);
+        //System.out.println(booking.getBookId());
+        if(booking!=null)
+        {
+            throw new BookingException("You already Test drove this model car");
+        }
         Booking foundBooking = this.bookingRepository.findByTestDriveCarAndDateAndSlotNo(carDetails.getFirst(),newBooking.getDate(), newBooking.getSlotNo());
 
         if(foundBooking!=null && foundBooking.getStatus().equals(false))
