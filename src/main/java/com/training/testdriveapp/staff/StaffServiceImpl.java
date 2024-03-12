@@ -1,15 +1,19 @@
 package com.training.testdriveapp.staff;
 
+import com.training.testdriveapp.admin.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 /************************************************************************************
- *          @author          Ram Kumar
- *          Description      It is a service class that provides the services for adding anew account,
-transferring fund and viewing all the accounts
+ *          @author           Deepaa Umapathi
+ *          Description      It is a service class that provides the services for adding a new staff,
+updating fund and viewing all the accounts
  *         Version             1.0
  *         Created Date    02-APR-2020
  ************************************************************************************/
@@ -21,11 +25,11 @@ public class StaffServiceImpl implements StaffService{
     @Override
     public Staff addNewStaff(Staff newStaff) throws StaffException {
         if(newStaff==null){
-            throw new StaffException("Staff id can't be null");
+            throw new StaffException("Staff can't be null");
         }
-        Optional<Staff> foundAccount = this.staffRepository.findBystaffId(newStaff.getStaffId());
-        if(foundAccount.isPresent())
-            throw new StaffException("Staff Already exists:"+newStaff.getStaffName());
+//        Optional<Staff> foundAccount = this.staffRepository.findBystaffId(newStaff.getStaffId());
+//        if(foundAccount.isPresent())
+//            throw new StaffException("Staff Already exists:"+newStaff.getStaffName());
 
         Optional<Staff> accountOpt=this.staffRepository.findBystaffEmail(newStaff.getStaffEmail());
         if(accountOpt.isPresent())
@@ -52,20 +56,21 @@ public class StaffServiceImpl implements StaffService{
     @Override
     public Optional<Staff> deleteStaff(Integer staffId) throws  StaffException {
         Optional<Staff> foundStaff = this.staffRepository.findBystaffId(staffId);
-        if(!foundStaff.isPresent())
-            throw new StaffException("No such Id Exists: "+ staffId);
-        this.staffRepository.deleteBystaffId(staffId);
-        return foundStaff;
+        if(foundStaff.isPresent()) {
+            this.staffRepository.deleteById(staffId);
+        }
+        return null;
     }
 
     @Override
     public List<Staff> getAllStaffs() throws StaffException {
-        return this.staffRepository.findAll();
-
+        List<Staff> staffList = new ArrayList<>();
+        staffList = this.staffRepository.findAll();
+        if(staffList == null)
+            throw new StaffException("No Product Exists");
+        return staffList;
     }
 
-    @Override
-    public Boolean updateStatus() throws StaffException {
-        return true;
-    }
+
 }
+
