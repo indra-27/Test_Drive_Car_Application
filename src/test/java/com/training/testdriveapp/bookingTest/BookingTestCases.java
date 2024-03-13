@@ -25,9 +25,7 @@ import java.time.LocalDate;
             Assertions.fail(e.getMessage());
         }
         finally {
-            BookIdDto bookIdDto = new BookIdDto();
-            bookIdDto.setBookId(bookId);
-            this.bookingService.deleteBooking(bookIdDto);
+            this.bookingService.deleteBooking(bookId);
         }
     }
 
@@ -100,7 +98,7 @@ import java.time.LocalDate;
     void deleteBookingTest()
     {
         try{
-            this.bookingService.deleteBooking(new BookIdDto(653));
+            this.bookingService.deleteBooking(653);
         }
         catch (BookingException e)
         {
@@ -111,13 +109,13 @@ import java.time.LocalDate;
     @Test
     void nullDeleteBookingTestInDeleteBookingByBookId()
     {
-        Assertions.assertThrows(BookingException.class,()->bookingService.deleteBooking(new BookIdDto(null)));
+        Assertions.assertThrows(BookingException.class,()->bookingService.deleteBooking(null));
     }
     @Test
     void nullDeleteBookingTestExceptionMessageInDeleteBookingByBookId()
     {
         try {
-            this.bookingService.deleteBooking(new BookIdDto(null));
+            this.bookingService.deleteBooking(null);
         } catch (BookingException e) {
             Assertions.assertEquals("Id can't be null",e.getMessage());
         }
@@ -126,7 +124,7 @@ import java.time.LocalDate;
     void deleteBookingByBookIdNoSuchBookIdExists()
     {
         try {
-            this.bookingService.deleteBooking(new BookIdDto(-98));
+            this.bookingService.deleteBooking(-98);
         } catch (BookingException e) {
             Assertions.assertEquals("No such Book Id exists",e.getMessage());
         }
@@ -277,9 +275,7 @@ import java.time.LocalDate;
             Assertions.fail(e.getMessage());
         }
         finally {
-            BookIdDto bookIdDto = new BookIdDto();
-            bookIdDto.setBookId(bookId);
-            this.bookingService.deleteBooking(bookIdDto);
+            this.bookingService.deleteBooking(bookId);
         }
     }
 
