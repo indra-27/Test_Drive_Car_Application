@@ -25,9 +25,7 @@ import java.time.LocalDate;
             Assertions.fail(e.getMessage());
         }
         finally {
-            BookIdDto bookIdDto = new BookIdDto();
-            bookIdDto.setBookId(bookId);
-            this.bookingService.deleteBooking(bookIdDto);
+            this.bookingService.deleteBooking(bookId);
         }
     }
 
@@ -68,11 +66,11 @@ import java.time.LocalDate;
     }
 
     @Test
-    void wrongSlotNumberTestExceptionMessageInNewBookingTest() throws BookingException {
 
+
+    void wrongSlotNumberTestExceptionMessageInNewBookingTest() {
         try {
             this.bookingService.createNewBooking((new BookingInputDto("indra@gmail.com","EcoSport",-8,LocalDate.of(2024,2,27),LocalDate.of(2024,2,23))));
-
         } catch (BookingException e) {
             Assertions.assertEquals("Invalid Slot Number", e.getMessage());
         }
@@ -86,11 +84,19 @@ import java.time.LocalDate;
             Assertions.assertEquals("The Booking date has to be less than Test drive date", e.getMessage());
         }
     }
+    @Test
+    void alreadyDroveTestExceptionMessageInNewBookingTest(){
+        try {
+            this.bookingService.createNewBooking((new BookingInputDto("indra@gmail.com","Mustang",6,LocalDate.of(2024,3,18),LocalDate.of(2024,3,14))));
+        } catch (BookingException e) {
+            Assertions.assertEquals("You already Test drove this model car", e.getMessage());
+        }
+    }
 
     @Test
     void slotAlreadyBookedTestExceptionMessageInNewBookingTest(){
         try {
-            this.bookingService.createNewBooking(new BookingInputDto("indra@gmail.com","EcoSport",3,LocalDate.of(2024,2,27),LocalDate.of(2024,2,23)));
+            this.bookingService.createNewBooking(new BookingInputDto("dhanya@gmail.com","Mustang",6,LocalDate.of(2024,3,15),LocalDate.of(2024,2,23)));
         } catch (BookingException e) {
             Assertions.assertEquals("Slot already booked", e.getMessage());
         }
@@ -100,7 +106,7 @@ import java.time.LocalDate;
     void deleteBookingTest()
     {
         try{
-            this.bookingService.deleteBooking(new BookIdDto(653));
+            this.bookingService.deleteBooking(653);
         }
         catch (BookingException e)
         {
@@ -111,13 +117,13 @@ import java.time.LocalDate;
     @Test
     void nullDeleteBookingTestInDeleteBookingByBookId()
     {
-        Assertions.assertThrows(BookingException.class,()->bookingService.deleteBooking(new BookIdDto(null)));
+        Assertions.assertThrows(BookingException.class,()->bookingService.deleteBooking(null));
     }
     @Test
     void nullDeleteBookingTestExceptionMessageInDeleteBookingByBookId()
     {
         try {
-            this.bookingService.deleteBooking(new BookIdDto(null));
+            this.bookingService.deleteBooking(null);
         } catch (BookingException e) {
             Assertions.assertEquals("Id can't be null",e.getMessage());
         }
@@ -126,7 +132,7 @@ import java.time.LocalDate;
     void deleteBookingByBookIdNoSuchBookIdExists()
     {
         try {
-            this.bookingService.deleteBooking(new BookIdDto(-98));
+            this.bookingService.deleteBooking(-98);
         } catch (BookingException e) {
             Assertions.assertEquals("No such Book Id exists",e.getMessage());
         }
@@ -264,6 +270,159 @@ import java.time.LocalDate;
             Assertions.assertEquals("No such Car exists",e.getMessage());
         }
     }
+
+    //+ve testcase
+    @Test
+    void updateBookingTest() throws BookingException {
+        Integer bookId=0;
+        try {
+            BookingOutputDto booking = this.bookingService.updateBooking(new BookingInputDto("indra@gmail.com","Mustang",7,LocalDate.of(2024,3,12),LocalDate.of(2024,3,6)));
+            bookId = booking.getBookId();
+            Assertions.assertNotNull(booking);
+        } catch (BookingException e) {
+            Assertions.fail(e.getMessage());
+        }
+        finally {
+            this.bookingService.deleteBooking(bookId);
+        }
+    }
+
+    //-ve testcase
+    @Test
+    void nullBookingTestInUpdateBookingTest()
+    {
+        Assertions.assertThrows(BookingException.class,()->bookingService.updateBooking(null));
+    }
+
+    @Test
+    void nullUpdateBookingTestExceptionMessageInUpdateBookingTest()
+    {
+        try {
+            bookingService.updateBooking(null);
+        } catch (BookingException e) {
+            Assertions.assertEquals("Booking Input can't be null",e.getMessage());
+        }
+    }
+
+
+    @Test
+    void noCustomerTestExceptionMessageInUpdateBookingTest(){
+        try {
+            this.bookingService.updateBooking((new BookingInputDto("abcd@gmail.com","EcoSport",4,LocalDate.of(2024,2,27),LocalDate.of(2024,2,23))));
+        } catch (BookingException e) {
+            Assertions.assertEquals("No such Customer Exists", e.getMessage());
+        }
+    }
+
+    @Test
+    void noCarTestExceptionMessageInUpdateBookingTest(){
+        try {
+            this.bookingService.updateBooking((new BookingInputDto("indra@gmail.com","Chennai",6,LocalDate.of(2024,2,27),LocalDate.of(2024,2,23))));
+        } catch (BookingException e) {
+            Assertions.assertEquals("No such car exists", e.getMessage());
+        }
+    }
+
+    @Test
+    void wrongSlotNumberTestExceptionMessageInUpdateBookingTest() {
+
+        try {
+            this.bookingService.updateBooking((new BookingInputDto("indra@gmail.com","EcoSport",-8,LocalDate.of(2024,2,27),LocalDate.of(2024,2,23))));
+
+        } catch (BookingException e) {
+            Assertions.assertEquals("Invalid Slot Number", e.getMessage());
+        }
+    }
+
+    @Test
+    void wrongDateTestExceptionMessageInUpdateBookingTest(){
+        try {
+            this.bookingService.createNewBooking((new BookingInputDto("indra@gmail.com","EcoSport",6,LocalDate.of(2024,2,18),LocalDate.of(2024,2,23))));
+        } catch (BookingException e) {
+            Assertions.assertEquals("The Booking date has to be less than Test drive date", e.getMessage());
+        }
+    }
+
+    @Test
+    void alreadyDroveTestExceptionMessageInUpdateBookingTest(){
+        try {
+            this.bookingService.createNewBooking((new BookingInputDto("indra@gmail.com","Mustang",7,LocalDate.of(2024,3,18),LocalDate.of(2024,3,14))));
+        } catch (BookingException e) {
+            Assertions.assertEquals("You already Test drove this model car", e.getMessage());
+        }
+    }
+    @Test
+    void slotAlreadyBookedTestExceptionMessageInUpdateBookingTest(){
+        try {
+            this.bookingService.createNewBooking(new BookingInputDto("dhanya@gmail.com","Fiesta",5,LocalDate.of(2024,3,15),LocalDate.of(2024,2,23)));
+        } catch (BookingException e) {
+            Assertions.assertEquals("Slot already booked", e.getMessage());
+        }
+    }
+
+    @Test
+    void getAllUserBookingsByStaffEmailTest()
+    {
+        try{
+            this.bookingService.getAllUserBookingsByStaffEmail("bharani@gmail.com");
+        }
+        catch (BookingException e)
+        {
+            Assertions.fail(e.getMessage());
+        }
+    }
+
+    @Test
+    void nullStaffEmailTestInGetAllUserBookingsByStaffEmail()
+    {
+        Assertions.assertThrows(BookingException.class,()->bookingService.getAllUserBookingsByStaffEmail(null));
+    }
+    @Test
+    void nullStaffEmailTestExceptionMessageInGetAllUserBookingsByStaffEmail()
+    {
+        try {
+            this.bookingService.getAllUserBookingsByStaffEmail(null);
+        } catch (BookingException e) {
+            Assertions.assertEquals("Staff mail can't be null",e.getMessage());
+        }
+    }
+//    @Test
+//    void getBookingByIdTest()
+//    {
+//        try{
+//            this.bookingService.getBookingById(203);
+//        }
+//        catch (BookingException e)
+//        {
+//            Assertions.fail(e.getMessage());
+//        }
+//    }
+
+    @Test
+    void nullBookIdTestInGetBookingByIdTest()
+    {
+        Assertions.assertThrows(BookingException.class,()->bookingService.getBookingById(null));
+    }
+    @Test
+    void nullBookIdTestExceptionMessageInGetBookingByIdTest()
+    {
+        try {
+            this.bookingService.getBookingById(null);
+        } catch (BookingException e) {
+            Assertions.assertEquals("Book Id can't be null",e.getMessage());
+        }
+    }
+//    @Test
+//    void noSuchBookIdExistsTestExceptionMessageInGetBookingById()
+//    {
+//        try {
+//            this.bookingService.getBookingById(-9);
+//        } catch (BookingException e) {
+//            Assertions.assertEquals("No such Booking with this Book Id found",e.getMessage());
+//        }
+//    }
+
+
 
 
 }
