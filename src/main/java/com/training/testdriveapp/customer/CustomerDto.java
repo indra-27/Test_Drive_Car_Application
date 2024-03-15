@@ -1,6 +1,5 @@
 package com.training.testdriveapp.customer;
 
-import com.training.testdriveapp.entity.Address;
 import jakarta.persistence.*;
 
 
@@ -8,18 +7,21 @@ import jakarta.persistence.*;
 public class CustomerDto {
 
 
-    private String name;
-private String mobileNumber;
+    private String customerName;
+    private String mobileNumber;
 
-    private String email;
+    private String customerEmail;
+
     private String password;
     private String address;
 
 
     public CustomerDto(String mobileNumber,String name, String email, String password, Integer addressId, Integer ratingId, String address) {
-       this.mobileNumber=mobileNumber;
-        this.name = name;
-        this.email = email;
+        super();
+        this.mobileNumber=mobileNumber;
+
+        this.customerName = name;
+        this.customerEmail = email;
         this.password = password;
 
         this.address = address;
@@ -48,8 +50,8 @@ private String mobileNumber;
     public String toString() {
         return "CustomerDto{" +
                 "mobile"+mobileNumber+
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
+                ", name='" + customerName + '\'' +
+                ", email='" + customerEmail + '\'' +
                 ", password='" + password + '\'' +
 
 //
@@ -64,20 +66,20 @@ private String mobileNumber;
         this.mobileNumber = mobileNumber;
     }
 
-    public String getName() {
-        return name;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCustomerEmail() {
+        return customerEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
     }
 
     public String getPassword() {

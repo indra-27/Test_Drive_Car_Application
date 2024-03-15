@@ -24,6 +24,7 @@ public class Customer {
     private  String address;
     private String mobileNumber;
     private String customerEmail;
+
     private String password;
 
 
@@ -39,7 +40,9 @@ public class Customer {
     }
 
     public Customer(Integer customerId, String customerName, com.training.testdriveapp.entity.Address address, String address1, String mobileNumber, String customerEmail, String password, List<Rating> ratings, List<Booking> customerBookings) {
+        super();
         this.customerId = customerId;
+
         this.customerName = customerName;
 
         this.address = address1;
@@ -73,7 +76,17 @@ public class Customer {
 
 
     public Customer(Integer customerId, String customerName, String address, String mobileNumber, String customerEmail, String password) {
+
+        super();
         this.customerId = customerId;
+        this.customerName = customerName;
+        this.address = address;
+        this.mobileNumber = mobileNumber;
+        this.customerEmail = customerEmail;
+        this.password = password;
+    }
+
+    public Customer(String customerName, String address, String mobileNumber, String customerEmail, String password) {
         this.customerName = customerName;
         this.address = address;
         this.mobileNumber = mobileNumber;
