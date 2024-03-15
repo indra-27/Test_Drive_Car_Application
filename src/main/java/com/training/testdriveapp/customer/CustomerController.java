@@ -15,6 +15,7 @@ import java.util.List;
 
 
 @RestController
+@CrossOrigin( "http://localhost:4200/")
 public class CustomerController {
     @Autowired
     public CustomerController(CustomerServices customerServices){
@@ -55,10 +56,10 @@ public class CustomerController {
         return this.customerServices.updateCustomerPassword(email,password);
     }
 
-    @DeleteMapping("customer/delete/{id}")
-    public void deleteCustomerById(@PathVariable Integer id) throws CustomerException
+    @DeleteMapping("customer/delete/{email}")
+    public void deleteCustomerById(@PathVariable String email) throws CustomerException
     {
-        this.customerServices.deleteCustomer(id);
+        this.customerServices.deleteCustomer(email);
 
     }
 
@@ -72,6 +73,15 @@ public class CustomerController {
         return this.customerServices.getCustomerById(id);
     }
 
+   @GetMapping("customer/allCustomers/{email}")
+    public  Customer getCustomerByEmail(@PathVariable String email)throws CustomerException{
+        return this.customerServices.getCustomerByEmail(email);
+   }
 
+   @GetMapping("customer/AllBookings/{email}")
+    public List<Booking> getCustomerBookingsByEmail(@PathVariable String email){
+        return this.customerServices.getCustomerBookingsByEmail(email);
+
+   }
 
 }
