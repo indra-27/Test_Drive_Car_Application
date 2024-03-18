@@ -12,7 +12,7 @@ public class StaffController {
     private StaffService staffService;
 
     @PostMapping("staff")
-    public Staff addNewStaff(Staff newStaff) throws StaffException
+    public Staff addNewStaff(@RequestBody Staff newStaff) throws StaffException
     {
         return this.staffService.addNewStaff(newStaff);
     }
