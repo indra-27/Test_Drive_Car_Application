@@ -14,28 +14,42 @@ public class AdminServicesImpl implements AdminServices {
     private CarRepository carsRepository;
 
     @Override
-    public Car addNewCar(CarDto newCars) throws AdminException{
+    public Car addNewCar(Car newCars) throws AdminException{
         if(newCars.getModelName() == null||newCars.getCompany() == null||newCars.getCarPrice()==null||newCars.getColor()==null||newCars.getMileage()==null||newCars.getRpm()==null||newCars.getSeater()==null||newCars.getFuelType()==null||newCars.getVehicleType()==null||newCars.getEngineModel()==null)
         {
             throw new AdminException("Car details cannot be null");
         }
-        Car findCar = getCarDetailsByModelName(newCars.getModelName());
-        if(findCar != null)
+        List<Car> findCar = getCarDetailsBymodelName(newCars.getModelName());
+        if(findCar.size()>0)
         {
             throw new AdminException("Car already exist");
         }
-        Car car = new Car();
-        car.setCarPrice(newCars.getCarPrice());
-        car.setColor(newCars.getColor());
-        car.setCompany(newCars.getCompany());
-        car.setEngineModel(newCars.getEngineModel());
-        car.setFuelType(newCars.getFuelType());
-        car.setModelName(newCars.getModelName());
-        car.setMileage(newCars.getMileage());
-        car.setRpm(newCars.getRpm());
-        car.setSeater(newCars.getSeater());
-        car.setVehicleType(newCars.getVehicleType());
-        return this.carsRepository.save(car);
+//        Car car = new Car();
+//        String filename = StringUtils.cleanPath(file.getOriginalFilename());
+//        if(filename.contains(".."))
+//        {
+//            throw new AdminException("Not a valid file");
+//        }
+//        try {
+//            car.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        car.setCarPrice(newCars.getCarPrice());
+//        car.setColor(newCars.getColor());
+//        car.setCompany(newCars.getCompany());
+//        car.setEngineModel(newCars.getEngineModel());
+//        car.setFuelType(newCars.getFuelType());
+//        car.setModelName(newCars.getModelName());
+//        car.setMileage(newCars.getMileage());
+//        car.setRpm(newCars.getRpm());
+//        car.setSeater(newCars.getSeater());
+//        car.setVehicleType(newCars.getVehicleType());
+        return this.carsRepository.save(newCars);
+    }
+
+    private List<Car> getCarDetailsBymodelName(String modelName) {
+        return this.carsRepository.findBymodelName(modelName);
     }
 
     @Override
@@ -104,5 +118,4 @@ public class AdminServicesImpl implements AdminServices {
     public List<Car> getCarDetails() {
         return this.carsRepository.findAll();
     }
-
 }

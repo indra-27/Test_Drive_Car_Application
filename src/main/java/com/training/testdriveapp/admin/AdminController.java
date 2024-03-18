@@ -1,8 +1,11 @@
 package com.training.testdriveapp.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -12,8 +15,12 @@ public class AdminController {
     private AdminServices adminServices;
 
     @PostMapping("admin/car")
-    public Car addNewCar(@RequestBody CarDto newCar) throws AdminException
-    {
+    public Car addNewCar(@RequestBody Car newCar) throws AdminException {
+//        String filename = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+//        newCar.setImage(filename);
+//        Car saveCar = this.adminServices.addNewCar(newCar);
+//        String uploadDir = "car-image/"+saveCar.getCarId();
+//        FileUploadFile.saveFile(uploadDir,filename,multipartFile);
         return this.adminServices.addNewCar(newCar);
     }
     @GetMapping("admin/car/all")

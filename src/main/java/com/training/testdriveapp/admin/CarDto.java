@@ -25,6 +25,7 @@ public class CarDto {
         this.mileage = mileage;
         this.rpm = rpm;
     }
+
     public CarDto(){
 
     }
