@@ -57,6 +57,11 @@ public class RatingController {
         return this.ratingService.getAllRatingsBetweenRange(min,max);
     }
 
+    // 8. Getting the Rating List(DTO) for the Car Model Name
+    @GetMapping("/rating/DTOCarName/{carModel}/")
+    public List<RatingDto> getRatingsListOfCustomerByCarName(@PathVariable String carModel) throws RatingException {
+        return ratingService.getRatingDtoOfCustomerByCarName(carModel);
+    }
     // 8. Listing all the  RatingDto to customer
 //    @GetMapping("rating/dto")
 //    public List<RatingDto> findAllRatingDto() throws RatingException {

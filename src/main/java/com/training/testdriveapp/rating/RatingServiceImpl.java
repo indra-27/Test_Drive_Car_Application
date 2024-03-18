@@ -163,6 +163,25 @@ public class RatingServiceImpl implements RatingService{
         return ratingDto;
     }
 
+    @Override
+    public List<RatingDto> getRatingDtoOfCustomerByCarName(String carModel) throws RatingException {
+        List<Car> car = this.carRepository.findBymodelName(carModel);
+        Car foundCar=null;
+        Optional<Car> cars = car.stream().findFirst();
+
+        if(cars.isPresent())
+           foundCar=cars.get();
+        if (foundCar == null)
+            throw new RatingException("The Car Model does not exist");
+        List<Rating> ratings= this.ratingRepository.findByCar(foundCar);
+        List<RatingDto> ratingDtos=new ArrayList<>();
+        for(int i=0;i<ratings.size();i++)
+        {
+            RatingDto dummy = new RatingDto(ratings.get(i).getCustomer().getCustomerEmail(),ratings.get(i).getRatingId(),ratings.get(i).getRatingStars(),ratings.get(i).getComments(),ratings.get(i).getCar().getModelName());
+            ratingDtos.add(i,dummy);
+        }
+        return ratingDtos;
+    }
 
 
     // 7. Getting the rating within the given limit.
