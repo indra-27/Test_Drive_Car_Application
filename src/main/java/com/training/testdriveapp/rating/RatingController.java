@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:4200/")
 public class RatingController {
     @Autowired
     private RatingService ratingService;
@@ -39,7 +40,7 @@ public class RatingController {
 
     // 5.Updating the Reviews
     @PutMapping("/rating/update")
-    public Rating updateRatingById(@RequestBody Rating rating) throws RatingException {
+    public Rating updateRatingById(@RequestBody RatingDto rating) throws RatingException {
         return this.ratingService.updateRating(rating);
     }
    // 6.Deleting the Reviews By Id
@@ -56,6 +57,11 @@ public class RatingController {
         return this.ratingService.getAllRatingsBetweenRange(min,max);
     }
 
+    // 8. Listing all the  RatingDto to customer
+//    @GetMapping("rating/dto")
+//    public List<RatingDto> findAllRatingDto() throws RatingException {
+//        return this.ratingService.getAllRatingDto();
+//    }
 
 
 }

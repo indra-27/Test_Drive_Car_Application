@@ -18,11 +18,13 @@ public interface RatingService {
 
     List<Rating> getAllRating();
 
-    Rating updateRating(Rating rating)throws RatingException;
+    Rating updateRating(RatingDto rating)throws RatingException;
 
     void deleteRating(Integer id)throws RatingException;
 
     List<Rating> getRatingsOfCustomerByMailId(String customerId) throws RatingException;
 
     List<RatingDto> getRatingDtoOfCustomerByMailId(String customerMail) throws RatingException;
+
+   // List<RatingDto> getAllRatingDto();
 }
