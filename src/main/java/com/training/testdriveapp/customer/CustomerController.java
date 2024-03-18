@@ -2,7 +2,6 @@ package com.training.testdriveapp.customer;
 
 
 import com.training.testdriveapp.booking.Booking;
-import com.training.testdriveapp.entity.Address;
 import com.training.testdriveapp.rating.Rating;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;

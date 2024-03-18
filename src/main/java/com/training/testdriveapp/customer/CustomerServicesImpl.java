@@ -27,9 +27,6 @@ public class CustomerServicesImpl implements CustomerServices {
     private CustomerRepository customerRepository;
 
     @Autowired
-    private  AddressRepository addressRepository;
-
-    @Autowired
     private BookingRepository bookingRepository;
 
     @Autowired
