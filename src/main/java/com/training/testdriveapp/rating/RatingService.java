@@ -27,4 +27,6 @@ public interface RatingService {
     List<RatingDto> getRatingDtoOfCustomerByMailId(String customerMail) throws RatingException;
 
    // List<RatingDto> getAllRatingDto();
+
+    // Get Rating based on CarModelNAme
 }
