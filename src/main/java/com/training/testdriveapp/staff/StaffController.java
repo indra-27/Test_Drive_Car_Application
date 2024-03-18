@@ -17,25 +17,22 @@ public class StaffController {
         return this.staffService.addNewStaff(newStaff);
     }
 
-    @PutMapping("Update Staff")
+    @PutMapping("UpdateStaff")
     public Staff updateAccount(@RequestBody Staff staff) throws StaffException {
         return this.staffService.updateStaffDetails(staff);
     }
 
-    @GetMapping("Get Staff by Id/{staffid}")
+    @GetMapping("GetStaffbyId/{staffid}")
     public Optional<Staff> getByStaffId(@PathVariable("staffid") Integer staffid) throws StaffException {
         return this.staffService.getByStaffId(staffid);
     }
-    @DeleteMapping("Delete Staff/{staffid}")
+    @DeleteMapping("DeleteStaff/{staffid}")
     public Optional<Staff> deleteAccountById(@PathVariable Integer staffid) throws StaffException {
+
         return this.staffService.deleteStaff(staffid);
     }
     @GetMapping("getAllStaffs")
     public List<Staff> getAllAccounts() throws StaffException {
         return this.staffService.getAllStaffs();
-    }
-    @PatchMapping("UpdateStatus/{staffid}")
-    public boolean updateStatus(@PathVariable Integer staffid) throws StaffException{
-        return true;
     }
 }
