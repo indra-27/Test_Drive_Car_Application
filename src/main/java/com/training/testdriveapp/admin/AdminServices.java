@@ -1,9 +1,5 @@
 package com.training.testdriveapp.admin;
-
-import com.training.testdriveapp.staff.Staff;
-import com.training.testdriveapp.staff.StaffException;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -12,7 +8,7 @@ public interface AdminServices {
 
     Car getCarDetailsByModelName(String modelName) throws AdminException;
 
-    Car updateCarDetails(Car updateCar) throws AdminException;
+    Car updateCarDetails(CarDto updateCar) throws AdminException;
 
     Car deleteCarById(Integer carId) throws AdminException;
 

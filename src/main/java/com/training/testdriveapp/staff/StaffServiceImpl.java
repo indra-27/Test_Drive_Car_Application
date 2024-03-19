@@ -33,7 +33,7 @@ public class StaffServiceImpl implements StaffService{
 
         Optional<Staff> accountOpt=this.staffRepository.findBystaffEmail(newStaff.getStaffEmail());
         if(accountOpt.isPresent())
-            throw new StaffException("Email already registered,please re try. "+newStaff.getStaffEmail());
+            throw new StaffException("Email already registered,please retry. "+newStaff.getStaffEmail());
         return this.staffRepository.save(newStaff);
     }
 

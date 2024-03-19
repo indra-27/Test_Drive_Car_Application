@@ -333,6 +333,7 @@ server side validation
             throw new BookingException("No such Staff exists");
         Staff staff = foundStaff.get();
         Car foundCar = this.carRepository.findByStaff(staff);
+
         List<Booking> foundBooking = this.bookingRepository.findByTestDriveCar(foundCar);
         List<BookingOutputDto> bookingDtos = new ArrayList<>();
         for(int i=0;i<foundBooking.size();i++)
