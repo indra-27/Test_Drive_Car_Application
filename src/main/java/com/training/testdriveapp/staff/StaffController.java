@@ -35,4 +35,8 @@ public class StaffController {
     public List<Staff> getAllAccounts() throws StaffException {
         return this.staffService.getAllStaffs();
     }
+    @GetMapping("GetStaffbyEmail/{staffEmail}")
+    public Optional<Staff> getByStaffEmail(@PathVariable("staffEmail") String staffEmail) throws StaffException {
+        return Optional.ofNullable(this.staffService.getByStaffEmail(staffEmail));
+    }
 }

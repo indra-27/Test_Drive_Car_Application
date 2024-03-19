@@ -71,6 +71,18 @@ public class StaffServiceImpl implements StaffService{
         return staffList;
     }
 
+    @Override
+    public Staff getByStaffEmail(String staffEmail) throws StaffException {
+        if(staffEmail==null){
+            throw new StaffException("Staff doesn't exists with given id"+staffEmail);
+        }
+        Optional<Staff> staff=this.staffRepository.findByStaffEmail(staffEmail);
+        if(!staff.isPresent()) {
+            throw new StaffException("Staff doesn't exists");
+        }
+        Staff staff1=staff.get();
+        return  staff1;
+    }
 
 }
 
