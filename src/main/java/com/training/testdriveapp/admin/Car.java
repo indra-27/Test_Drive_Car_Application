@@ -4,7 +4,6 @@ import com.training.testdriveapp.rating.Rating;
 import com.training.testdriveapp.staff.Staff;
 import jakarta.persistence.*;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +22,9 @@ public class Car {
     private Integer seater;
     private Double mileage;
     private Double rpm;
+    private String description;
 
-    @Column(nullable = true, length = 64)
+    @Column(nullable = true)
     private String image;
 
     @OneToOne
@@ -33,7 +33,7 @@ public class Car {
     @OneToMany
     private List<Rating> ratings = new ArrayList<>();
 
-    public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, String fuelType, Integer seater, Double mileage, Double rpm, Staff staff, List<Rating> ratings) {
+    public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, String fuelType, Integer seater, Double mileage, Double rpm, String description, String image, Staff staff, List<Rating> ratings) {
         this.company = company;
         this.modelName = modelName;
         this.color = color;
@@ -44,73 +44,13 @@ public class Car {
         this.seater = seater;
         this.mileage = mileage;
         this.rpm = rpm;
-        this.staff = staff;
-        this.ratings = ratings;
-    }
-
-    public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, String fuelType, Integer seater, Double mileage, Double rpm, String image, Staff staff, List<Rating> ratings) {
-        this.company = company;
-        this.modelName = modelName;
-        this.color = color;
-        this.carPrice = carPrice;
-        this.engineModel = engineModel;
-        this.vehicleType = vehicleType;
-        this.fuelType = fuelType;
-        this.seater = seater;
-        this.mileage = mileage;
-        this.rpm = rpm;
+        this.description = description;
         this.image = image;
         this.staff = staff;
         this.ratings = ratings;
     }
 
-    public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, Integer seater, Double mileage, Double rpm, Staff staff, List<Rating> ratings) {
-        this.company = company;
-        this.modelName = modelName;
-        this.color = color;
-        this.carPrice = carPrice;
-        this.engineModel = engineModel;
-        this.vehicleType = vehicleType;
-        this.seater = seater;
-        this.mileage = mileage;
-        this.rpm = rpm;
-        this.staff = staff;
-        this.ratings = ratings;
-    }
-
-    public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, Integer seater, Double mileage, Double rpm, Car testDriveCars, List<Rating> rating) {
-        this.company = company;
-        this.modelName = modelName;
-        this.color = color;
-        this.carPrice = carPrice;
-        this.engineModel = engineModel;
-        this.vehicleType = vehicleType;
-        this.seater = seater;
-        this.mileage = mileage;
-        this.rpm = rpm;
-        this.ratings = rating;
-    }
-
     public Car() {
-    }
-
-    public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, Integer seater, Double mileage, Double rpm, List<Rating> rating) {
-        this.company = company;
-        this.modelName = modelName;
-        this.color = color;
-        this.carPrice = carPrice;
-        this.engineModel = engineModel;
-        this.vehicleType = vehicleType;
-        this.seater = seater;
-        this.mileage = mileage;
-        this.rpm = rpm;
-        this.ratings = rating;
-    }
-
-    @Transient
-    public String getPhotosImagePath(){
-        if(image == null) return null;
-        return "/car-image/"+ carId + "/" + image;
     }
 
     public Integer getCarId() {
@@ -223,5 +163,13 @@ public class Car {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

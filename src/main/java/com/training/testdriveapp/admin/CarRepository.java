@@ -2,7 +2,6 @@ package com.training.testdriveapp.admin;
 
 import com.training.testdriveapp.staff.Staff;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
