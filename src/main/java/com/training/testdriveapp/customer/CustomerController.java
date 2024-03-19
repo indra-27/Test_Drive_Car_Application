@@ -84,4 +84,9 @@ public class CustomerController {
 
    }
 
+   @PostMapping("customer/forgotPassword/{email}/{password}")
+    public Customer forgotPassword(@PathVariable String email,@PathVariable String password){
+        return this.customerServices.forgotPassword(email,password);
+   }
+
 }

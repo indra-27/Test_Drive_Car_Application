@@ -33,4 +33,6 @@ public interface CustomerServices {
     Customer getCustomerByEmail(String email) throws CustomerException;
 
     List<Booking> getCustomerBookingsByEmail(String email);
+
+    Customer forgotPassword(String email, String password);
 }

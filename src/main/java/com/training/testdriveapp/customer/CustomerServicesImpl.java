@@ -94,13 +94,14 @@ public class CustomerServicesImpl implements CustomerServices {
         if(customer==null)
             throw new CustomerException("Customer cannot be null");
         Optional<Customer> customerOpt=this.customerRepository.findByCustomerEmail(customer.getCustomerEmail());
-      String customer2=customerOpt.get().getMobileNumber();
+//      String customer2=customerOpt.get().getMobileNumber();
 
-        if(customer2==null) {
+        if(customerOpt.isEmpty()) {
             throw new CustomerException("Customer not exists with id "+customer.getCustomerId());
         }
             customerOpt.get().setPassword(customer.getPassword());
-          customerOpt.get().setCustomerEmail(customerOpt.get().getCustomerEmail());
+       customerOpt.get().setCustomerEmail(customerOpt.get().getCustomerEmail());
+customerOpt.get().setCustomerName(customer.getCustomerName());
             customerOpt.get().setMobileNumber(customer.getMobileNumber());
             customerOpt.get().setAddress(customer.getAddress());
             customerOpt.get().setCustomerId(customerOpt.get().getCustomerId());
@@ -313,6 +314,23 @@ public class CustomerServicesImpl implements CustomerServices {
 
 
         return bookings;
+
+
+    }
+
+    @Override
+    public Customer forgotPassword(String email, String password) {
+        Optional<Customer> customer1=this.customerRepository.findByCustomerEmail(email);
+        Customer customer=customer1.get();
+        customer1.get().setCustomerEmail(email);
+        customer1.get().setPassword(password);
+        customer1.get().setCustomerName(customer.getCustomerName());
+        customer1.get().setAddress(customer.getAddress());
+        customer1.get().setMobileNumber(customer.getMobileNumber());
+        customer1.get().setCustomerId(customer.getCustomerId());
+        Customer customer11=customer1.get();
+        return  this.customerRepository.save(customer11);
+
 
 
     }
