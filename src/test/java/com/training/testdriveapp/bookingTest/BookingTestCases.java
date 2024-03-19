@@ -386,6 +386,15 @@ import java.time.LocalDate;
             Assertions.assertEquals("Staff mail can't be null",e.getMessage());
         }
     }
+    @Test
+    void noSuchStaffEmailExistsTestExceptionMessageInGetAllUserBookingsByStaffEmail()
+    {
+        try {
+            this.bookingService.getAllUserBookingsByStaffEmail("abcd");
+        } catch (BookingException e) {
+            Assertions.assertEquals("No such Staff exists",e.getMessage());
+        }
+    }
 //    @Test
 //    void getBookingByIdTest()
 //    {
@@ -418,7 +427,7 @@ import java.time.LocalDate;
 //        try {
 //            this.bookingService.getBookingById(-9);
 //        } catch (BookingException e) {
-//            Assertions.assertEquals("No such Booking with this Book Id found",e.getMessage());
+//            Assertions.assertEquals("No such Bookings found",e.getMessage());
 //        }
 //    }
 

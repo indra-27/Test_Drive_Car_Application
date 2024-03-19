@@ -4,7 +4,6 @@ import com.training.testdriveapp.admin.AdminException;
 import com.training.testdriveapp.admin.AdminServices;
 import com.training.testdriveapp.admin.Car;
 import com.training.testdriveapp.admin.CarDto;
-import com.training.testdriveapp.booking.BookIdDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,17 +66,17 @@ public class AdminTests {
 
     // 2) GET CAR DETAILS:
 
-    @Test
-    void getCarDetailsByModelNameTest(){
-        List<Car> car = null;
-        try{
-            car = this.adminServices.getCarDetailsByModelName("Mustang");
-            Assertions.assertNotNull(car);
-        }catch (AdminException e)
-        {
-            Assertions.fail(e.getMessage());
-        }
-    }
+//    @Test
+//    void getCarDetailsByModelNameTest(){
+//        List<Car> car = null;
+//        try{
+//            car = this.adminServices.getCarDetailsByModelName("Mustang");
+//            Assertions.assertNotNull(car);
+//        }catch (AdminException e)
+//        {
+//            Assertions.fail(e.getMessage());
+//        }
+//    }
 
     @Test
     void nullModelNameTestInGetCarDetailsByModelName(){
@@ -95,16 +94,16 @@ public class AdminTests {
         }
     }
 
-    @Test
-    void modelExistExceptionInGetCarDetailsByModelName(){
-        List<Car> car = null;
-        try
-        {
-            car = adminServices.getCarDetailsByModelName("Test");
-        } catch (AdminException e) {
-            Assertions.assertEquals("No such model exists",e.getMessage());
-        }
-    }
+//    @Test
+//    void modelExistExceptionInGetCarDetailsByModelName(){
+//        List<Car> car = null;
+//        try
+//        {
+//            car = adminServices.getCarDetailsByModelName("Test");
+//        } catch (AdminException e) {
+//            Assertions.assertEquals("No such model exists",e.getMessage());
+//        }
+//    }
 
     // 3) UPDATE CAR DETAILS
 

@@ -49,7 +49,7 @@ public class BookingController {
         return this.bookingService.getAllUserBookingByCarModelName(carModelName);
     }
     @GetMapping("booking/car/all")
-    public List<BookingOutputDto> getAllBookings()
+    public List<BookingOutputDto> getAllBookings() throws BookingException
     {
         return  this.bookingService.getAllBookings();
     }

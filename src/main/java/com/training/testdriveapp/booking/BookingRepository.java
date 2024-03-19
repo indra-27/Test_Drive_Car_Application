@@ -5,7 +5,6 @@ import com.training.testdriveapp.admin.Car;
 import com.training.testdriveapp.customer.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.awt.print.Book;
 import java.time.LocalDate;
 import java.util.List;
 

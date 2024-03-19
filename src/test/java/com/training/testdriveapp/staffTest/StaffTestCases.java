@@ -1,9 +1,5 @@
 package com.training.testdriveapp.staffTest;
 
-import com.training.testdriveapp.booking.BookIdDto;
-import com.training.testdriveapp.booking.BookingException;
-import com.training.testdriveapp.booking.BookingInputDto;
-import com.training.testdriveapp.booking.BookingOutputDto;
 import com.training.testdriveapp.staff.Staff;
 import com.training.testdriveapp.staff.StaffException;
 import com.training.testdriveapp.staff.StaffService;
@@ -11,9 +7,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.time.LocalDate;
-import java.util.Optional;
 
 @SpringBootTest
 public class StaffTestCases {
