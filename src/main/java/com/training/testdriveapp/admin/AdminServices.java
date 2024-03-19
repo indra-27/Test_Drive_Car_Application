@@ -15,6 +15,6 @@ public interface AdminServices {
     List<Car> getCarDetailsByCompany(String company) throws AdminException;
 
     List<Car> getCarDetailsWithinPriceRange(Double minprice, Double maxprice);
-    List<Car> getAllCars();
+
     List<Car> getCarDetails();
 }
