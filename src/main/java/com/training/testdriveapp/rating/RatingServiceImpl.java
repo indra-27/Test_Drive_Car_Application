@@ -125,13 +125,17 @@ public class RatingServiceImpl implements RatingService{
     // 6. Getting Ratings of the Particular Customer by mailId (Returns List of RatingDto )
     @Override
     public List<RatingDto> getRatingDtoOfCustomerByMailId(String customerMailId) throws RatingException {
-        if(ratingRepository.ratingDtoMap.containsKey(customerMailId)) {
-            return ratingRepository.ratingDtoMap.get(customerMailId);
-        }
-        else {
+        Optional<Customer> customer = this.customerRepository.findByCustomerEmail(customerMailId);
+        if(customer.isEmpty())
             throw new RatingException("The Mail Id does not exist");
-
+        Customer foundCustomer = customer.get();
+        List<Rating> dummy = this.ratingRepository.findByCustomer(foundCustomer);
+        List<RatingDto> foundRatings = new ArrayList<>();
+        for(int i=0;i<dummy.size();i++)
+        {
+            foundRatings.add(i,new RatingDto(dummy.get(i).getCustomer().getCustomerEmail(),dummy.get(i).getRatingId(),dummy.get(i).getRatingStars(),dummy.get(i).getComments(),dummy.get(i).getCar().getModelName()));
         }
+        return foundRatings;
     }
     // 7. Getting the rating within the given limit.
     @Override

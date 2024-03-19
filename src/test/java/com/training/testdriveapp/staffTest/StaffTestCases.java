@@ -112,7 +112,7 @@ public class StaffTestCases {
     void updateStaffNoSuchStaffExists()
     {
         try {
-            this.staffService.updateStaffDetails(new Staff("Deepaa",null,"987654321","deepaa@gmail.com"));
+            this.staffService.updateStaffDetails(new Staff("Deepaa","987654321","deepaa@gmail.com"));
         } catch (StaffException e) {
             Assertions.assertEquals("No such Id Exists: 80",e.getMessage());
         }

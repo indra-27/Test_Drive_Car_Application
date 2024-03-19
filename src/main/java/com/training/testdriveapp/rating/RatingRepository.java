@@ -1,6 +1,7 @@
 package com.training.testdriveapp.rating;
 
 import com.training.testdriveapp.admin.Car;
+import com.training.testdriveapp.customer.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,5 +19,6 @@ public interface RatingRepository extends JpaRepository<Rating,Integer> {
     Map<String,List<RatingDto>> ratingDtoMap = new HashMap<>();
 
     Optional<Rating> findByratingId(Integer id);
+    List<Rating> findByCustomer(Customer customer);
 
 }

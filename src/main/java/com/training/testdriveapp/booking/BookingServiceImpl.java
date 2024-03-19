@@ -8,7 +8,6 @@ import com.training.testdriveapp.staff.Staff;
 import com.training.testdriveapp.staff.StaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.*;
 
@@ -46,12 +45,14 @@ public class BookingServiceImpl implements BookingService{
             throw new BookingException("Invalid Slot Number");
         if(newBooking.getBookingDate().isAfter(newBooking.getDate()))
             throw new BookingException("The Booking date has to be less than Test drive date");
-
         Booking foundBooking = this.bookingRepository.findByTestDriveCarAndDateAndSlotNo(carDetails.getFirst(),newBooking.getDate(), newBooking.getSlotNo());
-
         if(foundBooking!=null && foundBooking.getStatus().equals(false))
             throw new BookingException("Slot already booked");
-
+        Booking booking = this.bookingRepository.findByTestDriveCarAndCustomer(carDetails.getFirst(),foundCustomer);
+        if(booking!=null)
+        {
+            throw new BookingException("You already Test drove this model car");
+        }
         Booking newBookingProcess = new Booking();
         newBookingProcess.setTestDriveCar(carDetails.getFirst());
         newBookingProcess.setCustomer(foundCustomer);
@@ -76,7 +77,6 @@ public class BookingServiceImpl implements BookingService{
             throw new BookingException("No such Customer Exists");
         }
         Customer foundCustomer  = customerDetails.get();
-
         if (carDetails.isEmpty()) {
             throw new BookingException("No such car exists");
         }
@@ -84,15 +84,16 @@ public class BookingServiceImpl implements BookingService{
             throw new BookingException("Invalid Slot Number");
         if(updateBooking.getBookingDate().isAfter(updateBooking.getDate()))
             throw new BookingException("The Booking date has to be less than Test drive date");
-        Booking booking = this.bookingRepository.findByTestDriveCarAndCustomer(carDetails.getFirst(),foundCustomer);
-        if(booking!=null)
-            throw new BookingException("You already test drove this model car");
         Booking foundBooking = this.bookingRepository.findByTestDriveCarAndDateAndSlotNo(carDetails.getFirst(),updateBooking.getDate(), updateBooking.getSlotNo());
-
         if(foundBooking!=null && foundBooking.getStatus().equals(false))
             throw new BookingException("Slot already booked");
-
+        Booking booking = this.bookingRepository.findByTestDriveCarAndCustomer(carDetails.getFirst(),foundCustomer);
+        if(booking!=null && booking.getStatus().equals(true))
+            throw new BookingException("You already test drove this model car");
+        assert booking != null;
+        booking.setStatus(true);
         Booking newBookingProcess = new Booking();
+        newBookingProcess.setBookId(booking.getBookId());
         newBookingProcess.setTestDriveCar(carDetails.getFirst());
         newBookingProcess.setCustomer(foundCustomer);
         newBookingProcess.setDate(updateBooking.getDate());
@@ -104,13 +105,14 @@ public class BookingServiceImpl implements BookingService{
         return new BookingOutputDto(newBookingProcess.getBookId(), newBookingProcess.getCustomer().getCustomerEmail(), newBookingProcess.getTestDriveCar().getModelName(), newBookingProcess.getSlotNo(),newBookingProcess.getDate(),newBookingProcess.getBookingDate(),newBookingProcess.getTestDriveCar().getStaff().getStaffName(),newBookingProcess.getTestDriveCar().getStaff().getPhoneNumber());
     }
     @Override
-    public void deleteBooking(BookIdDto bookIdDto) throws BookingException {
-        if(bookIdDto.getBookId()==null)
+    public void deleteBooking(Integer bookId) throws BookingException {
+        if(bookId==null)
             throw new BookingException("Id can't be null");
-        Booking foundBooking = this.bookingRepository.getReferenceById(bookIdDto.getBookId());
-        if(foundBooking==null)
+        Booking foundBooking = this.bookingRepository.getReferenceById(bookId);
+        if(foundBooking==null) {
             throw new BookingException("No such Book Id exists");
-        this.bookingRepository.deleteById(bookIdDto.getBookId());
+        }
+        this.bookingRepository.deleteById(bookId);
     }
 
     @Override
@@ -200,6 +202,14 @@ public class BookingServiceImpl implements BookingService{
             bookingDtos.add(new BookingOutputDto(foundBooking.get(i).getBookId(),foundBooking.get(i).getCustomer().getCustomerEmail(),foundBooking.get(i).getTestDriveCar().getModelName(),foundBooking.get(i).getSlotNo(),foundBooking.get(i).getDate(),foundBooking.get(i).getBookingDate(),foundBooking.get(i).getTestDriveCar().getStaff().getStaffName(),foundBooking.get(i).getTestDriveCar().getStaff().getPhoneNumber()));
         }
         return bookingDtos;
+    }
+
+    @Override
+    public BookingOutputDto getBookingById(Integer id) throws BookingException{
+        if(id==null)
+            throw new BookingException("Book Id can't be null");
+        Booking foundBooking = this.bookingRepository.getReferenceById(id);
+        return new BookingOutputDto(foundBooking.getBookId(),foundBooking.getCustomer().getCustomerEmail(),foundBooking.getTestDriveCar().getModelName(),foundBooking.getSlotNo(),foundBooking.getDate(),foundBooking.getBookingDate(),foundBooking.getTestDriveCar().getStaff().getStaffName(),foundBooking.getTestDriveCar().getStaff().getPhoneNumber());
     }
 
 }

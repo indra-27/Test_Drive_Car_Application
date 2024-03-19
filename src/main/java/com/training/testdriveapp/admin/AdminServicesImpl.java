@@ -15,12 +15,12 @@ public class AdminServicesImpl implements AdminServices {
 
     @Override
     public Car addNewCar(CarDto newCars) throws AdminException{
-        if(newCars == null)
+        if(newCars.getModelName() == null||newCars.getCompany() == null||newCars.getCarPrice()==null||newCars.getColor()==null||newCars.getMileage()==null||newCars.getRpm()==null||newCars.getSeater()==null||newCars.getFuelType()==null||newCars.getVehicleType()==null||newCars.getEngineModel()==null)
         {
             throw new AdminException("Car details cannot be null");
         }
-        List<Car> findCar = getCarDetailsByModelName(newCars.getModelName());
-        if(!findCar.isEmpty())
+        Car findCar = getCarDetailsByModelName(newCars.getModelName());
+        if(findCar != null)
         {
             throw new AdminException("Car already exist");
         }
@@ -39,15 +39,15 @@ public class AdminServicesImpl implements AdminServices {
     }
 
     @Override
-    public List<Car> getCarDetailsByModelName(String modelName) throws AdminException {
+    public Car getCarDetailsByModelName(String modelName) throws AdminException {
         if(modelName == null){
             throw new AdminException("Model name cannot be null");
         }
-        List<Car> foundModel = this.carsRepository.findBymodelName(modelName);
-        if(foundModel == null){
+        Car foundModel = this.carsRepository.findByModelName(modelName);
+        if(foundModel == null) {
             throw new AdminException("No such model exists");
         }
-        return this.carsRepository.findBymodelName(modelName);
+        return this.carsRepository.findByModelName(modelName);
     }
 
     @Override
@@ -97,6 +97,11 @@ public class AdminServicesImpl implements AdminServices {
 
     @Override
     public List<Car> getAllCars() {
+        return this.carsRepository.findAll();
+    }
+
+    @Override
+    public List<Car> getCarDetails() {
         return this.carsRepository.findAll();
     }
 
