@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:4200/")
 public class BookingController {
     @Autowired
     private BookingService bookingService;
@@ -16,10 +17,10 @@ public class BookingController {
     {
         return this.bookingService.createNewBooking(newBooking);
     }
-    @DeleteMapping("booking")
-    public void deleteBooking(@RequestBody BookIdDto bookIdDto) throws BookingException
+    @DeleteMapping("booking/{bookId}")
+    public void deleteBooking(@PathVariable Integer bookId) throws BookingException
     {
-        this.bookingService.deleteBooking(bookIdDto);
+        this.bookingService.deleteBooking(bookId);
     }
     @PutMapping("booking")
     public BookingOutputDto updateBooking(@RequestBody BookingInputDto updateBooking) throws BookingException
@@ -48,7 +49,7 @@ public class BookingController {
         return this.bookingService.getAllUserBookingByCarModelName(carModelName);
     }
     @GetMapping("booking/car/all")
-    public List<BookingOutputDto> getAllBookings()
+    public List<BookingOutputDto> getAllBookings() throws BookingException
     {
         return  this.bookingService.getAllBookings();
     }
@@ -57,5 +58,9 @@ public class BookingController {
     {
         return this.bookingService.getAllUserBookingsByStaffEmail(staffEmail);
     }
-
+    @GetMapping("booking/{id}")
+    public BookingOutputDto getBookingById(@PathVariable Integer id) throws BookingException
+    {
+        return this.bookingService.getBookingById(id);
+    }
 }

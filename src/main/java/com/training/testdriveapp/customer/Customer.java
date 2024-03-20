@@ -35,7 +35,7 @@ public class Customer {
 
     }
 
-    public Customer(Integer customerId, String customerName, com.training.testdriveapp.entity.Address address, String address1, String mobileNumber, String customerEmail, String password, List<Rating> ratings, List<Booking> customerBookings) {
+    public Customer(Integer customerId, String customerName, String address1, String mobileNumber, String customerEmail, String password, List<Rating> ratings, List<Booking> customerBookings) {
         super();
         this.customerId = customerId;
 

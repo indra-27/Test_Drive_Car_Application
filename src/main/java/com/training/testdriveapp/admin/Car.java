@@ -22,6 +22,10 @@ public class Car {
     private Integer seater;
     private Double mileage;
     private Double rpm;
+    private String description;
+
+    @Column(nullable = true)
+    private String image;
 
     @OneToOne
     private Staff staff;
@@ -29,7 +33,7 @@ public class Car {
     @OneToMany
     private List<Rating> ratings = new ArrayList<>();
 
-    public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, String fuelType, Integer seater, Double mileage, Double rpm, Staff staff, List<Rating> ratings) {
+    public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, String fuelType, Integer seater, Double mileage, Double rpm, String description, String image, Staff staff, List<Rating> ratings) {
         this.company = company;
         this.modelName = modelName;
         this.color = color;
@@ -40,54 +44,14 @@ public class Car {
         this.seater = seater;
         this.mileage = mileage;
         this.rpm = rpm;
+        this.description = description;
+        this.image = image;
         this.staff = staff;
         this.ratings = ratings;
-    }
-
-    public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, Integer seater, Double mileage, Double rpm, Staff staff, List<Rating> ratings) {
-        this.company = company;
-        this.modelName = modelName;
-        this.color = color;
-        this.carPrice = carPrice;
-        this.engineModel = engineModel;
-        this.vehicleType = vehicleType;
-        this.seater = seater;
-        this.mileage = mileage;
-        this.rpm = rpm;
-        this.staff = staff;
-        this.ratings = ratings;
-    }
-
-    public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, Integer seater, Double mileage, Double rpm, Car testDriveCars, List<Rating> rating) {
-        this.company = company;
-        this.modelName = modelName;
-        this.color = color;
-        this.carPrice = carPrice;
-        this.engineModel = engineModel;
-        this.vehicleType = vehicleType;
-        this.seater = seater;
-        this.mileage = mileage;
-        this.rpm = rpm;
-        this.ratings = rating;
     }
 
     public Car() {
     }
-
-    public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, Integer seater, Double mileage, Double rpm, List<Rating> rating) {
-        this.company = company;
-        this.modelName = modelName;
-        this.color = color;
-        this.carPrice = carPrice;
-        this.engineModel = engineModel;
-        this.vehicleType = vehicleType;
-        this.seater = seater;
-        this.mileage = mileage;
-        this.rpm = rpm;
-        this.ratings = rating;
-    }
-
-
 
     public Integer getCarId() {
         return carId;
@@ -191,5 +155,21 @@ public class Car {
 
     public void setStaff(Staff staff) {
         this.staff = staff;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

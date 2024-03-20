@@ -31,12 +31,6 @@ public class Booking {
         this.customer = customer;
     }
 
-    public Booking(Car testDriveCar, Integer slotNo, LocalDate date, Customer customer) {
-        this.testDriveCar = testDriveCar;
-        this.slotNo = slotNo;
-        this.date = date;
-        this.customer = customer;
-    }
     public LocalDate getBookingDate() {
         return bookingDate;
     }

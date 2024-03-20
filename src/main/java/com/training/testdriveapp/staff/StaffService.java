@@ -14,5 +14,4 @@ public interface StaffService {
 
     List<Staff> getAllStaffs() throws StaffException;
 
-    Boolean updateStatus() throws StaffException;
 }
