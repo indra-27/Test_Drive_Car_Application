@@ -2,11 +2,8 @@ package com.training.testdriveapp.customer;
 
 
 import com.training.testdriveapp.booking.Booking;
-import com.training.testdriveapp.rating.Rating;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -81,6 +78,11 @@ public class CustomerController {
     public List<Booking> getCustomerBookingsByEmail(@PathVariable String email){
         return this.customerServices.getCustomerBookingsByEmail(email);
 
+   }
+
+   @PostMapping("customer/forgotPassword/{email}/{password}")
+    public Customer forgotPassword(@PathVariable String email,@PathVariable String password)throws CustomerException{
+        return this.customerServices.forgotPassword(email,password);
    }
 
 }

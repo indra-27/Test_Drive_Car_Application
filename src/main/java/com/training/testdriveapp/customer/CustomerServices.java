@@ -18,7 +18,7 @@ public interface CustomerServices {
 
     Customer getCustomerById(Integer customerId)throws CustomerException;
 
-   // Customer giveCustomerRating(Integer id)throws CustomerException;
+
 
 
     Customer  updateCustomerMobile(String email, String mobileNumber) throws CustomerException;
@@ -33,4 +33,6 @@ public interface CustomerServices {
     Customer getCustomerByEmail(String email) throws CustomerException;
 
     List<Booking> getCustomerBookingsByEmail(String email);
+
+    Customer forgotPassword(String email, String password) throws CustomerException;
 }

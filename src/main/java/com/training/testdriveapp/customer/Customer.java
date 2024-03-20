@@ -15,10 +15,6 @@ public class Customer {
     @GeneratedValue
     private Integer customerId;
     private String customerName;
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "customerId")
-//
-//    private Address address;
 
     private  String address;
     private String mobileNumber;

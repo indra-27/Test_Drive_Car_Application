@@ -2,14 +2,13 @@ package com.training.testdriveapp.customer;
 
 
 import com.training.testdriveapp.booking.Booking;
-import com.training.testdriveapp.booking.BookingOutputDto;
+
 import com.training.testdriveapp.booking.BookingRepository;
-import com.training.testdriveapp.rating.RatingRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Book;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -25,12 +24,11 @@ updating customer ,deleting customer and viewing all the customers
 public class CustomerServicesImpl implements CustomerServices {
     @Autowired
     private CustomerRepository customerRepository;
-
+    
     @Autowired
     private BookingRepository bookingRepository;
 
-    @Autowired
-    private RatingRepository ratingRepository;
+
 
     /************************************************************************************
      * Method: 			-addNewCustomer
@@ -91,13 +89,14 @@ public class CustomerServicesImpl implements CustomerServices {
         if(customer==null)
             throw new CustomerException("Customer cannot be null");
         Optional<Customer> customerOpt=this.customerRepository.findByCustomerEmail(customer.getCustomerEmail());
-      String customer2=customerOpt.get().getMobileNumber();
 
-        if(customer2==null) {
+
+        if(customerOpt.isEmpty()) {
             throw new CustomerException("Customer not exists with id "+customer.getCustomerId());
         }
             customerOpt.get().setPassword(customer.getPassword());
-          customerOpt.get().setCustomerEmail(customerOpt.get().getCustomerEmail());
+       customerOpt.get().setCustomerEmail(customerOpt.get().getCustomerEmail());
+customerOpt.get().setCustomerName(customer.getCustomerName());
             customerOpt.get().setMobileNumber(customer.getMobileNumber());
             customerOpt.get().setAddress(customer.getAddress());
             customerOpt.get().setCustomerId(customerOpt.get().getCustomerId());
@@ -116,7 +115,7 @@ public class CustomerServicesImpl implements CustomerServices {
     /************************************************************************************
      * Method: 			-deleteCustomer
      *Description: 			-To delete a customer
-     * @param id       -Customer to be deleted
+     * @param email      -Customer to be deleted
 
 
      * @throws CustomerException - It is raised due to if customer not exists or null
@@ -161,7 +160,7 @@ public class CustomerServicesImpl implements CustomerServices {
     public Customer login(LoginDto loginDto) throws CustomerException{
         Optional<Customer> customerOpt=this.customerRepository.findByCustomerEmail(loginDto.getUserName());
         if(customerOpt.isEmpty()){
-            throw  new CustomerException("Customer does not exists for "+loginDto.getPassword());
+            throw  new CustomerException("Customer does not exists for "+loginDto.getUserName());
         }
         Customer foundCustomer=customerOpt.get();
         if(! foundCustomer.getPassword().equals(loginDto.getPassword()))
@@ -211,14 +210,14 @@ public class CustomerServicesImpl implements CustomerServices {
             }
 
 
-//        }
+
 
 
     }
 
 
 
-//
+
 
     @Override
     public Customer updateCustomerMobile(String email, String mobileNumber) throws CustomerException {
@@ -280,7 +279,7 @@ public class CustomerServicesImpl implements CustomerServices {
     @Override
 
     public List<Customer> getAllCustomers() throws CustomerException{
-        if(this.customerRepository.findAll()==null){
+        if(this.customerRepository.findAll().isEmpty()){
             throw new CustomerException("No customer exists");
         }
 
@@ -298,18 +297,40 @@ public class CustomerServicesImpl implements CustomerServices {
         if(!customer.isPresent()) {
             throw new CustomerException("Customer doesn't exists");
         }
-        Customer customer1=customer.get();
-        return  customer1;
+
+        return  customer.get();
     }
 
     @Override
     public List<Booking> getCustomerBookingsByEmail(String email) {
        Optional<Customer> customer1=this.customerRepository.findByCustomerEmail(email);
        Customer customer=customer1.get();
-        List<Booking> bookings=this.bookingRepository.findByCustomer(customer);
+        return this.bookingRepository.findByCustomer(customer);
 
 
-        return bookings;
+
+
+
+    }
+
+    @Override
+    public Customer forgotPassword(String email, String password) throws CustomerException {
+        if(email==null)
+            throw new CustomerException("Email cannot be null");
+
+        Optional<Customer> customer1=this.customerRepository.findByCustomerEmail(email);
+        if(customer1.isEmpty())
+            throw  new CustomerException("Customer not exists with email"+email);
+        Customer customer=customer1.get();
+        customer1.get().setCustomerEmail(email);
+        customer1.get().setPassword(password);
+        customer1.get().setCustomerName(customer.getCustomerName());
+        customer1.get().setAddress(customer.getAddress());
+        customer1.get().setMobileNumber(customer.getMobileNumber());
+        customer1.get().setCustomerId(customer.getCustomerId());
+        Customer customer11=customer1.get();
+        return  this.customerRepository.save(customer11);
+
 
 
     }

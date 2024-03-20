@@ -1,6 +1,5 @@
 package com.training.testdriveapp.customer;
 
-import jakarta.persistence.*;
 
 
 
@@ -15,8 +14,10 @@ public class CustomerDto {
     private String password;
     private String address;
 
+    public CustomerDto() {
+    }
 
-    public CustomerDto(String mobileNumber,String name, String email, String password, Integer addressId, Integer ratingId, String address) {
+    public CustomerDto(String mobileNumber,String name, String email, String password,  String address) {
         super();
         this.mobileNumber=mobileNumber;
 
@@ -39,8 +40,6 @@ public class CustomerDto {
         this.address = address;
     }
 
-    public CustomerDto() {
-    }
 
 
 
