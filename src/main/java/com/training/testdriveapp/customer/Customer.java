@@ -1,6 +1,6 @@
 package com.training.testdriveapp.customer;
 
-import com.training.testdriveapp.entity.Address;
+
 import com.training.testdriveapp.booking.Booking;
 import com.training.testdriveapp.rating.Rating;
 import jakarta.persistence.*;
@@ -16,10 +16,6 @@ public class Customer {
     @GeneratedValue
     private Integer customerId;
     private String customerName;
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "customerId")
-//
-//    private Address address;
 
     private  String address;
     private String mobileNumber;
