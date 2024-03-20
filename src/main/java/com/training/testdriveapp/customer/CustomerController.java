@@ -12,6 +12,8 @@ import java.util.List;
 
 
 @RestController
+@CrossOrigin("http://localhost:4200/")
+
 public class CustomerController {
     @Autowired
     public CustomerController(CustomerServices customerServices){

@@ -183,6 +183,12 @@ public class RatingServiceImpl implements RatingService{
         return ratingDtos;
     }
 
+//    @Override
+//    public Rating getRatingsById(Integer id) {
+//        Optional<Rating> rat= this.ratingRepository.findByRatingId(id);
+//        return rat.orElse(null);
+//    }
+
 
     // 7. Getting the rating within the given limit.
     @Override

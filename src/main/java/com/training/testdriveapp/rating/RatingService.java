@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -28,7 +29,8 @@ public interface RatingService {
 
     List<RatingDto> getRatingDtoOfCustomerByCarName(String carModel) throws RatingException;
 
-    // List<RatingDto> getAllRatingDto();
+ //   Rating getRatingsById(Integer id);
+
 
     // Get Rating based on CarModelNAme
 }
