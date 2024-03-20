@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 @SpringBootTest
-public class AdminTests {
+class AdminTests {
 
     @Autowired
     private AdminServices adminServices;
@@ -24,7 +24,7 @@ public class AdminTests {
     void addNewCarTest() throws AdminException {
         Car car = null;
         try{
-            car = this.adminServices.addNewCar(new CarDto("Ford","Fias","Red",500000.0,"5600cc","Automatic","Petrol",5,3555.0,2500.0));
+            car = this.adminServices.addNewCar(new CarDto(79,"Ford","Fiat","Red",500000.0,"5600cc","Automatic","Petrol",5,3555.0,2500.0,"image","Hellooo"));
             Assertions.assertNotNull(car);
         }catch (AdminException e){
             Assertions.fail(e.getMessage());
@@ -36,42 +36,44 @@ public class AdminTests {
 
     @Test
     void nullCarTestInAddNewCar(){
-        Assertions.assertThrows(AdminException.class,()->adminServices.addNewCar(null));
+        Assertions.assertThrows(AdminException.class,()->adminServices.addNewCar(new CarDto(null,null,null,null,null,null,null,null,null,null,null,null,null)));
     }
 
     @Test
     void nullCarTestExceptionMessageInAddNewCar(){
         try{
-            adminServices.addNewCar(null);
+            adminServices.addNewCar(new CarDto(null,null,null,null,null,null,null,null,null,null,null,null,null));
         }catch (AdminException e){
             Assertions.assertEquals("Car details cannot be null",e.getMessage());
         }
     }
 
     @Test
-    void carExistExceptionMessageInAddNewCar(){
+    void carExistExceptionMessageInAddNewCar() throws AdminException {
+        Car car = new Car();
         try
         {
-            adminServices.addNewCar(new CarDto("Ford","Mus","Red",500000.0,"5600cc","Automatic","Petrol",5,3555.0,2500.0));
+            car = adminServices.addNewCar(new CarDto(79,"Ford","Fiaitsss","Red",500000.0,"5600cc","Automatic","Petrol",5,3555.0,2500.0,"image","Helloo"));
         }catch (AdminException e) {
             throw new RuntimeException(e);
         }
         try
         {
-            adminServices.addNewCar(new CarDto("Ford","Mus","Red",500000.0,"5600cc","Automatic","Petrol",5,3555.0,2500.0));
+            adminServices.addNewCar(new CarDto(79,"Ford","Fiaitsss","Red",500000.0,"5600cc","Automatic","Petrol",5,3555.0,2500.0,"image","Helloo"));
         }
         catch (AdminException e) {
             Assertions.assertEquals("Car already exist",e.getMessage());
         }
+        adminServices.deleteCarById(car.getCarId());
     }
 
     // 2) GET CAR DETAILS:
 
     @Test
     void getCarDetailsByModelNameTest(){
-        List<Car> car = null;
+        Car car = null;
         try{
-            car = this.adminServices.getCarDetailsByModelName("Mustang");
+            car = this.adminServices.getCarDetailsByModelName("Virtus");
             Assertions.assertNotNull(car);
         }catch (AdminException e)
         {
@@ -97,10 +99,15 @@ public class AdminTests {
 
     @Test
     void modelExistExceptionInGetCarDetailsByModelName(){
+        Assertions.assertThrows(AdminException.class,()->adminServices.getCarDetailsByModelName("Testing"));
+    }
+
+    @Test
+    void modelExistExceptionMessageInGetCarDetailsByModelName(){
         List<Car> car = null;
         try
         {
-            car = adminServices.getCarDetailsByModelName("Test");
+            car = (List<Car>) adminServices.getCarDetailsByModelName("Test");
         } catch (AdminException e) {
             Assertions.assertEquals("No such model exists",e.getMessage());
         }
@@ -123,10 +130,15 @@ public class AdminTests {
     }
 
     @Test
+    void nullIdTestInUpdateCarDetails(){
+        Assertions.assertThrows(AdminException.class,()->adminServices.updateCarDetails(new CarDto(null,"Ford","Fias","Red",500000.0,"5600cc","Automatic","Petrol",5,3555.0,2500.0,"image","Hellooo")));
+    }
+
+    @Test
     void nullIdTestMessageInUpdateCarDetails(){
         Car car = null;
         try{
-            car = this.adminServices.updateCarDetails(new Car("Ford","Fia","Red",5000.0,"5600cc","Automatic",5,500.0,3555.0,null));
+            car = this.adminServices.updateCarDetails(new CarDto(null,"Ford","Fias","Red",500000.0,"5600cc","Automatic","Petrol",5,3555.0,2500.0,"image","Hellooo"));
         }catch (AdminException e){
             Assertions.assertEquals("Car ID is mandatory to update the car",e.getMessage());
         }
@@ -144,7 +156,8 @@ public class AdminTests {
     @Test
     void deleteCarTest() throws AdminException {
         try{
-            this.adminServices.deleteCarById(99);
+            Car car = this.adminServices.addNewCar(new CarDto(1000808,"Ford","letotesspss","EDFR",520350.0,"15602cc","Auto","Petrol",5,152.0,782.0,"image","Hellooo"));
+            this.adminServices.deleteCarById(car.getCarId());
         }catch (AdminException e){
             Assertions.fail(e.getMessage());
         }
@@ -154,5 +167,65 @@ public class AdminTests {
 //    void nullTestIndeleteCarTest(){
 //        Assertions.assertThrows(AdminException.class,()->adminServices.deleteCarById(null));
 //    }
+
+    @Test
+    void carNotFoundTestIndeleteCarTest(){
+        Assertions.assertThrows(AdminException.class,()->adminServices.deleteCarById(5786324));
+    }
+
+    @Test
+    void carNotFoundTestMessageIndeleteCarTest(){
+        try{
+//            Car car = new Car();
+//            car = this.adminServices.addNewCar(new CarDto(69,"Ford","Trizaq","EDFR",520350.0,"15602cc","Auto","Petrol",5,152.0,782.0,"image"));
+            this.adminServices.deleteCarById(1008);
+        }catch (AdminException e){
+            Assertions.assertEquals("Car not found",e.getMessage());
+        }
+    }
+
+//    5) getCarDetailsByCompany
+    @Test
+    void getCarDetailsByCompanyTest(){
+        List<Car> car = null;
+        try{
+            car = this.adminServices.getCarDetailsByCompany("Volkswagen");
+            Assertions.assertNotNull(car);
+        }catch (AdminException e)
+        {
+            Assertions.fail(e.getMessage());
+        }
+    }
+    @Test
+    void nullCompanyTestInGetCarDetailsByCompanyTest(){
+        Assertions.assertThrows(AdminException.class,()->adminServices.getCarDetailsByCompany(null));
+    }
+
+    @Test
+    void nullCompanyTestMessageInGetCarDetailsByCompanyTest(){
+        try
+        {
+            adminServices.getCarDetailsByCompany(null);
+        }catch (AdminException e)
+        {
+            Assertions.assertEquals("Give a valid Company name",e.getMessage());
+        }
+    }
+
+//    @Test
+//    void companyExistExceptionInGetCarDetailsByCompanyTest(){
+//        Assertions.assertThrows(AdminException.class,()->adminServices.getCarDetailsByCompany("Company"));
+//    }
+
+    @Test
+    void companyExistExceptionMessageInGetCarDetailsByCompanyTest(){
+        List<Car> car = null;
+        try
+        {
+            car = (List<Car>) adminServices.getCarDetailsByCompany("Test");
+        } catch (AdminException e) {
+            Assertions.assertEquals("No such Car Company exists",e.getMessage());
+        }
+    }
 
 }

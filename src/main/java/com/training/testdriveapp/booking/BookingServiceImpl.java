@@ -194,7 +194,7 @@ public class BookingServiceImpl implements BookingService{
         Staff staff = new Staff();
         if(foundStaff.isPresent())
             staff = foundStaff.get();
-        Car foundCar = this.carRepository.findByStaff(staff);
+        Car foundCar = this.carRepository.findBystaff(staff);
         List<Booking> foundBooking = this.bookingRepository.findByTestDriveCar(foundCar);
         List<BookingOutputDto> bookingDtos = new ArrayList<>();
         for(int i=0;i<foundBooking.size();i++)
