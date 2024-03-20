@@ -1,6 +1,5 @@
 package com.training.testdriveapp.staff;
 
-import com.training.testdriveapp.entity.Address;
 import jakarta.persistence.*;
 
 import java.util.List;
