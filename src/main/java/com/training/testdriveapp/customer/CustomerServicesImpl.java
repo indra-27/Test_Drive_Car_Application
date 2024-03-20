@@ -24,7 +24,6 @@ updating customer ,deleting customer and viewing all the customers
 public class CustomerServicesImpl implements CustomerServices {
     @Autowired
     private CustomerRepository customerRepository;
-    
     @Autowired
     private BookingRepository bookingRepository;
 
