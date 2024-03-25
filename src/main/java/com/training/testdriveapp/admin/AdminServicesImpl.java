@@ -179,15 +179,10 @@ public class AdminServicesImpl implements AdminServices {
         return this.carsRepository.findByCompany(company);
     }
 
-
     @Override
     public List<Car> getCarDetailsWithinPriceRange(Double minprice, Double maxprice) {
-        return this.getAllCars().stream().filter(s->s.getCarPrice()>=minprice&&s.getCarPrice()<=maxprice).toList();
-    }
 
-    @Override
-    public List<Car> getAllCars() {
-        return this.carsRepository.findAll();
+        return this.getCarDetails().stream().filter(s->s.getCarPrice()>=minprice&&s.getCarPrice()<=maxprice).toList();
     }
 
     @Override

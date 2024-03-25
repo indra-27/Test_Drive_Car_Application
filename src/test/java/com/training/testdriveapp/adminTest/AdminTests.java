@@ -100,6 +100,11 @@ class AdminTests {
 
     @Test
     void modelExistExceptionInGetCarDetailsByModelName(){
+        Assertions.assertThrows(AdminException.class,()->adminServices.getCarDetailsByModelName("Testing"));
+    }
+
+    @Test
+    void modelExistExceptionMessageInGetCarDetailsByModelName(){
         List<Car> car = null;
         try
         {
@@ -123,6 +128,11 @@ class AdminTests {
         }catch (AdminException e){
             Assertions.assertEquals("Null car details cannot be updated",e.getMessage());
         }
+    }
+
+    @Test
+    void nullIdTestInUpdateCarDetails(){
+        Assertions.assertThrows(AdminException.class,()->adminServices.updateCarDetails(new CarDto(null,"Ford","Fias","Red",500000.0,"5600cc","Automatic","Petrol",5,3555.0,2500.0,"image","Hellooo")));
     }
 
     @Test
@@ -160,6 +170,11 @@ class AdminTests {
 //    }
 
     @Test
+    void carNotFoundTestIndeleteCarTest(){
+        Assertions.assertThrows(AdminException.class,()->adminServices.deleteCarById(5786324));
+    }
+
+    @Test
     void carNotFoundTestMessageIndeleteCarTest(){
         try{
 //            Car car = new Car();
@@ -169,4 +184,49 @@ class AdminTests {
             Assertions.assertEquals("Car not found",e.getMessage());
         }
     }
+
+//    5) getCarDetailsByCompany
+    @Test
+    void getCarDetailsByCompanyTest(){
+        List<Car> car = null;
+        try{
+            car = this.adminServices.getCarDetailsByCompany("Volkswagen");
+            Assertions.assertNotNull(car);
+        }catch (AdminException e)
+        {
+            Assertions.fail(e.getMessage());
+        }
+    }
+    @Test
+    void nullCompanyTestInGetCarDetailsByCompanyTest(){
+        Assertions.assertThrows(AdminException.class,()->adminServices.getCarDetailsByCompany(null));
+    }
+
+    @Test
+    void nullCompanyTestMessageInGetCarDetailsByCompanyTest(){
+        try
+        {
+            adminServices.getCarDetailsByCompany(null);
+        }catch (AdminException e)
+        {
+            Assertions.assertEquals("Give a valid Company name",e.getMessage());
+        }
+    }
+
+//    @Test
+//    void companyExistExceptionInGetCarDetailsByCompanyTest(){
+//        Assertions.assertThrows(AdminException.class,()->adminServices.getCarDetailsByCompany("Company"));
+//    }
+
+    @Test
+    void companyExistExceptionMessageInGetCarDetailsByCompanyTest(){
+        List<Car> car = null;
+        try
+        {
+            car = (List<Car>) adminServices.getCarDetailsByCompany("Test");
+        } catch (AdminException e) {
+            Assertions.assertEquals("No such Car Company exists",e.getMessage());
+        }
+    }
+
 }
