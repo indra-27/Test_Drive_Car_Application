@@ -185,8 +185,7 @@ public class RatingServiceImpl implements RatingService{
 
 //    @Override
 //    public Rating getRatingsById(Integer id) {
-//        Optional<Rating> rat= this.ratingRepository.findByRatingId(id);
-//        return rat.orElse(null);
+//        return this.ratingRepository.findByRatingId(id);
 //    }
 
 

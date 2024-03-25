@@ -63,9 +63,9 @@ public class RatingController {
     public List<RatingDto> getRatingsListOfCustomerByCarName(@PathVariable String carModel) throws RatingException {
         return ratingService.getRatingDtoOfCustomerByCarName(carModel);
     }
-
+//
 //    // 3. Getting the Rating list for particular customer mail
-//    @GetMapping("rating/{customerMail}")
+//    @GetMapping("rating/{id}")
 //    public Rating getRatingsById(@PathVariable Integer id) throws RatingException {
 //        return ratingService.getRatingsById(id);
 //    }
