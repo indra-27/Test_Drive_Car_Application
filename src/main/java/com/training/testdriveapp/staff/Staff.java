@@ -1,5 +1,8 @@
 package com.training.testdriveapp.staff;
 
+
+import com.training.testdriveapp.admin.Car;
+
 import jakarta.persistence.*;
 
 
@@ -12,6 +15,37 @@ public class Staff {
 
     private String phoneNumber;
     private String staffEmail;
+
+    @Override
+    public String toString() {
+        return "Staff{" +
+                "staffId=" + staffId +
+                ", staffName='" + staffName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", staffEmail='" + staffEmail + '\'' +
+                ", modelName='" + modelName + '\'' +
+                '}';
+    }
+
+
+
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
+    }
+
+
+    public String getModelName() {
+        return modelName;
+
+    }
+
+    public Staff(String modelName) {
+        this.modelName = modelName;
+    }
+
+    @OneToOne
+    private Car car;
+    private String modelName;
 
 
     public Integer getStaffId() {
@@ -29,8 +63,6 @@ public class Staff {
     public void setStaffName(String staffName) {
         this.staffName = staffName;
     }
-
-
 
     public String getPhoneNumber() {
         return phoneNumber;

@@ -1,6 +1,9 @@
 package com.training.testdriveapp.staff;
 
 import com.training.testdriveapp.admin.Car;
+import com.training.testdriveapp.customer.Customer;
+import com.training.testdriveapp.customer.CustomerException;
+import com.training.testdriveapp.customer.LoginDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,10 +42,20 @@ public class StaffServiceImpl implements StaffService{
 
     @Override
     public Staff updateStaffDetails(Staff staff) throws StaffException {
-        if(staff==null){
-            throw new StaffException("Account can't be null");
-        }
-        return this.staffRepository.save(staff);
+            if(staff==null)
+                throw new StaffException("Staff cannot be null");
+            Optional<Staff> staffOpt=this.staffRepository.findByStaffEmail(staff.getStaffEmail());
+            String staff2=staffOpt.get().getPhoneNumber();
+
+            if(staff2==null) {
+                throw new StaffException("Staff not exists with id "+staff.getStaffId());
+            }
+            staffOpt.get().setStaffEmail(staffOpt.get().getStaffEmail());
+            staffOpt.get().setPhoneNumber(staff.getPhoneNumber());
+            staffOpt.get().setStaffId(staffOpt.get().getStaffId());
+            Staff staff1=staffOpt.get();
+
+            return this.staffRepository.save(staff1);
     }
 
     @Override
@@ -71,6 +84,31 @@ public class StaffServiceImpl implements StaffService{
         return staffList;
     }
 
+    @Override
+    public Staff getByStaffEmail(String staffEmail) throws StaffException {
+        if(staffEmail==null){
+            throw new StaffException("Staff doesn't exists with given id"+staffEmail);
+        }
+        Optional<Staff> staff=this.staffRepository.findByStaffEmail(staffEmail);
+        if(!staff.isPresent()) {
+            throw new StaffException("Staff doesn't exists");
+        }
+        Staff staff1=staff.get();
+        return  staff1;
+    }
+
+    @Override
+    public Staff login(StaffLoginDto staffLoginDto) throws StaffException {
+        Optional<Staff> staffOpt=this.staffRepository.findByStaffEmail(staffLoginDto.getStaffEmail());
+        if(staffOpt.isEmpty()){
+            throw  new StaffException("Staff does not exists");
+        }
+        Staff foundStaff=staffOpt.get();
+        if(! staffOpt.get().getPhoneNumber().equals(staffLoginDto.getPhoneNumber()))
+            throw new StaffException("Password is Incorrect");
+
+        return foundStaff;
+    }
 
 }
 
