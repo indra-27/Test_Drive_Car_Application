@@ -4,22 +4,33 @@ import com.training.testdriveapp.entity.Address;
 import jakarta.persistence.*;
 
 
-@Entity
+
 public class CustomerDto {
-    @Id
-    @GeneratedValue
+
     private Integer id;
     private String name;
+
     private String email;
     private String password;
-    private Integer addressId;
+    private Address address;
+
+
+    public CustomerDto(Integer id, String name, String email, String password, Integer addressId, Integer ratingId, Address address) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+
+        this.address = address;
+    }
+
 
     public CustomerDto(Integer id, String name, String email, String password, Integer addressId, Address address) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.addressId = addressId;
+
         this.address = address;
     }
 
@@ -31,9 +42,7 @@ public class CustomerDto {
         this.address = address;
     }
 
-   @OneToOne(cascade = CascadeType.ALL)
-   @JoinColumn(name = "Id")
-   private Address address;
+
 
     public CustomerDto() {
     }
@@ -43,7 +52,7 @@ public class CustomerDto {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.addressId = addressId;
+
 
     }
 
@@ -51,7 +60,7 @@ public class CustomerDto {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.addressId = addressId;
+
 
     }
 
@@ -62,7 +71,7 @@ public class CustomerDto {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", addressId=" + addressId +
+
 //
                 '}';
     }
@@ -99,12 +108,6 @@ public class CustomerDto {
         this.password = password;
     }
 
-    public Integer getAddressId() {
-        return addressId;
-    }
 
-    public void setAddressId(Integer addressId) {
-        this.addressId = addressId;
-    }
 
 }

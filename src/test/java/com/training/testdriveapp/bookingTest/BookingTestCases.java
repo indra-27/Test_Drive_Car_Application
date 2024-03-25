@@ -68,11 +68,9 @@ import java.time.LocalDate;
     }
 
     @Test
-    void wrongSlotNumberTestExceptionMessageInNewBookingTest() throws BookingException {
-
+    void wrongSlotNumberTestExceptionMessageInNewBookingTest(){
         try {
             this.bookingService.createNewBooking((new BookingInputDto("indra@gmail.com","EcoSport",-8,LocalDate.of(2024,2,27),LocalDate.of(2024,2,23))));
-
         } catch (BookingException e) {
             Assertions.assertEquals("Invalid Slot Number", e.getMessage());
         }
@@ -264,6 +262,7 @@ import java.time.LocalDate;
             Assertions.assertEquals("No such Car exists",e.getMessage());
         }
     }
+
 
 
 }
