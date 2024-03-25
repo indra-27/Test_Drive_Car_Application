@@ -32,7 +32,7 @@ public interface CustomerServices {
 
     Customer getCustomerByEmail(String email) throws CustomerException;
 
-    List<Booking> getCustomerBookingsByEmail(String email);
+    List<Booking> getCustomerBookingsByEmail(String email) throws CustomerException;
 
     Customer forgotPassword(String email, String password) throws CustomerException;
 }

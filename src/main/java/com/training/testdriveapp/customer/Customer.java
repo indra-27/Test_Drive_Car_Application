@@ -4,6 +4,10 @@ package com.training.testdriveapp.customer;
 import com.training.testdriveapp.booking.Booking;
 import com.training.testdriveapp.rating.Rating;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
+import jakarta.validation.constraints.Pattern;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +18,24 @@ public class Customer {
 
     @Id
     @GeneratedValue
+
     private Integer customerId;
+
+    @NotBlank(message = "Name cant be null, it should contain chars")
+    @Pattern(regexp = "[a-zA-Z ]{3,16}", message = "Name should contain min 3 & max 16 chars , no digits and special chars allowed.")
     private String customerName;
 
+    @NotBlank(message = "Address cant be null, it should contain chars")
+    @Pattern(regexp = "[a-zA-Z ]{3,16}", message = "Address should contain min 3 & max 16 chars , no digits and special chars allowed.")
     private  String address;
+    @Pattern(regexp = "\\d{10}",message = "Tel no should contain only 10 digits")
     private String mobileNumber;
+
+    @Email(message = "Please provide valid email. e.g name@ford.com",regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}")
+//    @Pattern(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}",message ="Please provide valid email. e.g name@ford.com" )
     private String customerEmail;
 
+    @Pattern(regexp = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#&%$_]).{8,}",message = "Password must contain atleast 1 uppercase,1 lowercase,1 digit and 1 special character and minimum of length 8.")
     private String password;
 
 
@@ -113,13 +128,7 @@ public class Customer {
         this.ratings = ratings;
     }
 
-    public List<Rating> getCustomerRatingList() {
-        return ratings;
-    }
 
-    public void setCustomerRatingList(List<Rating> customerRatingList) {
-        this.ratings = customerRatingList;
-    }
 
 
     public Integer getCustomerId() {

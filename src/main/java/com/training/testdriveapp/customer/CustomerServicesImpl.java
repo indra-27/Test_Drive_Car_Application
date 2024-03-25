@@ -95,7 +95,7 @@ public class CustomerServicesImpl implements CustomerServices {
 
 
         if(customerOpt.isEmpty()) {
-            throw new CustomerException("Customer not exists with id "+customer.getCustomerId());
+            throw new CustomerException("Customer not exists with id ");
         }
             customerOpt.get().setPassword(customer.getPassword());
        customerOpt.get().setCustomerEmail(customerOpt.get().getCustomerEmail());
@@ -106,10 +106,6 @@ customerOpt.get().setCustomerName(customer.getCustomerName());
             Customer customer1=customerOpt.get();
 
             return this.customerRepository.save(customer1);
-
-
-
-
 
 
 
@@ -212,12 +208,20 @@ customerOpt.get().setCustomerName(customer.getCustomerName());
 
             }
 
-
-
-
-
     }
+    /************************************************************************************
+     * Method: 			-updateCustomerMobile
+     *Description: 			-To update a customer mobile number
+     * @param1  email      -Customer email to get details
+     * @Param2 mobileNumer -Customer new mobile number
 
+     * @returns Customer                  - customer, if present otherwise throws CustomerException
+     * @throws CustomerException - It is raised due to if customer is not present
+    server side validation
+     *Created By                                - Keerthana
+     *Created Date                            - 19-FEB-2024
+
+     ************************************************************************************/
 
 
 
@@ -237,6 +241,19 @@ customerOpt.get().setCustomerName(customer.getCustomerName());
 
 
     }
+    /************************************************************************************
+     * Method: 			-updateCustomerAddress
+     *Description: 			-To update a customer address
+     * @param1  id     -Customer Id to get details
+     * @Param2 address -Customer new address
+
+     * @returns Customer                  - customer, if present otherwise throws CustomerException
+     * @throws CustomerException - It is raised due to if customer is not present
+    server side validation
+     *Created By                                - Keerthana
+     *Created Date                            - 19-FEB-2024
+
+     ************************************************************************************/
 
     @Override
     public Customer updateCustomerAddress(Integer id, String address) throws CustomerException {
@@ -255,6 +272,19 @@ customerOpt.get().setCustomerName(customer.getCustomerName());
 
 
     }
+    /************************************************************************************
+     * Method: 			-updateCustomerPassword
+     *Description: 			-To update a customer password
+     * @param1  email      -Customer email to get details
+     * @Param2 password -Customer new password
+
+     * @returns Customer                  - customer, if present otherwise throws CustomerException
+     * @throws CustomerException - It is raised due to if customer is not present
+    server side validation
+     *Created By                                - Keerthana
+     *Created Date                            - 19-FEB-2024
+
+     ************************************************************************************/
 
     @Override
     public Customer updateCustomerPassword(String email, String password) throws CustomerException {
@@ -287,9 +317,21 @@ customerOpt.get().setCustomerName(customer.getCustomerName());
         }
 
 
-
         return this.customerRepository.findAll();
     }
+    /************************************************************************************
+     * Method: 			-getCustomerByEmail
+     *Description: 			-To get customer details by email
+     * @param  email      -Customer email to get details
+
+
+     * @returns Customer                  - customer, if present otherwise throws CustomerException
+     * @throws CustomerException - It is raised due to if customer is not present
+    server side validation
+     *Created By                                - Keerthana
+     *Created Date                            - 19-FEB-2024
+
+     ************************************************************************************/
 
     @Override
     public Customer getCustomerByEmail(String email) throws CustomerException {
@@ -304,9 +346,25 @@ customerOpt.get().setCustomerName(customer.getCustomerName());
         return  customer.get();
     }
 
+    /************************************************************************************
+     * Method: 			-getCustomerBookingsByEmail
+     *Description: 			-To get customer details by email
+     * @param  email      -Customer email to get details
+
+
+     * @returns Customer                  - customer, if present otherwise throws CustomerException
+     * @throws CustomerException - It is raised due to if customer is not present
+    server side validation
+     *Created By                                - Keerthana
+     *Created Date                            - 19-FEB-2024
+
+     ************************************************************************************/
     @Override
-    public List<Booking> getCustomerBookingsByEmail(String email) {
+    public List<Booking> getCustomerBookingsByEmail(String email) throws CustomerException {
        Optional<Customer> customer1=this.customerRepository.findByCustomerEmail(email);
+       if(customer1.isEmpty())
+           throw new CustomerException("Customer not exists with email"+email);
+
        Customer customer=customer1.get();
         return this.bookingRepository.findByCustomer(customer);
 
@@ -315,6 +373,20 @@ customerOpt.get().setCustomerName(customer.getCustomerName());
 
 
     }
+
+    /************************************************************************************
+     * Method: 			-forgotPassword
+     *Description: 			-To get customer details by email
+     * @param  email      -Customer email to get details
+* @param password         -Customer new  password
+
+     * @returns Customer                  - customer, if present otherwise throws CustomerException
+     * @throws CustomerException - It is raised due to if customer is not present
+    server side validation
+     *Created By                                - Keerthana
+     *Created Date                            - 19-FEB-2024
+
+     ************************************************************************************/
 
     @Override
     public Customer forgotPassword(String email, String password) throws CustomerException {

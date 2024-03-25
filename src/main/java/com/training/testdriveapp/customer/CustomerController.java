@@ -3,12 +3,13 @@ package com.training.testdriveapp.customer;
 
 import com.training.testdriveapp.booking.Booking;
 
-import com.training.testdriveapp.rating.Rating;
-import jakarta.persistence.criteria.CriteriaBuilder;
 
 
+
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,7 +27,8 @@ public class CustomerController {
     private CustomerServices customerServices;
 
     @PostMapping("customer")
-    public Customer addNewCustomer(@RequestBody CustomerDto customer) throws CustomerException{
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public Customer addNewCustomer(@Valid @RequestBody CustomerDto customer) throws CustomerException{
         return this.customerServices.addNewCustomer(customer);
 
     }
@@ -80,7 +82,7 @@ public class CustomerController {
    }
 
    @GetMapping("customer/AllBookings/{email}")
-    public List<Booking> getCustomerBookingsByEmail(@PathVariable String email){
+    public List<Booking> getCustomerBookingsByEmail(@PathVariable String email) throws CustomerException {
         return this.customerServices.getCustomerBookingsByEmail(email);
 
    }
