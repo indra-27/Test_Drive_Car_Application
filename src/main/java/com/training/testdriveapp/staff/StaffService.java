@@ -16,5 +16,5 @@ public interface StaffService {
     Staff getByStaffEmail(String staffEmail) throws StaffException;
 
 
-
+    Staff login(StaffLoginDto staffLoginDto) throws StaffException;
 }

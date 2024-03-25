@@ -1,5 +1,8 @@
 package com.training.testdriveapp.staff;
 
+import com.training.testdriveapp.customer.Customer;
+import com.training.testdriveapp.customer.CustomerException;
+import com.training.testdriveapp.customer.LoginDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +20,7 @@ public class StaffController {
         return this.staffService.addNewStaff(newStaff);
     }
 
-    @PutMapping("UpdateStaff")
+    @PutMapping("Staff/update")
     public Staff updateAccount(@RequestBody Staff staff) throws StaffException {
         return this.staffService.updateStaffDetails(staff);
     }
@@ -26,7 +29,7 @@ public class StaffController {
     public Optional<Staff> getByStaffId(@PathVariable("staffid") Integer staffid) throws StaffException {
         return this.staffService.getByStaffId(staffid);
     }
-    @DeleteMapping("DeleteStaff/{staffid}")
+    @DeleteMapping("staff/delete/{staffid}")
     public Optional<Staff> deleteAccountById(@PathVariable Integer staffid) throws StaffException {
 
         return this.staffService.deleteStaff(staffid);
@@ -35,8 +38,12 @@ public class StaffController {
     public List<Staff> getAllAccounts() throws StaffException {
         return this.staffService.getAllStaffs();
     }
-    @GetMapping("GetStaffbyEmail/{staffEmail}")
+    @GetMapping("getStaffbyEmail/{staffEmail}")
     public Optional<Staff> getByStaffEmail(@PathVariable("staffEmail") String staffEmail) throws StaffException {
         return Optional.ofNullable(this.staffService.getByStaffEmail(staffEmail));
+    }
+    @PostMapping("staff/login")
+    public Staff login(@RequestBody StaffLoginDto staffLoginDto) throws StaffException {
+        return this.staffService.login(staffLoginDto);
     }
 }

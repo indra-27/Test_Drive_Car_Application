@@ -22,24 +22,11 @@ public class Staff {
                 ", staffName='" + staffName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", staffEmail='" + staffEmail + '\'' +
-                ", carId=" + carId +
                 ", modelName='" + modelName + '\'' +
                 '}';
     }
 
-    public void setCarId(Integer carId) {
-        this.carId = carId;
-    }
 
-    public Integer getCarId() {
-        return carId;
-    }
-
-    public Staff(Integer carId) {
-        this.carId = carId;
-    }
-    @Id
-    private Integer carId;
 
     public void setModelName(String modelName) {
         this.modelName = modelName;
@@ -75,8 +62,6 @@ public class Staff {
     public void setStaffName(String staffName) {
         this.staffName = staffName;
     }
-
-
 
     public String getPhoneNumber() {
         return phoneNumber;
