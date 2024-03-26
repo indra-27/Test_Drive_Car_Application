@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("http://localhost:4200/")
@@ -32,7 +33,7 @@ public class RatingController {
     }
 
     // 4. Getting the Rating List(DTO) for the Customer mailId
-    @GetMapping("/rating/DTO/{customerMail}/")
+    @GetMapping("/rating/DTO/{customerMail}")
     public List<RatingDto> getRatingsListOfCustomerByMailId(@PathVariable String customerMail) throws RatingException {
         return ratingService.getRatingDtoOfCustomerByMailId(customerMail);
     }
@@ -40,7 +41,7 @@ public class RatingController {
 
     // 5.Updating the Reviews
     @PutMapping("/rating/update")
-    public Rating updateRatingById(@RequestBody Rating rating) throws RatingException {
+    public Rating updateRatingById(@RequestBody RatingDto rating) throws RatingException {
         return this.ratingService.updateRating(rating);
     }
    // 6.Deleting the Reviews By Id
@@ -57,6 +58,23 @@ public class RatingController {
         return this.ratingService.getAllRatingsBetweenRange(min,max);
     }
 
+    // 8. Getting the Rating List(DTO) for the Car Model Name
+    @GetMapping("/rating/DTOCarName/{carModel}")
+    public List<RatingDto> getRatingsListOfCustomerByCarName(@PathVariable String carModel) throws RatingException {
+        return ratingService.getRatingDtoOfCustomerByCarName(carModel);
+    }
+//
+//    // 3. Getting the Rating list for particular customer mail
+//    @GetMapping("rating/{id}")
+//    public Rating getRatingsById(@PathVariable Integer id) throws RatingException {
+//        return ratingService.getRatingsById(id);
+//    }
+
+    // 8. Listing all the  RatingDto to customer
+//    @GetMapping("rating/dto")
+//    public List<RatingDto> findAllRatingDto() throws RatingException {
+//        return this.ratingService.getAllRatingDto();
+//    }
 
 
 }
