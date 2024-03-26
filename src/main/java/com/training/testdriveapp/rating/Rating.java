@@ -3,6 +3,9 @@ package com.training.testdriveapp.rating;
 import com.training.testdriveapp.admin.Car;
 import com.training.testdriveapp.customer.Customer;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
 
@@ -11,7 +14,11 @@ public class Rating {
     @Id
     @GeneratedValue
     private Integer ratingId;
+    @NotBlank(message = "Rating Stars can't be null")
+    @Min(value = 0,message = "Minimum will be 0")
+    @Max(value = 5,message = "Maximum will be 5")
     private Integer ratingStars;
+    @NotBlank(message = "Comments can't be null")
     private String comments;
     @ManyToOne
     private Customer customer;

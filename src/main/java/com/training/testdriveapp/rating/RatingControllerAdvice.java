@@ -1,5 +1,6 @@
-package com.training.testdriveapp.staff;
+package com.training.testdriveapp.rating;
 
+import com.training.testdriveapp.booking.BookingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -11,9 +12,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
-public class StaffControllerAdvice {
-    @ExceptionHandler(value = {StaffException.class})
-    public ResponseEntity<String> staffExceptionHandler(StaffException e){
+public class RatingControllerAdvice {
+    @ExceptionHandler(value = {RatingException.class})
+    public ResponseEntity<String> ratingExceptionHandler(RatingException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
