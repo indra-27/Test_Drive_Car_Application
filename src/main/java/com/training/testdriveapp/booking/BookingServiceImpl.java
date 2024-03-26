@@ -120,9 +120,6 @@ public class BookingServiceImpl implements BookingService{
             throw new BookingException("Car model name can't be null");
         List<Car> foundCar = this.carRepository.findBymodelName(carModelName);
         if(foundCar.isEmpty())
-    public List<BookingOutputDto> getAllUserBookingByCarId(String carModelName) throws BookingException{
-        List<Car> foundCar = this.carRepository.findBymodelName(carModelName);
-        if(foundCar.getFirst()==null)
             throw new BookingException("No such Car exists");
         List<Booking> bookings = this.bookingRepository.findByTestDriveCar(foundCar.getFirst());
         List<BookingOutputDto> bookingDtos = new ArrayList<>();
@@ -143,5 +140,10 @@ public class BookingServiceImpl implements BookingService{
         }
         return bookingDtos;
     }
+
+//    @Override
+//    public List<BookingOutputDto> getAllUserBookingByCarId(String carModelName) throws BookingException {
+//        return null;
+//    }
 
 }

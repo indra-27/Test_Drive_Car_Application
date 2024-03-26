@@ -11,19 +11,20 @@ import java.util.List;
 public class BookingController {
     @Autowired
     private BookingService bookingService;
+
     @PostMapping("booking/new")
-    public BookingOutputDto createNewBooking(@RequestBody BookingInputDto newBooking) throws BookingException
-    {
+    public BookingOutputDto createNewBooking(@RequestBody BookingInputDto newBooking) throws BookingException {
         return this.bookingService.createNewBooking(newBooking);
     }
+
     @DeleteMapping("booking/delete")
-    public void deleteBooking(@RequestBody BookIdDto bookIdDto) throws BookingException
-    {
+    public void deleteBooking(@RequestBody BookIdDto bookIdDto) throws BookingException {
         this.bookingService.deleteBooking(bookIdDto);
     }
+
     @GetMapping("booking/user/all/{mailId}")
     public List<BookingOutputDto> getAllUserBookingByEmail(@PathVariable String mailId) throws BookingException {
-      return this.bookingService.getAllUserBookingByEmail(mailId);
+        return this.bookingService.getAllUserBookingByEmail(mailId);
     }
 
     @GetMapping("booking/slot/all/{slotNo}")
@@ -32,25 +33,23 @@ public class BookingController {
     }
 
     @GetMapping("booking/date/all/{date}")
-    public List<BookingOutputDto> getAllUserBookingByDate(@PathVariable LocalDate date) throws BookingException
-    {
+    public List<BookingOutputDto> getAllUserBookingByDate(@PathVariable LocalDate date) throws BookingException {
         return this.bookingService.getAllUserBookingByDate(date);
     }
 
     @GetMapping("booking/car/all/{carModelName}")
-    public List<BookingOutputDto> getAllUserBookingByCarId(@PathVariable String carModelName) throws BookingException
-    {
+    public List<BookingOutputDto> getAllUserBookingByCarId(@PathVariable String carModelName) throws BookingException {
         return this.bookingService.getAllUserBookingByCarModelName(carModelName);
     }
+
     @GetMapping("booking/car/all")
-    public List<BookingOutputDto> getAllBookings()
-    {
-        return  this.bookingService.getAllBookings();
+    public List<BookingOutputDto> getAllBookings() {
+        return this.bookingService.getAllBookings();
     }
-        return this.bookingService.getAllUserBookingByCarId(carModelName);
-    }
+//        return this.bookingService.getAllUserBookingByCarId(carModelName);
+}
 //    @GetMapping("booking/car/all")
 //    public List<>
 
 
-}
+
