@@ -2,12 +2,9 @@ package com.training.testdriveapp.customer;
 
 
 import com.training.testdriveapp.booking.Booking;
-import com.training.testdriveapp.entity.Address;
-import com.training.testdriveapp.rating.Rating;
-import jakarta.persistence.criteria.CriteriaBuilder;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +13,6 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("http://localhost:4200/")
-
 public class CustomerController {
     @Autowired
     public CustomerController(CustomerServices customerServices){
@@ -26,7 +22,7 @@ public class CustomerController {
     private CustomerServices customerServices;
 
     @PostMapping("customer")
-    public Customer addNewCustomer(@RequestBody Customer customer) throws CustomerException{
+    public Customer addNewCustomer(@RequestBody CustomerDto customer) throws CustomerException{
         return this.customerServices.addNewCustomer(customer);
 
     }
@@ -48,7 +44,7 @@ public class CustomerController {
     }
 
     @PatchMapping("customer/updateCustomerAddress/{id}/{address}")
-    public Customer updateCustomerAddress(@PathVariable Integer id, @PathVariable Address address) throws CustomerException {
+    public Customer updateCustomerAddress(@PathVariable Integer id, @PathVariable String address) throws CustomerException {
         return this.customerServices.updateCustomerAddress(id,address);
     }
 
@@ -57,10 +53,10 @@ public class CustomerController {
         return this.customerServices.updateCustomerPassword(email,password);
     }
 
-    @DeleteMapping("customer/delete/{id}")
-    public void deleteCustomerById(@PathVariable Integer id) throws CustomerException
+    @DeleteMapping("customer/delete/{email}")
+    public void deleteCustomerById(@PathVariable String email) throws CustomerException
     {
-        this.customerServices.deleteCustomer(id);
+        this.customerServices.deleteCustomer(email);
 
     }
 
@@ -74,6 +70,20 @@ public class CustomerController {
         return this.customerServices.getCustomerById(id);
     }
 
+   @GetMapping("customer/allCustomers/{email}")
+    public  Customer getCustomerByEmail(@PathVariable String email)throws CustomerException{
+        return this.customerServices.getCustomerByEmail(email);
+   }
 
+   @GetMapping("customer/AllBookings/{email}")
+    public List<Booking> getCustomerBookingsByEmail(@PathVariable String email){
+        return this.customerServices.getCustomerBookingsByEmail(email);
+
+   }
+
+   @PostMapping("customer/forgotPassword/{email}/{password}")
+    public Customer forgotPassword(@PathVariable String email,@PathVariable String password)throws CustomerException{
+        return this.customerServices.forgotPassword(email,password);
+   }
 
 }

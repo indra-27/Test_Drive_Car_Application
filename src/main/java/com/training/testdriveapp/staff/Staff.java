@@ -1,20 +1,51 @@
 package com.training.testdriveapp.staff;
 
-import com.training.testdriveapp.entity.Address;
+
+import com.training.testdriveapp.admin.Car;
+
 import jakarta.persistence.*;
 
-import java.util.List;
 
 @Entity
 public class Staff {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer staffId;
     private String staffName;
-    @OneToOne
-    private Address address;
+
     private String phoneNumber;
     private String staffEmail;
+
+    @Override
+    public String toString() {
+        return "Staff{" +
+                "staffId=" + staffId +
+                ", staffName='" + staffName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", staffEmail='" + staffEmail + '\'' +
+                ", modelName='" + modelName + '\'' +
+                '}';
+    }
+
+
+
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
+    }
+
+
+    public String getModelName() {
+        return modelName;
+
+    }
+
+    public Staff(String modelName) {
+        this.modelName = modelName;
+    }
+
+    @OneToOne
+    private Car car;
+    private String modelName;
 
 
     public Integer getStaffId() {
@@ -31,14 +62,6 @@ public class Staff {
 
     public void setStaffName(String staffName) {
         this.staffName = staffName;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
     }
 
     public String getPhoneNumber() {
@@ -60,9 +83,9 @@ public class Staff {
     public Staff() {
     }
 
-    public Staff(String staffName, Address address, String phoneNumber, String staffEmail) {
+    public Staff(String staffName, String phoneNumber, String staffEmail) {
         this.staffName = staffName;
-        this.address = address;
+
         this.phoneNumber = phoneNumber;
         this.staffEmail = staffEmail;
     }

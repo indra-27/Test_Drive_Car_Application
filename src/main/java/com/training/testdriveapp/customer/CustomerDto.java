@@ -1,103 +1,84 @@
 package com.training.testdriveapp.customer;
 
-import com.training.testdriveapp.entity.Address;
-import jakarta.persistence.*;
 
 
 
 public class CustomerDto {
 
-    private Integer id;
-    private String name;
 
-    private String email;
+    private String customerName;
+    private String mobileNumber;
+
+    private String customerEmail;
+
     private String password;
-    private Address address;
-
-
-    public CustomerDto(Integer id, String name, String email, String password, Integer addressId, Integer ratingId, Address address) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-
-        this.address = address;
-    }
-
-
-    public CustomerDto(Integer id, String name, String email, String password, Integer addressId, Address address) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-
-        this.address = address;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-
+    private String address;
 
     public CustomerDto() {
     }
 
-    public CustomerDto(Integer id, String name, String email, String password, Integer addressId) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
+    public CustomerDto(String mobileNumber,String name, String email, String password,  String address) {
+        super();
+        this.mobileNumber=mobileNumber;
+
+        this.customerName = name;
+        this.customerEmail = email;
         this.password = password;
 
-
+        this.address = address;
     }
 
-    public CustomerDto(String name, String email, String password, Integer addressId) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-
-
+    public CustomerDto(int i, String karthi, String chennai, String number, String mail, String s) {
     }
+
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+
+
+
+
 
     @Override
     public String toString() {
         return "CustomerDto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
+                "mobile"+mobileNumber+
+                ", name='" + customerName + '\'' +
+                ", email='" + customerEmail + '\'' +
                 ", password='" + password + '\'' +
 
 //
                 '}';
     }
 
-    public Integer getId() {
-        return id;
+    public String getMobileNumber() {
+        return mobileNumber;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 
-    public String getName() {
-        return name;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCustomerEmail() {
+        return customerEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
     }
 
     public String getPassword() {
