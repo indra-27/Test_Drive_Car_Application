@@ -1,8 +1,15 @@
 package com.training.testdriveapp.booking;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.training.testdriveapp.admin.Car;
 import com.training.testdriveapp.customer.Customer;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 @Entity
@@ -12,9 +19,15 @@ public class Booking {
     private Integer bookId;
     @ManyToOne
     private Car testDriveCar;
+    @NotBlank(message = "SlotNo cant be null, it should be between 1 to 8")
+    @Min(value = 1,message = "Minimum value should be 1")
+    @Max(value = 8,message = "Maximum value should be 8")
     private Integer slotNo;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate bookingDate;
+    @NotNull
     private Boolean status;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate date;
     @ManyToOne
     private Customer customer;
