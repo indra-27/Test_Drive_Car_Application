@@ -18,9 +18,9 @@ public class BookingController {
         return this.bookingService.createNewBooking(newBooking);
     }
 
-    @DeleteMapping("booking/delete")
-    public void deleteBooking(@RequestBody BookIdDto bookIdDto) throws BookingException {
-        this.bookingService.deleteBooking(bookIdDto);
+    @DeleteMapping("booking/{bookId}")
+    public void deleteBooking(@PathVariable Integer bookId) throws BookingException {
+        this.bookingService.deleteBooking(bookId);
     }
 
     @GetMapping("booking/user/all/{mailId}")
