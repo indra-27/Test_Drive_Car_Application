@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:4200/")
 public class BookingController {
     @Autowired
     private BookingService bookingService;
@@ -43,13 +44,21 @@ public class BookingController {
     }
 
     @GetMapping("booking/car/all")
-    public List<BookingOutputDto> getAllBookings() {
+    public List<BookingOutputDto> getAllBookings() throws BookingException {
         return this.bookingService.getAllBookings();
     }
-//        return this.bookingService.getAllUserBookingByCarId(carModelName);
+     @GetMapping("booking/staff/all/{staffEmail}")
+    public List<BookingOutputDto> getAllUserBookingsByStaffEmail(@PathVariable String staffEmail)throws BookingException
+    {
+        return this.bookingService.getAllUserBookingsByStaffEmail(staffEmail);
+    }
+    @GetMapping("booking/{id}")
+    public BookingOutputDto getBookingById(@PathVariable Integer id) throws BookingException
+    {
+        return this.bookingService.getBookingById(id);
+    }
 }
-//    @GetMapping("booking/car/all")
-//    public List<>
 
 
+   
 

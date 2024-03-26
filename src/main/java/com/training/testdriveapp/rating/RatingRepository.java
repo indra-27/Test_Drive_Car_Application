@@ -17,7 +17,6 @@ public interface RatingRepository extends JpaRepository<Rating,Integer> {
 
     Map<String,List<Rating>> ratingsMap = new HashMap<>();
     Map<String,List<RatingDto>> ratingDtoMap = new HashMap<>();
-
     Rating findByRatingId(Integer id);
 
     List<Rating> findByCustomer(Customer customer);

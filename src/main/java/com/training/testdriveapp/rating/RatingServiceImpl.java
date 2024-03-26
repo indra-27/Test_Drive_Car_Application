@@ -165,15 +165,15 @@ public class RatingServiceImpl implements RatingService{
 
     @Override
     public List<RatingDto> getRatingDtoOfCustomerByCarName(String carModel) throws RatingException {
-        List<Car> car = this.carRepository.findBymodelName(carModel);
-        Car foundCar=null;
-        Optional<Car> cars = car.stream().findFirst();
+        Car car = this.carRepository.findByModelName(carModel);
+//        Car foundCar=null;
+//        Optional<Car> cars = car.stream().findFirst();
 
-        if(cars.isPresent())
-           foundCar=cars.get();
-        if (foundCar == null)
+//        if(cars.isPresent())
+//           foundCar=cars.get();
+        if (car == null)
             throw new RatingException("The Car Model does not exist");
-        List<Rating> ratings= this.ratingRepository.findByCar(foundCar);
+        List<Rating> ratings= this.ratingRepository.findByCar(car);
         List<RatingDto> ratingDtos=new ArrayList<>();
         for(int i=0;i<ratings.size();i++)
         {

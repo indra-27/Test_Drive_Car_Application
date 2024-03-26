@@ -3,6 +3,10 @@ package com.training.testdriveapp.admin;
 import com.training.testdriveapp.rating.Rating;
 import com.training.testdriveapp.staff.Staff;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,16 +16,41 @@ public class Car {
     @Id
     @GeneratedValue
     private Integer carId;
+    @NotBlank(message = "Company name cant be null, it should contain chars")
+    @Pattern(regexp = "[a-zA-Z ]{3,16}", message = "Company Name should contain min 3 & max 16 chars , no digits and special chars allowed.")
     private String company;
+    @NotBlank(message = "Model name cant be null, it should contain chars")
+    @Pattern(regexp = "[a-zA-Z0-9 ]{3,16}", message = "Model Name should contain min 3 & max 16 chars , no digits and special chars allowed.")
     private String modelName;
+    @NotBlank(message = "Color name cant be null, it should contain chars")
+    @Pattern(regexp = "[a-zA-Z ]{3,16}", message = "Color should contain min 3 & max 16 chars , no digits and special chars allowed.")
     private String color;
+    @NotBlank(message = "Car price can't be null")
     private Double carPrice;
+    @NotBlank(message = "Engine model can't be null")
+    @Pattern(regexp = "[a-zA-Z0-9 ]{3,10}", message = "Engine model should contain min 3 & max 16 chars and no special chars allowed.")
     private String engineModel;
+    @NotBlank(message = "Vehicle Type can't be null")
+    @Pattern(regexp = "[a-zA-Z ]{3,16}", message = "Vehicle type should contain min 3 & max 16 chars , no digits and special chars allowed.")
     private String vehicleType;
+    @NotBlank(message = "Fuel Type can't be null")
+    @Pattern(regexp = "[a-zA-Z ]{3,16}", message = "Fuel type should contain min 3 & max 16 chars , no digits and special chars allowed.")
     private String fuelType;
+    @NotBlank(message = "Seater can't be null")
+    @Min(value = 2,message = "Minimum will be 2")
+    @Max(value = 9,message = "Maximum will be 9")
     private Integer seater;
+    @NotBlank(message = "Mileage can't be null")
+    @Pattern(regexp = "[0-9]{3,10}")
     private Double mileage;
+    @NotBlank(message = "RPM can't be null")
+    @Pattern(regexp = "[0-9]{3,10}")
     private Double rpm;
+    @NotBlank(message = "Description can't be null")
+    private String description;
+    @NotBlank(message = "Image can't be null")
+    @Column(nullable = true)
+    private String image;
 
     @OneToOne
     private Staff staff;
@@ -29,7 +58,7 @@ public class Car {
     @OneToMany
     private List<Rating> ratings = new ArrayList<>();
 
-    public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, String fuelType, Integer seater, Double mileage, Double rpm, Staff staff, List<Rating> ratings) {
+    public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, String fuelType, Integer seater, Double mileage, Double rpm, String description, String image, Staff staff, List<Rating> ratings) {
         this.company = company;
         this.modelName = modelName;
         this.color = color;
@@ -40,54 +69,14 @@ public class Car {
         this.seater = seater;
         this.mileage = mileage;
         this.rpm = rpm;
+        this.description = description;
+        this.image = image;
         this.staff = staff;
         this.ratings = ratings;
-    }
-
-    public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, Integer seater, Double mileage, Double rpm, Staff staff, List<Rating> ratings) {
-        this.company = company;
-        this.modelName = modelName;
-        this.color = color;
-        this.carPrice = carPrice;
-        this.engineModel = engineModel;
-        this.vehicleType = vehicleType;
-        this.seater = seater;
-        this.mileage = mileage;
-        this.rpm = rpm;
-        this.staff = staff;
-        this.ratings = ratings;
-    }
-
-    public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, Integer seater, Double mileage, Double rpm, Car testDriveCars, List<Rating> rating) {
-        this.company = company;
-        this.modelName = modelName;
-        this.color = color;
-        this.carPrice = carPrice;
-        this.engineModel = engineModel;
-        this.vehicleType = vehicleType;
-        this.seater = seater;
-        this.mileage = mileage;
-        this.rpm = rpm;
-        this.ratings = rating;
     }
 
     public Car() {
     }
-
-    public Car(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, Integer seater, Double mileage, Double rpm, List<Rating> rating) {
-        this.company = company;
-        this.modelName = modelName;
-        this.color = color;
-        this.carPrice = carPrice;
-        this.engineModel = engineModel;
-        this.vehicleType = vehicleType;
-        this.seater = seater;
-        this.mileage = mileage;
-        this.rpm = rpm;
-        this.ratings = rating;
-    }
-
-
 
     public Integer getCarId() {
         return carId;
@@ -191,5 +180,21 @@ public class Car {
 
     public void setStaff(Staff staff) {
         this.staff = staff;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

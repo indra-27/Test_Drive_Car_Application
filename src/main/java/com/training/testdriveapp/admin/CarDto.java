@@ -2,7 +2,7 @@ package com.training.testdriveapp.admin;
 
 public class CarDto {
     private Integer carId;
-    private String Company;
+    private String company;
     private String modelName;
     private String color;
     private Double carPrice;
@@ -12,9 +12,12 @@ public class CarDto {
     private Integer seater;
     private Double mileage;
     private Double rpm;
+    private String image;
+    private String description;
 
-    public CarDto(String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, String fuelType, Integer seater, Double mileage, Double rpm) {
-        Company = company;
+    public CarDto(Integer carId, String company, String modelName, String color, Double carPrice, String engineModel, String vehicleType, String fuelType, Integer seater, Double mileage, Double rpm, String image, String description) {
+        this.carId = carId;
+        this.company = company;
         this.modelName = modelName;
         this.color = color;
         this.carPrice = carPrice;
@@ -24,7 +27,10 @@ public class CarDto {
         this.seater = seater;
         this.mileage = mileage;
         this.rpm = rpm;
+        this.image = image;
+        this.description = description;
     }
+
     public CarDto(){
 
     }
@@ -37,11 +43,11 @@ public class CarDto {
     }
 
     public String getCompany() {
-        return Company;
+        return company;
     }
 
     public void setCompany(String company) {
-        Company = company;
+        this.company = company;
     }
 
     public String getModelName() {
@@ -114,5 +120,21 @@ public class CarDto {
 
     public void setRpm(Double rpm) {
         this.rpm = rpm;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
