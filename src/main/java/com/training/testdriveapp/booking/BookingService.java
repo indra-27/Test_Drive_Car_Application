@@ -1,5 +1,7 @@
 package com.training.testdriveapp.booking;
 
+import com.training.testdriveapp.admin.Car;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -27,4 +29,6 @@ public interface BookingService {
 
 
     BookingOutputDto getBookingById(Integer id) throws BookingException;
+
+    List<Car> getCarDetailsByDate(LocalDate date) throws BookingException;
 }

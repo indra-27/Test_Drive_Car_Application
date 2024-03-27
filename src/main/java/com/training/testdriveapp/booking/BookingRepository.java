@@ -5,7 +5,6 @@ import com.training.testdriveapp.admin.Car;
 import com.training.testdriveapp.customer.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.awt.print.Book;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,5 +15,4 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
     List<Booking> findByTestDriveCar(Car car);
     Booking findByTestDriveCarAndCustomer(Car car,Customer customer);
     Booking findByTestDriveCarAndDateAndSlotNo(Car car,LocalDate date,Integer slotNo);
-//    List<Booking> findBy
 }

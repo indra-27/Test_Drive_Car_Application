@@ -1,10 +1,10 @@
 package com.training.testdriveapp.rating;
 
+import com.training.testdriveapp.admin.Car;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 @Transactional
@@ -25,4 +25,6 @@ public interface RatingService {
     List<Rating> getRatingsOfCustomerByMailId(String customerId) throws RatingException;
 
     List<RatingDto> getRatingDtoOfCustomerByMailId(String customerMail) throws RatingException;
+
+    List<Car> getCarDetailsByRatingStars(Integer ratingStars) throws RatingException;
 }

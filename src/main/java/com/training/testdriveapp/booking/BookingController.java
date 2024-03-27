@@ -1,6 +1,7 @@
 package com.training.testdriveapp.booking;
 
 
+import com.training.testdriveapp.admin.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -62,5 +63,10 @@ public class BookingController {
     public BookingOutputDto getBookingById(@PathVariable Integer id) throws BookingException
     {
         return this.bookingService.getBookingById(id);
+    }
+    @GetMapping("admin/car/{date}")
+    public List<Car> getCarDetailsByDate(@PathVariable LocalDate date) throws BookingException
+    {
+        return this.bookingService.getCarDetailsByDate(date);
     }
 }

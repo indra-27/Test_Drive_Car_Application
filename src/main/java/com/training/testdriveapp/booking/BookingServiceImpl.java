@@ -212,5 +212,19 @@ public class BookingServiceImpl implements BookingService{
         return new BookingOutputDto(foundBooking.getBookId(),foundBooking.getCustomer().getCustomerEmail(),foundBooking.getTestDriveCar().getModelName(),foundBooking.getSlotNo(),foundBooking.getDate(),foundBooking.getBookingDate(),foundBooking.getTestDriveCar().getStaff().getStaffName(),foundBooking.getTestDriveCar().getStaff().getPhoneNumber());
     }
 
+    @Override
+    public List<Car> getCarDetailsByDate(LocalDate date) throws BookingException {
+        if(date==null)
+            throw new BookingException("Book date cannot be null");
+        List<Booking> bookings = this.bookingRepository.findByDate(date);
+        List<Car> car = new ArrayList<>();
+        for(int i=0;i<bookings.size();i++)
+        {
+            Car dummyCar = carRepository.findByModelName((bookings.get(i).getTestDriveCar().getModelName()));
+            car.add(i,dummyCar);
+        }
+
+        return car;
+    }
 }
 

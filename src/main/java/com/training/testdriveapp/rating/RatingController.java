@@ -1,11 +1,13 @@
 package com.training.testdriveapp.rating;
 
+import com.training.testdriveapp.admin.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:4200/")
 public class RatingController {
     @Autowired
     private RatingService ratingService;
@@ -56,6 +58,10 @@ public class RatingController {
         return this.ratingService.getAllRatingsBetweenRange(min,max);
     }
 
+    @GetMapping("admin/car/rating/{ratingStars}")
+    public List<Car> getCarDetailsByRatingStars(@PathVariable Integer ratingStars) throws RatingException{
+        return this.ratingService.getCarDetailsByRatingStars(ratingStars);
+    }
 
 
 }

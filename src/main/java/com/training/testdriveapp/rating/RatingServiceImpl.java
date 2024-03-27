@@ -1,15 +1,12 @@
 package com.training.testdriveapp.rating;
 
 import com.training.testdriveapp.admin.Car;
-import com.training.testdriveapp.booking.BookingException;
 import com.training.testdriveapp.customer.Customer;
 import com.training.testdriveapp.customer.CustomerRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.server.DelegatingServerHttpResponse;
 import org.springframework.stereotype.Service;
 import com.training.testdriveapp.admin.CarRepository;
-import com.training.testdriveapp.customer.CustomerRepository;
 
 import java.util.*;
 
@@ -133,6 +130,7 @@ public class RatingServiceImpl implements RatingService{
 
         }
     }
+
     // 7. Getting the rating within the given limit.
     @Override
     public List<Rating> getAllRatingsBetweenRange(Integer min, Integer max)throws RatingException
@@ -151,5 +149,20 @@ public class RatingServiceImpl implements RatingService{
         }
         return this.ratingRepository.findByRatingStarsBetween(min,max);
     }
+
+    @Override
+    public List<Car> getCarDetailsByRatingStars(Integer ratingStars) throws RatingException {
+        if(ratingStars==null)
+            throw new RatingException("Rating is not available for the car");
+        List<Rating> ratings = this.ratingRepository.findByratingStars(ratingStars);
+        List<Car> cars = new ArrayList<>();
+        for(int i=0;i<ratings.size();i++)
+        {
+            Car dummyCar = carRepository.findByModelName((ratings.get(i).getCar().getModelName()));
+            cars.add(i,dummyCar);
+        }
+        return cars;
+    }
+
 
 }

@@ -142,6 +142,11 @@ class AdminTests {
         }catch (AdminException e){
             Assertions.assertEquals("Car ID is mandatory to update the car",e.getMessage());
         }
+        try {
+            this.adminServices.deleteCarById(car.getCarId());
+        } catch (AdminException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 //    @Test
