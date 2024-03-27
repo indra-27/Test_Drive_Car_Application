@@ -358,20 +358,13 @@ server side validation
 
 
     @Override
-    public BookingOutputDto getBookingById(Integer id) throws BookingException{
-        if(id==null)
+    public BookingOutputDto getBookingById(Integer id) throws BookingException {
+        if (id == null)
             throw new BookingException("Book Id can't be null");
         Booking foundBooking = this.bookingRepository.getReferenceById(id);
-        if(foundBooking==null)
+        if (foundBooking == null)
             throw new BookingException("No such Bookings found");
-        return new BookingOutputDto(foundBooking.getBookId(),foundBooking.getCustomer().getCustomerEmail(),foundBooking.getTestDriveCar().getModelName(),foundBooking.getSlotNo(),foundBooking.getDate(),foundBooking.getBookingDate(),foundBooking.getTestDriveCar().getStaff().getStaffName(),foundBooking.getTestDriveCar().getStaff().getPhoneNumber(),foundBooking.getStatus());
-    }
-
-    @Override
-    public Booking updateBookingStatus(Integer bookid) {
-        Booking foundBooking = this.bookingRepository.getReferenceById(bookid);
-        foundBooking.setStatus(true);
-        return this.bookingRepository.save(foundBooking);
+        return new BookingOutputDto(foundBooking.getBookId(), foundBooking.getCustomer().getCustomerEmail(), foundBooking.getTestDriveCar().getModelName(), foundBooking.getSlotNo(), foundBooking.getDate(), foundBooking.getBookingDate(), foundBooking.getTestDriveCar().getStaff().getStaffName(), foundBooking.getTestDriveCar().getStaff().getPhoneNumber(), foundBooking.getStatus());
     }
 
     @Override
