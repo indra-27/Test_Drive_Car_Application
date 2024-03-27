@@ -20,7 +20,7 @@ public interface BookingService {
 
     List<BookingOutputDto> getAllUserBookingByCarModelName(String carModelName)throws BookingException;
 
-    List<BookingOutputDto> getAllBookings();
+    List<BookingOutputDto> getAllBookings() throws BookingException;
 
 
     BookingOutputDto updateBooking(BookingInputDto updateBooking) throws BookingException;
@@ -29,6 +29,6 @@ public interface BookingService {
 
 
     BookingOutputDto getBookingById(Integer id) throws BookingException;
-
+    Booking updateBookingStatus(Integer bookid);
     List<Car> getCarDetailsByDate(LocalDate date) throws BookingException;
 }

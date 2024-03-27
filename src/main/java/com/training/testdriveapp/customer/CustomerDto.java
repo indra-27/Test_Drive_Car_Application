@@ -1,25 +1,38 @@
 package com.training.testdriveapp.customer;
 
-import com.training.testdriveapp.entity.Address;
-import jakarta.persistence.*;
 
-
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 public class CustomerDto {
 
 
-    private String name;
-private String mobileNumber;
-
-    private String email;
+    @NotBlank(message = "Name cant be null, it should contain chars")
+    @Pattern(regexp = "[a-zA-Z ]{3,16}", message = "Name should contain min 3 & max 16 chars , no digits and special chars allowed.")
+    private String customerName;
+    @NotBlank(message = "Phone number can't be null")
+    @Pattern(regexp = "\\d{10}",message = "Tel no should contain only 10 digits")
+    private String mobileNumber;
+    @NotBlank(message = "Email can't be null")
+    @Email(message = "Please provide valid email. e.g name@ford.com",regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}")
+    private String customerEmail;
+    @NotBlank(message = "Password can't be null")
+    @Pattern(regexp = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#&%$_]).{8,}",message = "Password must contain atleast 1 uppercase,1 lowercase,1 digit and 1 special character and minimum of length 8.")
     private String password;
+    @NotBlank(message = "Address cant be null, it should contain chars")
+    @Pattern(regexp = "[a-zA-Z ]{3,16}", message = "Address should contain min 3 & max 16 chars , no digits and special chars allowed.")
     private String address;
 
+    public CustomerDto() {
+    }
 
-    public CustomerDto(String mobileNumber,String name, String email, String password, Integer addressId, Integer ratingId, String address) {
-       this.mobileNumber=mobileNumber;
-        this.name = name;
-        this.email = email;
+    public CustomerDto(String mobileNumber,String name, String email, String password,  String address) {
+        super();
+        this.mobileNumber=mobileNumber;
+
+        this.customerName = name;
+        this.customerEmail = email;
         this.password = password;
 
         this.address = address;
@@ -37,8 +50,6 @@ private String mobileNumber;
         this.address = address;
     }
 
-    public CustomerDto() {
-    }
 
 
 
@@ -48,8 +59,8 @@ private String mobileNumber;
     public String toString() {
         return "CustomerDto{" +
                 "mobile"+mobileNumber+
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
+                ", name='" + customerName + '\'' +
+                ", email='" + customerEmail + '\'' +
                 ", password='" + password + '\'' +
 
 //
@@ -64,20 +75,20 @@ private String mobileNumber;
         this.mobileNumber = mobileNumber;
     }
 
-    public String getName() {
-        return name;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCustomerEmail() {
+        return customerEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
     }
 
     public String getPassword() {

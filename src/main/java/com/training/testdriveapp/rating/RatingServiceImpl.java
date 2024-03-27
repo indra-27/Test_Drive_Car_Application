@@ -29,6 +29,8 @@ public class RatingServiceImpl implements RatingService{
     //1. Create Rating
     @Override
     public Rating createNewRating(RatingDto newRating) throws RatingException {
+        if(newRating==null)
+            throw new RatingException("Rating Cannot Be NULL");
 
      if(newRating.getRatingStars()==null || newRating.getComments()==null)
      {
@@ -83,13 +85,33 @@ public class RatingServiceImpl implements RatingService{
     }
     // 3. Updating Rating
     @Override
-    public Rating updateRating(Rating rating) throws RatingException{
-        if(rating.getRatingStars()==null || rating.getComments()==null)
+    public Rating updateRating(RatingDto updateRating) throws RatingException{
+        if(updateRating==null)
+            throw new RatingException("Rating Cannot Be NULL");
+        if(updateRating.getRatingStars()==null || updateRating.getComments()==null)
         {
             throw new RatingException("Rating Cannot be null");
         }
+        List<Car> carList=carRepository.findBymodelName(updateRating.getCarModelName());
+        // List<Customer> customerList1= customerRepository.findByCustomerEmail(newRating.getCustomerEmailId()).stream().toList();
+        Optional<Customer> customerDetails = customerRepository.findByCustomerEmail(updateRating.getCustomerEmailId());
+        Customer foundCustomer;
+        if (customerDetails.isEmpty()) {
+            throw new RatingException("No such Customer Exists");
+        }
+        foundCustomer = customerDetails.get();
+        if (carList.getFirst().getCarId() == null) {
+            throw new RatingException("No such car exists");
+        }
+        Rating rating = new Rating();
+        rating.setRatingId(updateRating.getRatingId());
+        rating.setRatingStars(updateRating.getRatingStars());
+        rating.setComments(updateRating.getComments());
+        rating.setCar(carList.getFirst());
+        rating.setCustomer(foundCustomer);
         return this.ratingRepository.save(rating);
     }
+
     //4. Updating Rating with new Rating
     @Override
     public void deleteRating(Integer id)throws RatingException {
@@ -122,14 +144,47 @@ public class RatingServiceImpl implements RatingService{
     // 6. Getting Ratings of the Particular Customer by mailId (Returns List of RatingDto )
     @Override
     public List<RatingDto> getRatingDtoOfCustomerByMailId(String customerMailId) throws RatingException {
-        if(ratingRepository.ratingDtoMap.containsKey(customerMailId)) {
-            return ratingRepository.ratingDtoMap.get(customerMailId);
-        }
-        else {
+        Optional<Customer> customer = this.customerRepository.findByCustomerEmail(customerMailId);
+        Customer foundCustomer = null;
+        if (customer.isPresent())
+            foundCustomer = customer.get();
+        if (foundCustomer == null)
             throw new RatingException("The Mail Id does not exist");
-
+        List<Rating> rating = this.ratingRepository.findByCustomer(foundCustomer);
+        List<RatingDto> ratingDto=new ArrayList<>();
+        for(int i=0;i<rating.size();i++)
+        {
+            RatingDto dummy = new RatingDto(rating.get(i).getCustomer().getCustomerEmail(),rating.get(i).getRatingId(),rating.get(i).getRatingStars(),rating.get(i).getComments(),rating.get(i).getCar().getModelName());
+            ratingDto.add(i,dummy);
         }
+        return ratingDto;
     }
+
+    @Override
+    public List<RatingDto> getRatingDtoOfCustomerByCarName(String carModel) throws RatingException {
+        Car car = this.carRepository.findByModelName(carModel);
+//        Car foundCar=null;
+//        Optional<Car> cars = car.stream().findFirst();
+
+//        if(cars.isPresent())
+//           foundCar=cars.get();
+        if (car == null)
+            throw new RatingException("The Car Model does not exist");
+        List<Rating> ratings= this.ratingRepository.findByCar(car);
+        List<RatingDto> ratingDtos=new ArrayList<>();
+        for(int i=0;i<ratings.size();i++)
+        {
+            RatingDto dummy = new RatingDto(ratings.get(i).getCustomer().getCustomerEmail(),ratings.get(i).getRatingId(),ratings.get(i).getRatingStars(),ratings.get(i).getComments(),ratings.get(i).getCar().getModelName());
+            ratingDtos.add(i,dummy);
+        }
+        return ratingDtos;
+    }
+
+//    @Override
+//    public Rating getRatingsById(Integer id) {
+//        return this.ratingRepository.findByRatingId(id);
+//    }
+
 
     // 7. Getting the rating within the given limit.
     @Override
@@ -150,6 +205,12 @@ public class RatingServiceImpl implements RatingService{
         return this.ratingRepository.findByRatingStarsBetween(min,max);
     }
 
+//      @Override
+//        public List<RatingDto> getAllRatingDto() {
+//
+//             return this.ratingRepository.findCustomerEmailAndCarModelNameAndRatingIdAndRatingStarsAndCommentsAndCar_ModelName();
+//        }
+
     @Override
     public List<Car> getCarDetailsByRatingStars(Integer ratingStars) throws RatingException {
         if(ratingStars==null)
@@ -163,6 +224,5 @@ public class RatingServiceImpl implements RatingService{
         }
         return cars;
     }
-
 
 }

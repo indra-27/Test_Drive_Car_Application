@@ -173,6 +173,47 @@ public class CustomerServiceImplTests {
         }
     }
 
+    @Test
+    public void forgotPassword() throws CustomerException {
+        try {
+            this.customerServices.forgotPassword("kavi@gmail.com", "Kavi12@@");
+        }
+        catch (CustomerException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test
+    public void nullTestForForgotPassword(){
+        Assertions.assertThrows(CustomerException.class,()->customerServices.forgotPassword(null,null));
+    }
+    @Test
+
+    public void NullTestForgotPasswordForException(){
+
+        try {
+            customerServices.forgotPassword(null,null);
+        } catch (CustomerException e) {
+            Assertions.assertEquals("Email cannot be null", e.getMessage());
+        }
+
+
+    }
+
+
+    @Test
+    public void customerAlreadyNotExistsForForgotPassword(){
+        try {
+            customerServices.forgotPassword("kavin@gmail.com","Kavin12@@");
+
+        }
+        catch (CustomerException e){
+            System.out.println("Customer not exists with id "+e.getMessage());
+        }
+    }
+
+
 
 
 

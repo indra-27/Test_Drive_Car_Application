@@ -4,7 +4,6 @@ import com.training.testdriveapp.admin.AdminException;
 import com.training.testdriveapp.admin.AdminServices;
 import com.training.testdriveapp.admin.Car;
 import com.training.testdriveapp.admin.CarDto;
-import com.training.testdriveapp.booking.BookIdDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +80,7 @@ class AdminTests {
         }
     }
 
+
     @Test
     void nullModelNameTestInGetCarDetailsByModelName(){
         Assertions.assertThrows(AdminException.class,()->adminServices.getCarDetailsByModelName(null));
@@ -96,6 +96,7 @@ class AdminTests {
             Assertions.assertEquals("Model name cannot be null",e.getMessage());
         }
     }
+
 
     @Test
     void modelExistExceptionInGetCarDetailsByModelName(){
