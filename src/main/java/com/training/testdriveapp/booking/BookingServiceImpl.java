@@ -367,5 +367,12 @@ server side validation
         return new BookingOutputDto(foundBooking.getBookId(),foundBooking.getCustomer().getCustomerEmail(),foundBooking.getTestDriveCar().getModelName(),foundBooking.getSlotNo(),foundBooking.getDate(),foundBooking.getBookingDate(),foundBooking.getTestDriveCar().getStaff().getStaffName(),foundBooking.getTestDriveCar().getStaff().getPhoneNumber(),foundBooking.getStatus());
     }
 
+    @Override
+    public Booking updateBookingStatus(Integer bookid) {
+        Booking foundBooking = this.bookingRepository.getReferenceById(bookid);
+        foundBooking.setStatus(true);
+        return this.bookingRepository.save(foundBooking);
+    }
+
 }
 

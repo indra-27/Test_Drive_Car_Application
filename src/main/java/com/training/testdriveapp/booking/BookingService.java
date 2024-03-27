@@ -27,4 +27,6 @@ public interface BookingService {
 
 
     BookingOutputDto getBookingById(Integer id) throws BookingException;
+
+    Booking updateBookingStatus(Integer bookid);
 }

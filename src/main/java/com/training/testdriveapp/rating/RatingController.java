@@ -1,5 +1,6 @@
 package com.training.testdriveapp.rating;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,7 @@ public class RatingController {
 
     //1. Create Review
     @PostMapping("/rating/create")
-    public Rating createRating(@RequestBody RatingDto rating) throws RatingException {
+    public Rating createRating(@Valid @RequestBody RatingDto rating) throws RatingException {
         return this.ratingService.createNewRating(rating);
     }
 
@@ -28,25 +29,25 @@ public class RatingController {
 
     // 3. Getting the Rating list for particular customer mail
     @GetMapping("rating/{customerMail}")
-    public List<Rating> getRatingsOfCustomerByMailId(@PathVariable String customerMail) throws RatingException {
+    public List<Rating> getRatingsOfCustomerByMailId(@Valid @PathVariable String customerMail) throws RatingException {
         return ratingService.getRatingsOfCustomerByMailId(customerMail);
     }
 
     // 4. Getting the Rating List(DTO) for the Customer mailId
     @GetMapping("/rating/DTO/{customerMail}")
-    public List<RatingDto> getRatingsListOfCustomerByMailId(@PathVariable String customerMail) throws RatingException {
+    public List<RatingDto> getRatingsListOfCustomerByMailId(@Valid @PathVariable String customerMail) throws RatingException {
         return ratingService.getRatingDtoOfCustomerByMailId(customerMail);
     }
 
 
     // 5.Updating the Reviews
     @PutMapping("/rating/update")
-    public Rating updateRatingById(@RequestBody RatingDto rating) throws RatingException {
+    public Rating updateRatingById(@Valid @RequestBody RatingDto rating) throws RatingException {
         return this.ratingService.updateRating(rating);
     }
    // 6.Deleting the Reviews By Id
     @DeleteMapping("/rating/delete/{id}")
-    public void deleteRatingById(@PathVariable Integer id) throws RatingException
+    public void deleteRatingById(@Valid @PathVariable Integer id) throws RatingException
     {
         this.ratingService.deleteRating(id);
 
@@ -54,13 +55,13 @@ public class RatingController {
 
     // 7. Filtering Rating Between given Value
     @GetMapping("rating/{min}/{max}")
-    public List<Rating> findAllRatingBetweenRange(@PathVariable Integer min, @PathVariable Integer max) throws RatingException {
+    public List<Rating> findAllRatingBetweenRange(@Valid @PathVariable Integer min,@Valid@PathVariable Integer max) throws RatingException {
         return this.ratingService.getAllRatingsBetweenRange(min,max);
     }
 
     // 8. Getting the Rating List(DTO) for the Car Model Name
     @GetMapping("/rating/DTOCarName/{carModel}")
-    public List<RatingDto> getRatingsListOfCustomerByCarName(@PathVariable String carModel) throws RatingException {
+    public List<RatingDto> getRatingsListOfCustomerByCarName(@Valid @PathVariable String carModel) throws RatingException {
         return ratingService.getRatingDtoOfCustomerByCarName(carModel);
     }
 //
