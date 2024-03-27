@@ -14,6 +14,9 @@ public class Staff {
 
     private String phoneNumber;
     private String staffEmail;
+//    @OneToOne
+//    private Car car;
+    private String modelName;
 
     @Override
     public String toString() {
@@ -37,14 +40,6 @@ public class Staff {
         return modelName;
 
     }
-
-    public Staff(String modelName) {
-        this.modelName = modelName;
-    }
-
-    @OneToOne
-    private Car car;
-    private String modelName;
 
 
     public Integer getStaffId() {

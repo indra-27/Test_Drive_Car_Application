@@ -63,4 +63,9 @@ public class BookingController {
     {
         return this.bookingService.getBookingById(id);
     }
+    @PatchMapping("booking/done/{bookid}")
+    public Booking updateBookingStatusById(@PathVariable Integer bookid) throws BookingException
+    {
+        return this.bookingService.updateBookingStatus(bookid);
+    }
 }
