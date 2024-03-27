@@ -23,6 +23,9 @@ public class Staff {
     @NotBlank(message = "Email can't be null")
     @Email(message = "Please provide valid email. e.g name@ford.com",regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}")
     private String staffEmail;
+//    @OneToOne
+//    private Car car;
+    private String modelName;
 
     @Override
     public String toString() {
@@ -46,14 +49,6 @@ public class Staff {
         return modelName;
 
     }
-
-    public Staff(String modelName) {
-        this.modelName = modelName;
-    }
-
-    @OneToOne
-    private Car car;
-    private String modelName;
 
 
     public Integer getStaffId() {

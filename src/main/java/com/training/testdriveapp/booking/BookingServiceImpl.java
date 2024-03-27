@@ -374,5 +374,12 @@ server side validation
         return this.bookingRepository.save(foundBooking);
     }
 
+    @Override
+    public Booking updateBookingStatus(Integer bookid) {
+        Booking foundBooking = this.bookingRepository.getReferenceById(bookid);
+        foundBooking.setStatus(true);
+        return this.bookingRepository.save(foundBooking);
+    }
+
 }
 
