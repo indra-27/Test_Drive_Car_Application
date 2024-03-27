@@ -374,5 +374,19 @@ server side validation
         return this.bookingRepository.save(foundBooking);
     }
 
+    @Override
+    public List<Car> getCarDetailsByDate(LocalDate date) throws BookingException {
+        if(date==null)
+            throw new BookingException("Book date cannot be null");
+        List<Booking> bookings = this.bookingRepository.findByDate(date);
+        List<Car> car = new ArrayList<>();
+        for(int i=0;i<bookings.size();i++)
+        {
+            Car dummyCar = carRepository.findByModelName((bookings.get(i).getTestDriveCar().getModelName()));
+            car.add(i,dummyCar);
+        }
+
+        return car;
+    }
 }
 

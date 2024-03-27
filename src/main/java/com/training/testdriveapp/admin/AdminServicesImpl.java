@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
 /***********************************************************************************************
  *          @author          Dhanya Lakshmi
  *          Description      It is a service class that provides the services for adding,
@@ -154,6 +153,19 @@ public class AdminServicesImpl implements AdminServices {
         return this.carsRepository.save(car);
     }
 
+    /**********************************************************************************
+     * Method: 			          - deleteCarById
+     *Description: 		          - To delete the car
+     * @param carId               - car to be deleted
+
+     * @returns Car               - car, if deleted otherwise throws AdminException
+     * @throws AdminException     - It is raised  if car is not found or id is null
+                                    server side validation
+     *Created By                  - Dhanya Lakshmi
+     *Created Date                - 19-FEB-2024
+
+     **********************************************************************************/
+
     @Override
     public Car deleteCarById(Integer carId) throws AdminException {
         Optional<Car> foundCar = this.carsRepository.findById(carId);
@@ -167,6 +179,19 @@ public class AdminServicesImpl implements AdminServices {
         return null;
     }
 
+    /***************************************************************************************
+     * Method: 			          - getCarDetailsByCompany
+     *Description: 		          - To get details of car using Company
+     * @param company             - Company of the car used as a filter to get all
+     *                              details of the car
+
+     * @returns Car               - car, if displayed otherwise throws AdminException
+     * @throws AdminException     - It is raised if model name is null or no such model name
+                                    exist server side validation
+     *Created By                  - Dhanya Lakshmi
+     *Created Date                - 22-FEB-2024
+
+     ***************************************************************************************/
     @Override
     public List<Car> getCarDetailsByCompany(String company) throws AdminException {
         if(company == null){
@@ -179,6 +204,17 @@ public class AdminServicesImpl implements AdminServices {
         return this.carsRepository.findByCompany(company);
     }
 
+    /***************************************************************************************
+     * Method: 			          - getCarDetailsWithinPriceRange
+     *Description: 		          - To get details of car using Company
+     * @param minprice,maxprice   - Minimum and Maximum price of the car used as a filter to
+                                    get all details of the car
+
+     * @returns Car               - car, if displayed otherwise throws AdminException
+     *Created By                  - Dhanya Lakshmi
+     *Created Date                - 22-FEB-2024
+
+     ***************************************************************************************/
     @Override
     public List<Car> getCarDetailsWithinPriceRange(Double minprice, Double maxprice) {
 

@@ -22,5 +22,6 @@ public interface RatingRepository extends JpaRepository<Rating,Integer> {
     List<Rating> findByCustomer(Customer customer);
     List<Rating> findByCar(Car car);
 
-
+    Optional<Rating> findByratingId(Integer id);
+    List<Rating> findByratingStars(Integer ratingStars);
 }

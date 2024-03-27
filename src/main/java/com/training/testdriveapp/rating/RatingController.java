@@ -1,6 +1,7 @@
 package com.training.testdriveapp.rating;
 
 import jakarta.validation.Valid;
+import com.training.testdriveapp.admin.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -76,6 +77,10 @@ public class RatingController {
 //    public List<RatingDto> findAllRatingDto() throws RatingException {
 //        return this.ratingService.getAllRatingDto();
 //    }
+    @GetMapping("admin/car/rating/{ratingStars}")
+    public List<Car> getCarDetailsByRatingStars(@PathVariable Integer ratingStars) throws RatingException{
+        return this.ratingService.getCarDetailsByRatingStars(ratingStars);
+    }
 
 
 }
