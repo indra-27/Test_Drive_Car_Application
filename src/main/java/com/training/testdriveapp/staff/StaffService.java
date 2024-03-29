@@ -13,6 +13,8 @@ public interface StaffService {
     Optional<Staff> deleteStaff(Integer staffId) throws StaffException;
 
     List<Staff> getAllStaffs() throws StaffException;
+    Staff getByStaffEmail(String staffEmail) throws StaffException;
 
-    Boolean updateStatus() throws StaffException;
+
+    Staff login(StaffLoginDto staffLoginDto) throws StaffException;
 }

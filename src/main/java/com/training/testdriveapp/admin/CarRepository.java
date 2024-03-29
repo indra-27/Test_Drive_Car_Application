@@ -10,5 +10,6 @@ import java.util.List;
 public interface CarRepository extends JpaRepository<Car,Integer> {
     List<Car> findBymodelName(String name);
     List<Car> findByCompany(String name);
-    List<Car> findBystaff(Staff staff);
+    Car findByStaff(Staff staff);
+    Car findByModelName(String name);
 }

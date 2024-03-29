@@ -3,26 +3,38 @@ package com.training.testdriveapp.rating;
 import com.training.testdriveapp.admin.Car;
 import com.training.testdriveapp.customer.Customer;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+
+import java.util.List;
 
 @Entity
 public class Rating {
     @Id
     @GeneratedValue
     private Integer ratingId;
+    @NotBlank(message = "Rating Stars can't be null")
+    @Min(value = 0,message = "Minimum will be 0")
+    @Max(value = 5,message = "Maximum will be 5")
     private Integer ratingStars;
+    @NotBlank(message = "Comments can't be null")
     private String comments;
-    @OneToOne
+    @ManyToOne
     private Customer customer;
     @ManyToOne
     private Car car;
 
-
-    public Customer getCustomer() {
-        return customer;
+    public Rating(Integer ratingId, Integer ratingStars, String comments, Customer customer, Car car) {
+        this.ratingId = ratingId;
+        this.ratingStars = ratingStars;
+        this.comments = comments;
+        this.customer = customer;
+        this.car = car;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public Rating() {
+
     }
 
     public Integer getRatingId() {
@@ -49,18 +61,19 @@ public class Rating {
         this.comments = comments;
     }
 
-    public Rating() {
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public Rating(Integer ratingId, Integer ratingStars, String comments, Customer customer) {
-        this.ratingId = ratingId;
-        this.ratingStars = ratingStars;
-        this.comments = comments;
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
-    public Rating(Integer ratingStars, String comments) {
-        this.ratingStars = ratingStars;
-        this.comments = comments;
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
     }
 }

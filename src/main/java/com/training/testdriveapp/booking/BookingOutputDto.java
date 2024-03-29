@@ -59,6 +59,15 @@ public class BookingOutputDto {
     private LocalDate bookingDate;
     private String staffName;
     private String staffMobileNumber;
+    private Boolean status;
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 
     public String getStaffName() {
         return staffName;
@@ -76,7 +85,7 @@ public class BookingOutputDto {
         this.staffMobileNumber = staffMobileNumber;
     }
 
-    public BookingOutputDto(Integer bookId, String customerEmailId, String carModelName, Integer slotNo, LocalDate date, LocalDate bookingDate, String staffName, String staffMobileNumber) {
+    public BookingOutputDto(Integer bookId, String customerEmailId, String carModelName, Integer slotNo, LocalDate date, LocalDate bookingDate, String staffName, String staffMobileNumber,Boolean status) {
         this.bookId = bookId;
         this.customerEmailId = customerEmailId;
         this.carModelName = carModelName;
@@ -85,5 +94,6 @@ public class BookingOutputDto {
         this.bookingDate = bookingDate;
         this.staffName = staffName;
         this.staffMobileNumber = staffMobileNumber;
+        this.status = status;
     }
 }
