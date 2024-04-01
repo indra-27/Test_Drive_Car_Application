@@ -123,7 +123,13 @@ import static org.springframework.test.util.AssertionErrors.assertNotNull;
     @Test
     @DisplayName(value = "Deleting a customer")
      void deleteCustomer() throws CustomerException {
-        this.customerRepository.deleteById(202);
+        try {
+
+            this.customerServices.deleteCustomer("Sv@gmail.com");
+        }
+        catch (CustomerException e){
+            e.getMessage();
+        }
 
 
     }

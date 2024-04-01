@@ -17,7 +17,7 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin( "http://localhost:4200/")
+@CrossOrigin( {"http://localhost:4200/","http://localhost:3000/"})
 public class CustomerController {
     @Autowired
     public CustomerController(CustomerServices customerServices){
@@ -86,10 +86,18 @@ public class CustomerController {
         return this.customerServices.getCustomerBookingsByEmail(email);
 
    }
+   @GetMapping("car/carouselImages")
+   public List<String> getCarouselImages() {
+
+       return this.customerServices.getCarouselImages();
+   }
 
    @PostMapping("customer/forgotPassword/{email}/{password}")
     public Customer forgotPassword(@PathVariable String email,@PathVariable String password)throws CustomerException{
         return this.customerServices.forgotPassword(email,password);
    }
+
+
+
 
 }

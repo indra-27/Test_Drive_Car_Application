@@ -35,4 +35,6 @@ public interface CustomerServices {
     List<Booking> getCustomerBookingsByEmail(String email) throws CustomerException;
 
     Customer forgotPassword(String email, String password) throws CustomerException;
+
+    List<String> getCarouselImages();
 }

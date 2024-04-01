@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -408,6 +409,12 @@ customerOpt.get().setCustomerName(customer.getCustomerName());
 
 
 
+    }
+
+    @Override
+    public List<String> getCarouselImages() {
+        List<String> images = Arrays.asList("https://www.womenonwheels.co.za/wp-content/uploads/figo_114_1800x1800-415052-900x600.jpg", "https://th.bing.com/th/id/OIP.i9-CA4vAC4iCiciCDjTvrwHaEK?rs=1&pid=ImgDetMain", "https://images.honestjohn.co.uk/imagecache/file/crop/1200x800/media/11730925/ford-fiesta-2017.jpg","https://th.bing.com/th/id/OIP.eoXwXrKjli2AKzFxwRgk8AHaE8?rs=1&pid=ImgDetMain"); // Add your image URLs here
+        return images;
     }
 
 
