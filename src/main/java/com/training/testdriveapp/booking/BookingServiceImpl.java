@@ -271,7 +271,8 @@ server side validation
         if (carModelName == null)
             throw new BookingException("Car model name can't be null");
         List<Car> foundCar = this.carRepository.findBymodelName(carModelName);
-        if (foundCar.isEmpty())
+
+        if(foundCar.isEmpty())
             throw new BookingException("No such Car exists");
         List<Booking> bookings = this.bookingRepository.findByTestDriveCar(foundCar.getFirst());
         List<BookingOutputDto> bookingDtos = new ArrayList<>();
@@ -308,6 +309,7 @@ server side validation
         }
         return bookingDtos;
     }
+
 
     /************************************************************************************
      * Method: 			               -getAllUserBookingsByStaffEmail
@@ -388,5 +390,6 @@ server side validation
 
         return car;
     }
+
 }
 

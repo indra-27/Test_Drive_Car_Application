@@ -31,4 +31,4 @@ public interface BookingService {
     BookingOutputDto getBookingById(Integer id) throws BookingException;
     Booking updateBookingStatus(Integer bookid);
     List<Car> getCarDetailsByDate(LocalDate date) throws BookingException;
-}
+

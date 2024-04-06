@@ -13,13 +13,17 @@ import java.util.List;
 public class BookingController {
     @Autowired
     private BookingService bookingService;
+
     @PostMapping("booking/new")
     public BookingOutputDto createNewBooking(@Valid @RequestBody BookingInputDto newBooking) throws BookingException
     {
+
         return this.bookingService.createNewBooking(newBooking);
     }
+
     @DeleteMapping("booking/{bookId}")
-    public void deleteBooking(@Valid @PathVariable Integer bookId) throws BookingException
+
+  public void deleteBooking(@Valid @PathVariable Integer bookId) throws BookingException
     {
         this.bookingService.deleteBooking(bookId);
     }
@@ -31,6 +35,7 @@ public class BookingController {
     @GetMapping("booking/user/all/{mailId}")
     public List<BookingOutputDto> getAllUserBookingByEmail(@Valid @PathVariable String mailId) throws BookingException {
       return this.bookingService.getAllUserBookingByEmail(mailId);
+
     }
 
     @GetMapping("booking/slot/all/{slotNo}")
@@ -41,18 +46,20 @@ public class BookingController {
     @GetMapping("booking/date/all/{date}")
     public List<BookingOutputDto> getAllUserBookingByDate(@Valid @PathVariable LocalDate date) throws BookingException
     {
+
         return this.bookingService.getAllUserBookingByDate(date);
     }
 
     @GetMapping("booking/car/all/{carModelName}")
     public List<BookingOutputDto> getAllUserBookingByCarId(@Valid @PathVariable String carModelName) throws BookingException
     {
+
         return this.bookingService.getAllUserBookingByCarModelName(carModelName);
     }
+
     @GetMapping("booking/car/all")
-    public List<BookingOutputDto> getAllBookings() throws BookingException
-    {
-        return  this.bookingService.getAllBookings();
+    public List<BookingOutputDto> getAllBookings() throws BookingException {
+        return this.bookingService.getAllBookings();
     }
     @GetMapping("booking/staff/all/{staffEmail}")
     public List<BookingOutputDto> getAllUserBookingsByStaffEmail(@Valid @PathVariable String staffEmail)throws BookingException
@@ -78,3 +85,7 @@ public class BookingController {
     }
 
 }
+
+
+   
+
