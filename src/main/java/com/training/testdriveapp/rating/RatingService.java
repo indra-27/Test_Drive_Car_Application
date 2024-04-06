@@ -1,5 +1,6 @@
 package com.training.testdriveapp.rating;
 
+import com.training.testdriveapp.admin.Car;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -34,4 +35,5 @@ public interface RatingService {
 
 
     // Get Rating based on CarModelNAme
+    List<Car> getCarDetailsByRatingStars(Integer ratingStars) throws RatingException;
 }
