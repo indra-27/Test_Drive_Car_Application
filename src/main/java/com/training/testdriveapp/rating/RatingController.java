@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("http://localhost:4200/")
+@CrossOrigin(value={"http://localhost:4200/","http://localhost:3000/"})
 public class RatingController {
     @Autowired
     private RatingService ratingService;

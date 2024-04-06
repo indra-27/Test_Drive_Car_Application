@@ -29,6 +29,20 @@ public class RatingServiceImpl implements RatingService{
     private CustomerRepository customerRepository;
     @Autowired
     private CarRepository carRepository;
+
+
+    /************************************************************************************
+     * Method: 			                 -create new Ratings
+     *Description: 			             -To create new Rating
+
+     * @return List<BookingOutputDto>    - The Rating added
+     * @throws RatingException           - It is raised if Rating is null
+
+    server side validation
+     *Created By                         - Reenu Sivadarshini M
+     *Created Date                       - 27-FEB-2024
+
+     ************************************************************************************/
     //1. Create Rating
     @Override
     public Rating createNewRating(RatingDto newRating) throws RatingException {
@@ -81,12 +95,40 @@ public class RatingServiceImpl implements RatingService{
 
         return this.ratingRepository.save(rating);
     }
+
+
+    /************************************************************************************
+     * Method: 			                 -display all the  Ratings
+     *Description: 			             -To display all the Rating present in the Rating Repository
+
+     * @return List<BookingOutputDto>    - A List of Rating
+
+    server side validation
+     *Created By                         - Reenu Sivadarshini M
+     *Created Date                       - 27-FEB-2024
+
+     ************************************************************************************/
+
     // 2. Display all the ratings
     @Override
     public List<Rating> getAllRating() {
         return this.ratingRepository.findAll();
     }
+
+    /************************************************************************************
+     * Method: 			                 -update Existing Ratings
+     *Description: 			             -To update new Rating
+
+     * @return List<BookingOutputDto>    - The Rating updated
+     * @throws RatingException           - It is raised if Rating is null
+
+    server side validation
+     *Created By                         - Reenu Sivadarshini M
+     *Created Date                       - 27-FEB-2024
+
+     ************************************************************************************/
     // 3. Updating Rating
+
     @Override
     public Rating updateRating(RatingDto updateRating) throws RatingException{
         if(updateRating==null)
@@ -115,7 +157,21 @@ public class RatingServiceImpl implements RatingService{
         return this.ratingRepository.save(rating);
     }
 
-    //4. Updating Rating with new Rating
+
+    /************************************************************************************
+     * Method: 			                 -delete Rating by id
+     *Description: 			             -To delete existing Rating
+
+     * @return List<BookingOutputDto>    - The Rating deleted
+     * @throws RatingException           - It is raised if Rating Id does not exist
+
+    server side validation
+     *Created By                         - Reenu Sivadarshini M
+     *Created Date                       - 27-FEB-2024
+
+     ************************************************************************************/
+
+    //4. Deleting Rating with new Rating
     @Override
     public void deleteRating(Integer id)throws RatingException {
 
@@ -131,6 +187,20 @@ public class RatingServiceImpl implements RatingService{
             }
     }
 
+    /************************************************************************************
+     * Method: 			                 -get Rating by mailId
+     *Description: 			             -To display all the ratings posted by a particular customer
+
+     * @return List<BookingOutputDto>    - List of Ratings
+     * @throws RatingException           - It is raised if Rating mailId does not exist
+
+    server side validation
+     *Created By                         - Reenu Sivadarshini M
+     *Created Date                       - 27-FEB-2024
+
+     ************************************************************************************/
+
+
     // 5. Getting Ratings of the Particular Customer by mailId (Returns List of Rating )
     @Override
     public List<Rating> getRatingsOfCustomerByMailId(String customerMailId) throws RatingException {
@@ -143,6 +213,7 @@ public class RatingServiceImpl implements RatingService{
 
         }
     }
+
 
     // 6. Getting Ratings of the Particular Customer by mailId (Returns List of RatingDto )
     @Override
@@ -162,6 +233,18 @@ public class RatingServiceImpl implements RatingService{
         }
         return ratingDto;
     }
+    /************************************************************************************
+     * Method: 			                 -get Rating by carModel
+     *Description: 			             -To display all the ratings for a particular carModel
+
+     * @return List<BookingOutputDto>    - List of Ratings
+     * @throws RatingException           - It is raised if Rating carModel does not exist
+
+    server side validation
+     *Created By                         - Reenu Sivadarshini M
+     *Created Date                       - 27-FEB-2024
+
+     ************************************************************************************/
 
     @Override
     public List<RatingDto> getRatingDtoOfCustomerByCarName(String carModel) throws RatingException {
@@ -187,6 +270,18 @@ public class RatingServiceImpl implements RatingService{
 //    public Rating getRatingsById(Integer id) {
 //        return this.ratingRepository.findByRatingId(id);
 //    }
+    /************************************************************************************
+     * Method: 			                 -get Rating by mina nd max value
+     *Description: 			             -To display all the ratings of minimum and maximum
+
+     * @return List<BookingOutputDto>    - List of Ratings
+     * @throws RatingException           - It is raised if Rating star is not in range
+
+    server side validation
+     *Created By                         - Reenu Sivadarshini M
+     *Created Date                       - 27-FEB-2024
+
+     ************************************************************************************/
 
 
     // 7. Getting the rating within the given limit.
@@ -208,10 +303,6 @@ public class RatingServiceImpl implements RatingService{
         return this.ratingRepository.findByRatingStarsBetween(min,max);
     }
 
-//      @Override
-//        public List<RatingDto> getAllRatingDto() {
-//
-//             return this.ratingRepository.findCustomerEmailAndCarModelNameAndRatingIdAndRatingStarsAndCommentsAndCar_ModelName();
-//        }
+
 
 }
